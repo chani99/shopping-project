@@ -1,0 +1,41 @@
+<div ng-controller="shippers">
+        <div class="jumbotron">
+            <h1>
+                SHIPPERS
+            </h1>
+            <button ng-click="getShippers()" class="btn">GET SHIPPERS</button>
+            <div>
+                    <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <th>Shipper ID</th>
+                                <th>Company Name</th>
+                                <th>Phone</th>
+                            </thead>
+                            <tbody>
+                                    
+                            <tr ng-repeat="data in data">
+                                    <td>{{data.ShipperID}}</td>
+                                    <td>{{data.CompanyName}}</td>
+                                    <td>{{data.Phone}}</td>
+                                </tr>
+                                <tbody>
+                                        
+                        </table>
+                        
+    
+            </div>
+            <hr>
+    
+       
+            
+            <input type="text" ng-model='CompanyName' placeholder="Company Name"> <br>
+            <input type="number" ng-model='Phone' placeholder="Phone"> <br>
+            <span>{{newPro}}</span>
+            
+            <button ng-click="addShipper()" class="btn">Add Shipper</button>
+            <div id="done"></div>
+    
+            <hr>
+    
+        </div>
+    </div>

@@ -1,0 +1,42 @@
+<div ng-controller="products">
+    <div class="jumbotron">
+        <h1>
+            PRODUCTS
+        </h1>
+    </div>
+        <button ng-click="getProducts()" class="btn">GET PRODUCTS</button>
+
+        <!-- table with all data -->
+        <table class='table table-striped'>
+            <thead class="thead-dark">
+                <tr>
+                    <th ng-repeat="key in keys">{{ key}} </th>
+                </tr>
+            </thead>
+            <tr ng-repeat="data in data">
+              <td ng-repeat="key in keys">{{ data[key] }} </td>
+            </tr>
+        </table>
+
+        <hr>
+
+        <!-- new product inputs -->
+        <h3>Add New Product</h3>
+        
+        <input type="text" ng-model='ProductName' placeholder="name"> <br>
+        <input type="text" ng-model='QuantityPerUnit' placeholder="Quantity Per Unit"> <br>
+        <input type="number" ng-model='ReorderLevel' placeholder="Reorder Level"> <br>
+        <input type="number" ng-model='SupplierID' placeholder="Supplier ID"> <br>
+        <input type="number" ng-model='UnitPrice' placeholder="Unit Price"> <br>
+        <input type="number" ng-model='UnitsInStock' placeholder="Units In Stock"> <br>
+        <input type="number" ng-model='UnitsOnOrder' placeholder="Units On Order"> <br>
+
+        
+        <button ng-click="addProducts()" class="btn">Add PRODUCT</button>
+        <span>{{newPro}}</span>
+
+        <!-- <div id="done"></div> -->
+
+        <hr>
+
+</div>

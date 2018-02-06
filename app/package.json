@@ -1,0 +1,25 @@
+{
+  "name": "shopping",
+  "version": "1.0.0",
+  "description": "shopping app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.6.8",
+    "angular-route": "^1.6.9",
+    "bootstrap": "^4.0.0",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "latest": "^0.2.0",
+    "mongoose": "^5.0.3",
+    "route": "^0.2.5"
+  },
+  "devDependencies": {
+    "http": "0.0.0",
+    "server": "^1.1.0-alpha.1"
+  }
+}

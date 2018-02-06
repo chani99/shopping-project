@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" ng-app="nodejsApp">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- <link rel="stylesheet" type="text/css" href='node_modules/bootstrap/dist/css/bootstrap.min.css'> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    <script src="../../node_modules/angular/angular.min.js"></script>
+    <script src="../../node_modules/angular-route/angular-route.min.js"></script>
+    <script src="./app.js"></script>
+    <script src="./products/producrs.controller.js"></script>
+    <script src="./shippers/shippers.controller.js"></script>
+    <script src="./suppliers/suppliers.controller.js"></script>
+    <script src="./home/home.controller.js"></script>
+
+    <link rel="stylesheet" type="text/css" href='app.css'>
+    <link rel="stylesheet" type="text/css" href='./home/home.css'>
+
+
+
+
+</head>
+
+<body class="container">
+
+    <header>
+        <nav class="navbar">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <div>
+                        <img id="logo" src="images/logo-01.png" alt="my mareket">
+                    </div>
+                </div>
+                <div class="float-right">
+                    <div class="font-24">&#9742 02-5802232</div>
+                    <div class="font-24">&#x2709 <span class="font-13">mymarket@gmail.com</span></div>
+                </div>
+            </div>
+        </nav>
+
+    </header>
+    <!-- <li class="active"><a href="#">Home</a></li>
+    <li><a href="#!products">Page 1</a></li>
+    <li><a href="#!shippers">Page 2</a></li> -->
+
+    <div ng-view></div>
+
+
+</body>
+
+</html>
