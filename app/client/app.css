@@ -2,8 +2,17 @@
   max-width: 1000px;
   margin: auto;
 }
+.orange {
+  background-color: #F59421;
+}
+.yellow {
+  background-color: #EDFF26;
+}
 .float-right {
   float: right;
+}
+.float-left {
+  float: left;
 }
 .font-10 {
   font-size: 10px;
@@ -32,4 +41,30 @@
 #logo {
   width: 260px;
   padding: 10px;
+}
+.w-100 {
+  width: 100%;
+}
+.w-50 {
+  width: 50%;
+}
+.marg-top {
+  margin-top: 10px;
+}
+.padding-all {
+  padding: 5%;
+}
+.marg-bottom {
+  margin-bottom: 10px;
+}
+.marg-bottom-15 {
+  margin-bottom: 15%;
+}
+.marg-sides {
+  margin-left: 15%;
+  margin-right: 15%;
+}
+/* Change the white to any color ;) */
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px white inset;
 }

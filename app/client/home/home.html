@@ -1,8 +1,62 @@
-<div ng-controller="home">
-    <div class="home-main-grid">
-        <div class="login-grid">login</div>
-        <div class="about-grid">about us</div>
-        <div class="statistic-grid">statistics</div>
+<div ng-controller="login">
+    <div class="home-flx-container">
+        <div class="home-flex-item">
+
+            <div class="form-signin">
+                <h4 class="">Registered?</h4>
+
+                <label for="loginame" class="sr-only">User name</label>
+                <input value=Chani type="name" ng-model="user.name" class="form-control marg-bottom" placeholder="User name" required autofocus>
+
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input value=1234 type="password" ng-model="user.password" class="form-control marg-bottom" placeholder="Password" required>
+
+                <button class="btn btn-lg orange" type="submit" ng-click="login(user)">Sign in</button><br>
+                <span calss="error" id="login_error"></span>
+                <h5 class="">Not Registered? <a href="#!sign-up">Sign up</a></h5>
+            </div>
+            <button class="btn btn-lg btn-block orange" ng-click="startShooing()">{{user.button}}</button><br>
+
+
+
+        </div>
+
+
+        <div class="home-flex-item no-padding">
+            <div ng-include="'./home/about-us.html'"></div>
+        </div>
+
+        <div class="home-flex-item">
+            <img class="w-50 marg-bottom" src="../images/cart.png" alt="my mareket">
+            <br>
+            <h4>
+                Aviailanle Products in our store: {{statistics.products}}<br> Number of orders submitted in our store: {{statistics.orders}}<br>
+            </h4>
+            <div class="yellow padding-all" ng-switch="user.shopping_cart.status">
+                <div ng-switch-when="open">
+                    {{user.button = "Resume Shopping"}}
+                    <span>{{user.name}}, you have a open shopping cart, from: {{user.shopping_cart.date | date: 'dd/MM/yyyy'}}. <br> of total price of: {{user.shopping_cart.price}}.
+                    </span>
+                </div>
+                <div ng-switch-when="cloesed">
+                    {{user.button = "Start Shopping"}}
+                    <span>{{user.name}}, your last purches was at: {{user.shooping_cart.date | date: 'dd/MM/yyyy'}}. <br> of total price of: {{user.shooping_cart.price}}.
+                    </span>
+                </div>
+                <div ng-switch-when="new">
+                    {{user.button = "Start Shopping"}}
+                    <span>{{user.name}}, welcome to jsMarket, enjoy your shopping.
+                    </span>
+                </div>
+
+                <div ng-switch-default>
+                    <span>Please login
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
     </div>
 
 </div>

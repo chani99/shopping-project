@@ -1,24 +1,24 @@
-.home-main-grid {
-  display: grid;
-  grid-gap: 10px;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-areas: "login-grid about-grid statistic-grid";
+.gray {
+  background-color: #D7D4D7;
 }
-.login-grid {
-  grid-area: login-grid;
-  padding: 5%;
-  background-color: #A4A4A4;
-  height: auto;
+.home-flx-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: stretch;
 }
-.about-grid {
-  grid-area: about-grid;
-  padding: 5%;
-  background-color: #A4A4A4;
-  height: auto;
+.home-flex-item {
+  background-color: #E9E9E9;
+  width: 31%;
+  padding: 4%;
+  box-sizing: border-box;
+  margin-bottom: 5%;
 }
-.statistic-grid {
-  grid-area: statistic-grid;
-  padding: 5%;
-  background-color: #A4A4A4;
-  height: auto;
+.no-padding {
+  padding: 0;
+}
+@media screen and (max-width: 600px) {
+  .home-flex-item {
+    width: 100%;
+  }
 }

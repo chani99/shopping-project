@@ -15,24 +15,25 @@ app.use(session({
     cookie: { secure: true }
 }))
 
-// app.use(function(req, res, next) {
-//     const adminRoutes = ['/admin'];
-//     const allowedRoutes = ['/login', '/'];
+app.use(function(req, res, next) {
+    const adminRoutes = ['/admin'];
+    const allowedRoutes = ['/login', '/', '/favicon.ico'];
 
-// if (allowedRoutes.indexOf(req.originalUrl) > -1) {
-//     next();
-// } else if (sess.user == null) {
-//     res.send(401);
-// } else if (sess.user.name == 'user') {
-// next();
+    if (allowedRoutes.indexOf(req.originalUrl) > -1) {
+        next();
+    } else if (sess === null || sess === undefined) {
+        res.send(401);
+    } else if (sess.user.name == 'user') {
+        next();
 
-// if (adminRoutes.indexOf(req.originalUrl) > -1) {
-//     res.send(401, 'only admins');
-// }
+        if (adminRoutes.indexOf(req.originalUrl) > -1) {
+            res.send(401, 'only admins');
+        }
 
 
-// });
+    }
 
+});
 
 
 app.get('/', function(req, res) {

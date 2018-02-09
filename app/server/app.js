@@ -3,10 +3,14 @@ var express = require('express'),
     mongoose = require('mongoose'),
     path = require('path'),
     bodyParser = require('body-parser'),
-    port = 3000
+    port = 3000,
+    favicon = require('serve-favicon');
+
 
 app.use(express.static('./app/client'));
 app.use('/node_modules', express.static('./app/node_modules'));
+app.use(favicon(path.join(__dirname, '../client/images/favicon.ico')));
+
 
 // app.use(express.static(path.join(__dirname, './app/node_modules')));
 app.use('/client', express.static(path.join(__dirname, './app/client')));
