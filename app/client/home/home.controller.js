@@ -11,7 +11,19 @@ App.controller('login', function($scope, appService) {
         appService.getNorthwind('products', onSuccess, onError);
     }
 
+    $scope.login = function(user) {
+        appService.sendData('login', user, liginSucsses, loginError);
+    }
 
+    function liginSucsses(res) {
+        console.log(res.data);
+
+    }
+
+    function loginError(res) {
+        console.log('error');
+        console.log(res);
+    }
 
 
 

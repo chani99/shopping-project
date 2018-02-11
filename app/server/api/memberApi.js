@@ -1,8 +1,8 @@
 var app = require('../app');
-const schemas = require('../Model.Schemas');
+const schemas = require('../models/Model.Schemas');
 const Member = schemas.schemas.Member;
 const controller = require('../controllers/member.controller');
-require("../api/loginApi");
+// require("../api/loginApi");
 
 
 
