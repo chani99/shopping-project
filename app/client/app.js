@@ -22,7 +22,7 @@ App.service('appService', function($http) {
         $http({
             url: 'http://localhost:3000/' + path,
             method: 'POST',
-            params: {
+            data: {
                 data: userParams
             }
 

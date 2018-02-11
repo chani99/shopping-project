@@ -4,6 +4,11 @@ let session = require('express-session');
 let path = require('path');
 let fs = require('fs');
 var loginCtrl = require('../controllers/LoginController.js');
+var bodyParser = require('body-parser')
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
 
 
 
@@ -16,25 +21,25 @@ app.use(session({
     cookie: { secure: true }
 }))
 
-// app.use(function(req, res, next) {
-//     const adminRoutes = ['/admin'];
-//     const allowedRoutes = ['/login', '/', '/favicon.ico'];
+app.use(function(req, res, next) {
+    const adminRoutes = ['/admin'];
+    const allowedRoutes = ['/login', '/', '/favicon.ico'];
 
-//     if (allowedRoutes.indexOf(req.originalUrl) > -1) {
-//         next();
-//     } else if (sess === null || sess === undefined) {
-//         res.send(401);
-//     } else if (sess.user.name == 'user') {
-//         next();
+    if (allowedRoutes.indexOf(req.originalUrl) > -1) {
+        next();
+    } else if (sess === null || sess === undefined) {
+        res.send(401);
+    } else if (sess.user.name == 'user') {
+        next();
 
-//         if (adminRoutes.indexOf(req.originalUrl) > -1) {
-//             res.send(401, 'only admins');
-//         }
+        if (adminRoutes.indexOf(req.originalUrl) > -1) {
+            res.send(401, 'only admins');
+        }
 
 
-//     }
+    }
 
-// });
+});
 
 
 app.get('/', function(req, res) {
@@ -43,8 +48,8 @@ app.get('/', function(req, res) {
 });
 
 app.post('/login', function(req, res) {
-    console.log(req.query);
-    let user = req.query;
+    console.log(req.body);
+    let user = req.body;
     let checkUser = loginCtrl.checkUser(user, function(err, login) {
         if (err) {
             console.log(err);
