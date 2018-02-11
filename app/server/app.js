@@ -16,6 +16,8 @@ app.use(favicon(path.join(__dirname, '../client/images/favicon.ico')));
 app.use('/client', express.static(path.join(__dirname, './app/client')));
 // app.use('/client', express.static('./client'));
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 
 require("./api/memberApi");
@@ -24,15 +26,11 @@ require("./api/loginApi");
 
 
 // db configuration
+
 var db = 'mongodb://127.0.0.1/north';
 // mongoose.connect(db, { useMongoClient: true });
 mongoose.connect(db);
 var con = mongoose.connection;
-
-
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 
 con.on('error', console.error.bind(console, 'connection error:'));
 con.once('open', function() {

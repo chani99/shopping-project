@@ -12,8 +12,8 @@ var MemberSchema = new Schema({
     city: String,
     street: String,
     role: String,
-    cart: [{ type: Schema.Types.ObjectId, ref: 'Cart' }],
-    order: [{ type: Schema.Types.ObjectId, ref: 'Order' }]
+    cart: [{ type: Schema.Types.ObjectId, ref: 'cart' }],
+    order: [{ type: Schema.Types.ObjectId, ref: 'order' }]
 });
 
 // category schema-model
@@ -24,8 +24,8 @@ var CategorySchema = new Schema({
 
 var OrderSchema = new Schema({
     _id: Schema.Types.ObjectId,
-    member_id: [{ type: Schema.Types.ObjectId, ref: 'Member' }],
-    cart_id: [{ type: Schema.Types.ObjectId, ref: 'Cart' }],
+    member_id: [{ type: Schema.Types.ObjectId, ref: 'members' }],
+    cart_id: [{ type: Schema.Types.ObjectId, ref: 'cart' }],
     Price: Number,
     derliver_city: String,
     deliver_street: String,
@@ -59,12 +59,12 @@ var CartItem = new Schema({
 });
 
 
-module.exports.schemas = {
-    Member: mongoose.model('Member', MemberSchema),
-    Category: mongoose.model('Category', CategorySchema),
-    Order: mongoose.model('Order', OrderSchema),
-    Cart: mongoose.model('Cart', CartSchema),
-    Product: mongoose.model('Product', ProductSchema),
-    Cart_item: mongoose.model('Cart_item', CartItem)
+module.exports = {
+    Member: mongoose.model('members', MemberSchema),
+    Category: mongoose.model('category', CategorySchema),
+    Order: mongoose.model('order', OrderSchema),
+    Cart: mongoose.model('cart', CartSchema),
+    Product: mongoose.model('product', ProductSchema),
+    Cart_item: mongoose.model('cart_item', CartItem)
 
 };

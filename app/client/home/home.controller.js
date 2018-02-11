@@ -1,10 +1,13 @@
 App.controller('login', function($scope, appService) {
-    $scope.user = {
+    $scope.user = {}
+
+    $scope.userDetails = {
         shopping_cart: {
             status: "open",
             date: new Date(),
             price: 50 + "$"
         }
+
     }
 
     $scope.getProducts = function() {

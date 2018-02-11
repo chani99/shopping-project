@@ -5,10 +5,10 @@ let path = require('path');
 let fs = require('fs');
 var loginCtrl = require('../controllers/LoginController.js');
 var bodyParser = require('body-parser')
-app.use( bodyParser.json() );       // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-  extended: true
-})); 
+app.use(bodyParser.json()); // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
+    extended: true
+}));
 
 
 
@@ -62,4 +62,27 @@ app.post('/login', function(req, res) {
         }
     });
 
+});
+
+app.post('/login', function(req, res) {
+    var newMember = new Member();
+    //model fields:
+    newMember._id = 200178755;
+    newMember.fname = hadar;
+    newMember.lname = avrahami;
+    newMember.userName = hadar1234;
+    newMember.password = 1234;
+    newMember.street = baal;
+    newMember.city = beitar;
+    newMember.role = client;
+
+    //insert into mongodb:
+    newMember.save(function(err, member) {
+        if (err) {
+            res.send('Error saving member!')
+        } else {
+            console.log(member);
+            res.json("the member: " + member);
+        }
+    })
 });

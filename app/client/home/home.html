@@ -15,7 +15,7 @@
                 <span calss="error" id="login_error"></span>
                 <h5 class="">Not Registered? <a href="#!sign-up">Sign up</a></h5>
             </div>
-            <button class="btn btn-lg btn-block orange" ng-click="startShooing()">{{user.button}}</button><br>
+            <button class="btn btn-lg btn-block orange" ng-click="startShooing()">{{userDetails.button}}</button><br>
 
 
 
@@ -32,20 +32,20 @@
             <h4>
                 Aviailanle Products in our store: {{statistics.products}}<br> Number of orders submitted in our store: {{statistics.orders}}<br>
             </h4>
-            <div class="yellow padding-all" ng-switch="user.shopping_cart.status">
+            <div class="yellow padding-all" ng-switch="userDetails.shopping_cart.status">
                 <div ng-switch-when="open">
-                    {{user.button = "Resume Shopping"}}
-                    <span>{{user.name}}, you have a open shopping cart, from: {{user.shopping_cart.date | date: 'dd/MM/yyyy'}}. <br> of total price of: {{user.shopping_cart.price}}.
+                    {{userDetails.button = "Resume Shopping"}}
+                    <span>{{userDetails.name}}, you have a open shopping cart, from: {{userDetails.shopping_cart.date | date: 'dd/MM/yyyy'}}. <br> of total price of: {{userDetails.shopping_cart.price}}.
                     </span>
                 </div>
                 <div ng-switch-when="cloesed">
-                    {{user.button = "Start Shopping"}}
-                    <span>{{user.name}}, your last purches was at: {{user.shooping_cart.date | date: 'dd/MM/yyyy'}}. <br> of total price of: {{user.shooping_cart.price}}.
+                    {{userDetails.button = "Start Shopping"}}
+                    <span>{{userDetails.name}}, your last purches was at: {{userDetails.shooping_cart.date | date: 'dd/MM/yyyy'}}. <br> of total price of: {{userDetails.shooping_cart.price}}.
                     </span>
                 </div>
                 <div ng-switch-when="new">
-                    {{user.button = "Start Shopping"}}
-                    <span>{{user.name}}, welcome to jsMarket, enjoy your shopping.
+                    {{userDetails.button = "Start Shopping"}}
+                    <span>{{userDetails.name}}, welcome to jsMarket, enjoy your shopping.
                     </span>
                 </div>
 
