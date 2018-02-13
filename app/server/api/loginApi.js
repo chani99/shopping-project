@@ -5,26 +5,28 @@ var router = express.Router();
 
 
 
-router.use(function(req, res, next) {
-    const adminRoutes = ['/admin'];
-    const allowedRoutes = ['/login', '/', '/favicon.ico', '/signUp'];
 
-    if (allowedRoutes.indexOf(req.originalUrl) > -1) {
-        next();
-    } else if (sess === null || sess === undefined) {
-        res.send(401);
-    } else if (sess.user.name == 'user') {
-        next();
+// router.use(function(req, res, next) {
+//     const adminRoutes = ['/admin'];
+//     const allowedRoutes = ['/login', '/', '/member', '/favicon.ico'];
 
-        if (adminRoutes.indexOf(req.originalUrl) > -1) {
-            res.send(401, 'only admins');
-        }
+//     if (allowedRoutes.indexOf(req.originalUrl) > -1) {
+//         next();
+//     } else if (sess === null || sess === undefined) {
+//         res.send(401);
+//     } else if (sess.user.name == 'user') {
+//         next();
+
+//         if (adminRoutes.indexOf(req.originalUrl) > -1) {
+//             res.send(401, 'only admins');
+//         }
 
 
-    }
+//     }
 
-});
+// });
 
+router.use('/member', require('./membersApi'));
 
 router.get('/', function(req, res) {
 
@@ -53,27 +55,3 @@ router.post('/login', function(req, res) {
 
 });
 module.exports = router;
-
-
-// app.post('/login', function(req, res) {
-//     var newMember = new Member();
-//     //model fields:
-//     newMember._id = 200178755;
-//     newMember.fname = hadar;
-//     newMember.lname = avrahami;
-//     newMember.userName = hadar1234;
-//     newMember.password = 1234;
-//     newMember.street = baal;
-//     newMember.city = beitar;
-//     newMember.role = client;
-
-//     //insert into mongodb:
-//     newMember.save(function(err, member) {
-//         if (err) {
-//             res.send('Error saving member!')
-//         } else {
-//             console.log(member);
-//             res.json("the member: " + member);
-//         }
-//     })
-// });

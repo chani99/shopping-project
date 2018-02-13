@@ -68,3 +68,10 @@
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 30px white inset;
 }
+input.ng-invalid.ng-touched {
+  border: 1px solid orangered;
+}
+input[disabled="disabled"] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

@@ -1,37 +1,49 @@
 <div ng-controller="signUp">
     <div class="signUp-flx-container">
         <div class="signUp-flex-item gray2">
-                
-
-            <div class="form-signin">
-
-                <h4 class="">New Member -Register:</h4>
-
-                <label for="loginame" class="sr-only">User id:</label>
-                <input type="number" ng-model="newUser.id" class="form-control marg-bottom" placeholder="User id" required autofocus>
 
 
-                <label for="email" class="sr-only">Email:</label>
-                <input type="email" ng-model="newUser.email" class="form-control marg-bottom" placeholder="email" required>
+            <form name="LoginForm" class="form-signin" novalidate>
 
+                <h4 class="">New Member - Register:</h4>
+                <!-- id -->
+                <div ng-hide="step2">
+                    <label class="">User id:</label>
+                    <input type="number" name="id" ng-model="newUser.id" ng-maxlength="10" ng-minlength="4" class="form-control marg-bottom" placeholder="User id" ng-required="true" autofocus>
+                    <div class="bg-danger" ng-show="LoginForm.id.$invalid && LoginForm.id.$touched"> Entar a valid id 4-10 digits</div>
 
-                <label for = "password" class="sr-only">Password:</label>
-                <input type = "password" ng-model="newUser.password" class="form-control marg-bottom" placeholder="password" required>
+                    <!-- user name -->
+                    <label class="">User name:</label>
+                    <input type="text" name="username" ng-model="newUser.userName" ng-maxlength="15" ng-minlength="3" ng-pattern="/^[a-zA-Z0-9]*$/" class="form-control marg-bottom" placeholder="User name" ng-required="true">
+                    <div class="bg-danger" ng-show="LoginForm.username.$invalid && LoginForm.username.$touched"> Entar a valid username </div>
 
-                <label for = "password confirm" class="sr-only">Password confirm:</label>
-                <input type = "password" ng-model="newUser.password2" class="form-control marg-bottom" placeholder="password confirm" required>
+                    <!-- email -->
+                    <label class="">Email:</label>
+                    <input type="email" name="email" ng-model="newUser.email" class="form-control marg-bottom" placeholder="email" ng-required="true">
+                    <div class="bg-danger" ng-show="LoginForm.email.$invalid && LoginForm.email.$touched"> Entar a valid email </div>
 
+                    <!-- password -->
+                    <label class="">Password:</label>
+                    <input type="password" name="pass1" ng-model="newUser.password" ng-maxlength="10" ng-minlength="4" ng-pattern="/^[a-zA-Z0-9]*$/" class="form-control marg-bottom" placeholder="password" ng-required="true">
+                    <div class="bg-danger" ng-show="LoginForm.pass1.$invalid && LoginForm.pass1.$touched"> Entar a valid password 4-10 digits </div>
 
-                <button class="btn btn-lg orange float-right" ng-click="next(newUser)">NEXT</button><br>
-                <div ng-model="err.next" class="bg-danger">{{err.next}}</div>
+                    <!-- password confirm -->
+                    <label class="">Password confirm:</label>
+                    <input type="password" name="pass2" ng-model="newUser.password2" class="form-control marg-bottom" placeholder="password confirm" ng-required="true">
+                    <div class="bg-danger" ng-show="LoginForm.pass2.$invalid && LoginForm.pass2.$touched"> confirm your password </div>
+                    <div ng-show="LoginForm.pass2.$touched && newUser.password != newUser.password2" class="bg-danger">Your passwords must match.</div>
 
-            </div>
+                    <!-- next button -->
+                    <button class="btn btn-lg orange float-right" ng-click="next(newUser)" ng-disabled="LoginForm.$invalid">NEXT</button><br>
+                </div>
+
+            </form>
         </div>
 
 
 
         <div class="signUp-flex-item no-padding">
-                <img class="w-100 marg-bottom" src="../images/online.jpg" alt="my mareket">
+            <img class="w-100 marg-bottom" src="../images/online.jpg" alt="my mareket">
         </div>
 
 

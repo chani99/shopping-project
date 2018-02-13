@@ -21,10 +21,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-require("./api/memberApi");
-require("./api/loginApi");
-
-
 
 // db configuration
 var db = 'mongodb://127.0.0.1/north';
@@ -49,6 +45,6 @@ app.use(session({
 app.listen(port, function() {
     console.log(`App listening on port ${port}`);
 })
+app.use(login);
 
-
-app.use('/', login);
+// app.use('/login', login);

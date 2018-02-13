@@ -21,7 +21,6 @@ App.config(function($routeProvider) {
 App.service('appService', function($http) {
 
     this.sendData = function(path, userParams, onSuccess, onError) {
-        // $http.post('http://localhost:3000/' + path, userParams).then(onSuccess, onError);
         $http({
             url: 'http://localhost:3000/' + path,
             method: 'POST',

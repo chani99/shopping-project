@@ -1,9 +1,13 @@
-App.controller('login', function($scope, appService) {
+App.controller('login', function($scope, $location, appService) {
     $scope.user = {}
 
 
     $scope.getProducts = function() {
         appService.getNorthwind('products', onSuccess, onError);
+    }
+
+    $scope.startShooing = function() {
+        $location.path("/signUp");
     }
 
     $scope.login = function(user) {
