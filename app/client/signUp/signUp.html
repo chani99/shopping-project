@@ -1,0 +1,41 @@
+<div ng-controller="signUp">
+    <div class="signUp-flx-container">
+        <div class="signUp-flex-item gray2">
+                
+
+            <div class="form-signin">
+
+                <h4 class="">New Member -Register:</h4>
+
+                <label for="loginame" class="sr-only">User id:</label>
+                <input type="number" ng-model="newUser.id" class="form-control marg-bottom" placeholder="User id" required autofocus>
+
+
+                <label for="email" class="sr-only">Email:</label>
+                <input type="email" ng-model="newUser.email" class="form-control marg-bottom" placeholder="email" required>
+
+
+                <label for = "password" class="sr-only">Password:</label>
+                <input type = "password" ng-model="newUser.password" class="form-control marg-bottom" placeholder="password" required>
+
+                <label for = "password confirm" class="sr-only">Password confirm:</label>
+                <input type = "password" ng-model="newUser.password2" class="form-control marg-bottom" placeholder="password confirm" required>
+
+
+                <button class="btn btn-lg orange float-right" ng-click="next(newUser)">NEXT</button><br>
+                <div ng-model="err.next" class="bg-danger">{{err.next}}</div>
+
+            </div>
+        </div>
+
+
+
+        <div class="signUp-flex-item no-padding">
+                <img class="w-100 marg-bottom" src="../images/online.jpg" alt="my mareket">
+        </div>
+
+
+
+    </div>
+
+</div>

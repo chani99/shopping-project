@@ -7,7 +7,7 @@ var router = express.Router();
 
 router.use(function(req, res, next) {
     const adminRoutes = ['/admin'];
-    const allowedRoutes = ['/login', '/', '/favicon.ico'];
+    const allowedRoutes = ['/login', '/', '/favicon.ico', '/signUp'];
 
     if (allowedRoutes.indexOf(req.originalUrl) > -1) {
         next();
