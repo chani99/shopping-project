@@ -1,27 +1,11 @@
-let app = require('../app');
-
-let session = require('express-session');
-let path = require('path');
-let fs = require('fs');
 var loginCtrl = require('../controllers/LoginController.js');
-var bodyParser = require('body-parser')
-app.use(bodyParser.json()); // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
-    extended: true
-}));
+var express = require('express');
+var router = express.Router();
 
 
 
-let sess;
 
-app.use(session({
-    secret: 'somesecret',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true }
-}))
-
-app.use(function(req, res, next) {
+router.use(function(req, res, next) {
     const adminRoutes = ['/admin'];
     const allowedRoutes = ['/login', '/', '/favicon.ico'];
 
@@ -42,47 +26,54 @@ app.use(function(req, res, next) {
 });
 
 
-app.get('/', function(req, res) {
+router.get('/', function(req, res) {
 
     res.sendFile(path.join(__dirname, '../../client/index.html'));
 });
 
-app.post('/login', function(req, res) {
+router.post('/login', function(req, res) {
     console.log(req.body);
     let user = req.body;
-    let checkUser = loginCtrl.checkUser(user, function(err, login) {
+    let checkUser = loginCtrl.checkUser(user, function(err, logedin) {
         if (err) {
             console.log(err);
-        } else {
-            console.log("login: " + login);
-            sess = req.session;
-            sess['user'] = user.name;
+            res.end(JSON.stringify({ login: false, Cause: err }));
 
-            res.end(JSON.stringify({ login: true, role: login[0].role_id }));
+
+        } else {
+            console.log("login: " + logedin);
+            sess = req.session;
+            sess['user'] = logedin._doc.userName;
+            sess['role'] = logedin._doc.role;
+
+
+            res.end(JSON.stringify({ login: true, user: logedin }));
         }
     });
 
 });
+module.exports = router;
 
-app.post('/login', function(req, res) {
-    var newMember = new Member();
-    //model fields:
-    newMember._id = 200178755;
-    newMember.fname = hadar;
-    newMember.lname = avrahami;
-    newMember.userName = hadar1234;
-    newMember.password = 1234;
-    newMember.street = baal;
-    newMember.city = beitar;
-    newMember.role = client;
 
-    //insert into mongodb:
-    newMember.save(function(err, member) {
-        if (err) {
-            res.send('Error saving member!')
-        } else {
-            console.log(member);
-            res.json("the member: " + member);
-        }
-    })
-});
+// app.post('/login', function(req, res) {
+//     var newMember = new Member();
+//     //model fields:
+//     newMember._id = 200178755;
+//     newMember.fname = hadar;
+//     newMember.lname = avrahami;
+//     newMember.userName = hadar1234;
+//     newMember.password = 1234;
+//     newMember.street = baal;
+//     newMember.city = beitar;
+//     newMember.role = client;
+
+//     //insert into mongodb:
+//     newMember.save(function(err, member) {
+//         if (err) {
+//             res.send('Error saving member!')
+//         } else {
+//             console.log(member);
+//             res.json("the member: " + member);
+//         }
+//     })
+// });

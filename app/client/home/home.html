@@ -2,7 +2,7 @@
     <div class="home-flx-container">
         <div class="home-flex-item">
 
-            <div class="form-signin">
+            <div class="form-signin" ng-hide="isLogedin">
                 <h4 class="">Registered?</h4>
 
                 <label for="loginame" class="sr-only">User name</label>
@@ -14,10 +14,11 @@
                 <button class="btn btn-lg orange" type="submit" ng-click="login(user)">Sign in</button><br>
                 <span calss="error" id="login_error"></span>
                 <h5 class="">Not Registered? <a href="#!sign-up">Sign up</a></h5>
+                <div ng-model="loginErr" class="bg-danger">{{loginErr}}</div>
+
             </div>
-            <button class="btn btn-lg btn-block orange" ng-click="startShooing()">{{userDetails.button}}</button><br>
-
-
+            <button ng-show="isLogedin" class="btn btn-lg btn-block orange" ng-click="startShooing()">{{userDetails.button}}</button><br>
+            <br>
 
         </div>
 
@@ -38,7 +39,7 @@
                     <span>{{userDetails.name}}, you have a open shopping cart, from: {{userDetails.shopping_cart.date | date: 'dd/MM/yyyy'}}. <br> of total price of: {{userDetails.shopping_cart.price}}.
                     </span>
                 </div>
-                <div ng-switch-when="cloesed">
+                <div ng-switch-when="closed">
                     {{userDetails.button = "Start Shopping"}}
                     <span>{{userDetails.name}}, your last purches was at: {{userDetails.shooping_cart.date | date: 'dd/MM/yyyy'}}. <br> of total price of: {{userDetails.shooping_cart.price}}.
                     </span>
