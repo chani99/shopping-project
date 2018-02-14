@@ -59,12 +59,22 @@ var CartItem = new Schema({
 });
 
 
+var ShopCity = new Schema({
+    _id: Schema.Types.ObjectId,
+    product_id: Schema.Types.ObjectId,
+    city: String
+});
+
+
 module.exports = {
     Member: mongoose.model('members', MemberSchema),
     Category: mongoose.model('category', CategorySchema),
     Order: mongoose.model('order', OrderSchema),
     Cart: mongoose.model('cart', CartSchema),
     Product: mongoose.model('product', ProductSchema),
-    Cart_item: mongoose.model('cart_item', CartItem)
+    Cart_item: mongoose.model('cart_item', CartItem),
+    City: mongoose.model('city', ShopCity)
 
 };
+
+// db.city.save({"_id":1, "city":"Jerusalem"},{"_id":2, "city":"Tel Aviv"},{"_id":3, "city":"Be'er Sheva"},{"_id":4, "city":"Ashdod"},{"_id":5, "city":"Haifa"},{"_id":6, "city":"Rishon Letzion"},{"_id":7, "city":"Afula"},{"_id":8, "city":"Eilat"},{"_id":9, "city":"Bnei Brak"},{"_id":10, "city":"Raanana"},)

@@ -1,4 +1,5 @@
 var loginCtrl = require('../controllers/LoginController.js');
+let cityCtrl = require('../controllers/cityController.js');
 var express = require('express');
 var router = express.Router();
 
@@ -33,6 +34,17 @@ router.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, '../../client/index.html'));
 });
 
+router.get('/city', function(req, res) {
+    let getCity = cityCtrl.getall(function(err, citylist) {
+        if (err) {
+            console.log(err);
+            res.end(JSON.stringify({ login: false, Cause: err }));
+        } else {
+            res.end(JSON.stringify(citylist));
+        }
+    });
+});
+
 router.post('/login', function(req, res) {
     console.log(req.body);
     let user = req.body;
@@ -54,4 +66,5 @@ router.post('/login', function(req, res) {
     });
 
 });
+
 module.exports = router;

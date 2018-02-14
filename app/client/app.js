@@ -32,14 +32,19 @@ App.service('appService', function($http) {
     }
 
 
-    this.setNorthwind = function(data, onSuccess, onError) {
+    this.getData = function(path, Params, onSuccess, onError) {
         $http({
-            url: 'http://localhost:3000/' + data.tableName,
-            method: 'POST',
-            params: {
-                tableName: data.tableName,
-                data: data
-            }
-        }).then(onSuccess, onError);
+                url: 'http://localhost:3000/' + path,
+                method: 'GET',
+                data: {
+                    data: Params
+                }
+        
+    }).then(onSuccess, onError);
+        
     }
 });
+
+
+
+
