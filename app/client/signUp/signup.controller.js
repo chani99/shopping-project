@@ -1,5 +1,6 @@
 App.controller('signUp', function($scope, appService, modelsServc) {
     $scope.newUser = {};
+    $scope.city = ["jerusalem", "Tel Aviv", "Hiafa", "Beer Seva", "Eilat", "Afula", "Kfar Saba", "Petach Tikva", "Raanana", "Beit Shemesh"];
 
 
     $scope.next = function(newUser) {
@@ -10,12 +11,6 @@ App.controller('signUp', function($scope, appService, modelsServc) {
 
     function nextSucsses(res) {
         console.log('sucsses: ' + res.data.member);
-        appService.getData('city', 'getall', function(res){
-            $scope.city =  res.data;
-        }, function(res){
-            console.log(res);
-        });
-        
         $scope.step2 = true;
 
     }

@@ -38,31 +38,37 @@
                 </div>
             </form>
             <form name="LoginForm2" class="form-signin" novalidate>
-            <div ng-show="step2">
-                    
+                <div ng-hide="step2">
+
                     <!-- street -->
-                    <label class="">street:</label>
-                    <input type="text" name="street" ng-model="newUser.street" ng-maxlength="25" ng-minlength="3" ng-pattern="/^[a-zA-Z0-9]*$/" class="form-control marg-bottom" placeholder="Street" ng-required="true">
+                    <label class="">Street:</label>
+                    <input type="text" name="street" ng-model="newUser2.street" ng-maxlength="25" ng-minlength="3" ng-pattern="/^[a-zA-Z0-9]*$/" class="form-control marg-bottom" placeholder="Street" ng-required="true">
                     <div class="bg-danger" ng-show="LoginForm2.street.$invalid && LoginForm2.street.$touched"> Entar a valid street </div>
-                    
+
                     <!-- city -->
-                    <select ng-model="newUser.city">
-                    <option ng-repeat="city in city" value="{{city._id}}">{{city.city}}</option>
+                    <label class="">City:</label>
+                    <select ng-model="newUser2.city" class="form-control marg-bottom">
+                            <option  value="">-select a city-</option>
+                            <option ng-repeat="city in city" value="{{city}}">{{city}}</option>
                     </select>
-                            
-                            
+
+
                     <!-- first name -->
                     <label class="">First Name:</label>
-                    <input type="text" name="fname" ng-model="newUser.fname" ng-maxlength="20" ng-minlength="2" ng-pattern="/^[a-zA-Z0-9]*$/" class="form-control marg-bottom" placeholder="Street" ng-required="true">
+                    <input type="text" name="fname" ng-model="newUser2.fname" ng-maxlength="20" ng-minlength="2" ng-pattern="/^[a-zA-Z0-9]*$/" class="form-control marg-bottom" placeholder="Street" ng-required="true">
                     <div class="bg-danger" ng-show="LoginForm2.fname.$invalid && LoginForm2.fname.$touched"> Entar a valid street </div>
 
                     <!-- last name -->
                     <label class="">Last Name:</label>
-                    <input type="text" name="lname" ng-model="newUser.lname" ng-maxlength="20" ng-minlength="2" ng-pattern="/^[a-zA-Z0-9]*$/" class="form-control marg-bottom" placeholder="Street" ng-required="true">
+                    <input type="text" name="lname" ng-model="newUser2.lname" ng-maxlength="20" ng-minlength="2" ng-pattern="/^[a-zA-Z0-9]*$/" class="form-control marg-bottom" placeholder="Street" ng-required="true">
                     <div class="bg-danger" ng-show="LoginForm2.lname.$invalid && LoginForm2.lname.$touched"> Entar a valid street </div>
 
-            </div>
-        </form>
+                    <!-- submit button -->
+                    <button class="btn btn-lg orange float-right" ng-click="submit(newUser2)" ng-disabled="LoginForm.$invalid">SUBMIT</button><br>
+
+
+                </div>
+            </form>
 
 
 

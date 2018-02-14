@@ -60,8 +60,7 @@ var CartItem = new Schema({
 
 
 var ShopCity = new Schema({
-    _id: Schema.Types.ObjectId,
-    product_id: Schema.Types.ObjectId,
+    _id: Number,
     city: String
 });
 
