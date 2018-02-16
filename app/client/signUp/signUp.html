@@ -38,7 +38,9 @@
                 </div>
             </form>
             <form name="LoginForm2" class="form-signin" novalidate>
-                <div ng-hide="step2">
+                <div ng-show="step2">
+                    <p>{{step1success}}</p>
+                    <br>
 
                     <!-- street -->
                     <label class="">Street:</label>

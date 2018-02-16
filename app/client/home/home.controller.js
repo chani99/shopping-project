@@ -6,9 +6,6 @@ App.controller('login', function($scope, $location, appService) {
         appService.getNorthwind('products', onSuccess, onError);
     }
 
-    $scope.startShooing = function() {
-        $location.path("/signUp");
-    }
 
     $scope.login = function(user) {
         appService.sendData('login', user, loginSucsses, loginError);
