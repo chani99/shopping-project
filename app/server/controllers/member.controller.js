@@ -51,9 +51,8 @@ function checkExists(user, callback) {
 function updateDetals(user, callback) {
     var query = { "_id": user.data.userId };
     var options = { new: true };
-    organizeData(user.data.newMember, function(err, data) {
-        var update = data;
-        model.Member.findOneAndUpdate(query, update, options, function(err, member) {
+    organizeData(user.data.newMember, function(data) {
+        model.Member.findOneAndUpdate(query, data, options, function(err, member) {
             if (err) {
                 console.log('got an error');
             } else {

@@ -45,6 +45,6 @@ app.use(session({
 app.listen(port, function() {
     console.log(`App listening on port ${port}`);
 })
-app.use(login);
 
-// app.use('/login', login);
+//main router index
+app.use(login);

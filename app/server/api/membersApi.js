@@ -14,12 +14,6 @@ router.use(function(req, res, next) {
         res.send(401);
     } else if (sess._id == req.body.data.userId) {
         next();
-
-        if (adminRoutes.indexOf(req.originalUrl) > -1) {
-            res.send(401, 'only admins');
-        }
-
-
     }
 
 });
@@ -56,7 +50,7 @@ router.put('/details', function(req, res) {
             console.log(err);
             res.end(JSON.stringify({ done: false, why: err }));
         } else {
-            res.end(JSON.stringify({ done: true, member: updated._doc._id }));
+            res.end(JSON.stringify({ done: true, member: { _id: updated._doc._id, fname: updated._doc.fname, cart: updated._doc.cart } }));
         }
     });
 

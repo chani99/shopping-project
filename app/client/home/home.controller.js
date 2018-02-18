@@ -1,6 +1,11 @@
-App.controller('login', function($scope, $location, appService) {
+App.controller('login', function($scope, $location, appService, commonData) {
     $scope.user = {}
-
+    $scope.userDetails = {};
+    $scope.userDetails.shopping_cart = {};
+    let checkIflogedin = commonData.getData();
+    if (checkIflogedin.logedin) $scope.isLogedin = checkIflogedin.logedin;
+    if (checkIflogedin.name) $scope.userDetails.name = checkIflogedin.name;
+    if (checkIflogedin.logedin) checkCartStatus(checkIflogedin.shopping_cart.length);
 
     $scope.getProducts = function() {
         appService.getNorthwind('products', onSuccess, onError);
@@ -22,17 +27,7 @@ App.controller('login', function($scope, $location, appService) {
                     price: "to do"
                 }
             }
-            switch (res.data.user.cart.length) {
-                case 0:
-                    $scope.userDetails.shopping_cart.status = "closed";
-                    break;
-                case 1:
-                    $scope.userDetails.shopping_cart.status = "open";
-                    break;
-                default:
-                    $scope.userDetails.shopping_cart.status = "new";
-                    break;
-            }
+            checkCartStatus(res.data.user.cart.length);
 
         } else {
             $scope.loginErr = "wrong username or password";
@@ -46,7 +41,21 @@ App.controller('login', function($scope, $location, appService) {
         console.log(res);
     }
 
+    function checkCartStatus(cartLength) {
+        switch (cartLength) {
+            case 0:
+                $scope.userDetails.shopping_cart.status = "closed";
+                break;
+            case 1:
+                $scope.userDetails.shopping_cart.status = "open";
+                break;
+            default:
+                $scope.userDetails.shopping_cart.status = "new";
+                break;
+        }
 
+
+    }
 
     // $scope.addProducts = function() {
     //     let data ={

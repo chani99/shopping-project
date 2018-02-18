@@ -57,3 +57,28 @@ App.service('appService', function($http) {
     }
 
 });
+
+App.service('commonData', function() {
+    let data;
+    let userDetails = {};
+    this.setData = function(someData, obj) {
+        data = someData;
+        if (obj) userDetails.fname = obj.fname;
+        if (obj) userDetails.shopping_cart = obj.cart || [];
+
+    }
+
+    this.getData = function() {
+        if (userDetails) {
+            let dataToReturn = {
+                logedin: data,
+                name: userDetails.fname,
+                shopping_cart: userDetails.shopping_cart
+            }
+            return dataToReturn;
+
+        }
+
+    }
+
+});
