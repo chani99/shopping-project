@@ -82,3 +82,14 @@ App.service('commonData', function() {
     }
 
 });
+
+App.controller('mainController', function($scope, $location, appService, commonData, modelsServc) {
+    $scope.mainData="";
+
+    $scope.$on('logedin', function(event, args) {
+        $scope.mainData = args;
+
+        $scope.logedin = true;
+
+    });
+});

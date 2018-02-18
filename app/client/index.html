@@ -32,7 +32,7 @@
 
 </head>
 
-<body class="container">
+<body class="container" ng-controller="mainController">
 
     <header>
         <nav class="navbar">
@@ -43,9 +43,14 @@
                     </div>
                 </div>
                 <div class="float-right">
-                    <div class="font-24">&#9742 02-5802232</div>
-                    <div class="font-24">&#x2709 <span class="font-13">mymarket@gmail.com</span></div>
+                    <!-- <div class="font-24">&#9742 02-5802232</div>
+                    <div class="font-24">&#x2709 <span class="font-13">mymarket@gmail.com</span></div> -->
+                    <div class="font-20">&#9742 02-5802232 | &#x2709 <span class="font-13">mymarket@gmail.com</span></div>
+                    <div class="font-16 float-right" ng-show="logedin" class="float-right">welcome {{ mainData.userName }} <a ng-click="logout({{mainData._id}})">logout</a></div>
+
                 </div>
+            
+
             </div>
         </nav>
 

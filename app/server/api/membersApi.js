@@ -50,7 +50,7 @@ router.put('/details', function(req, res) {
             console.log(err);
             res.end(JSON.stringify({ done: false, why: err }));
         } else {
-            res.end(JSON.stringify({ done: true, member: { _id: updated._doc._id, fname: updated._doc.fname, cart: updated._doc.cart } }));
+            res.end(JSON.stringify({ done: true, member: { _id: updated._doc._id, userName: updated._doc.userName, cart: updated._doc.cart } }));
         }
     });
 

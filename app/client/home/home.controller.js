@@ -1,4 +1,4 @@
-App.controller('login', function($scope, $location, appService, commonData) {
+App.controller('login', function($scope, $rootScope, $location, appService, commonData) {
     $scope.user = {}
     $scope.userDetails = {};
     $scope.userDetails.shopping_cart = {};
@@ -20,8 +20,9 @@ App.controller('login', function($scope, $location, appService, commonData) {
         console.log(res.data);
         if (res.data.login === true) {
             $scope.isLogedin = true;
+            $rootScope.$broadcast('logedin', (res.data.user));
             $scope.userDetails = {
-                name: res.data.user.fname,
+                name: res.data.user.userName,
                 shopping_cart: {
                     date: "to do",
                     price: "to do"
