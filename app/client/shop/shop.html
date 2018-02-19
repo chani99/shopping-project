@@ -1,44 +1,53 @@
-<div ng-controller="shop">
+<div ng-controller="shop" class="shop">
 
-    <div id="topnav">Top navbar</div>
+    <div class="container">
+        <div class="split horizontal">
+            <div class="shopping-cart">
+                <span class="font-20">
+                     <span class="glyphicon glyphicon-shopping-cart"> </span> My Cary
+                </span>
+                <hr>
+                <div ng-if="empty">
+                    Your Shopping Cart is empty! <br> Start shopping now <br>
+                    <img class="cart" src="../images/cart.png" alt="my mareket">
+                </div>
+                <div ng-if="!empty">
+                    Your items:
 
-    <div id="left-content">
 
-        <div id="sidebar">
-            <h3>Side navbar</h3>
-        </div>
+                </div>
+            </div>
+            <div class="shop">
+                <nav class="navbar-collapse collapse" role="navigation">
+                    <ul class="navbar-nav nav font-16">
+                        <li>
+                            <a class="border-right" ng-click="milk()">Milk &amp; Eggs</a>
+                        </li>
+                        <li>
+                            <a class="border-right" ng-click="fruit()">Vegetables &amp; Fruit</a>
+                        </li>
+                        <li>
+                            <a class="border-right" ng-click="milk()">Meat &amp; Fish</a>
+                        </li>
+                        <li>
+                            <a ng-click="milk()">Wine &amp; Drink</a>
+                        </li>
+                        <li>
+                            <a>
+                                <input class="form-control" type="search" id="mySearch" ng-model="search">
+                                <button class="btn btn-sm></" ng-click="search()">Search</button>
+                            </a>
+                        </li>
 
-        <div id="top-content">Top content
-            <p>{{content}}</p>
-        </div>
+                    </ul>
+                </nav>
+                <div ng-repeat="product in products">
+                    <div ng-include="'shop/productTemp.html'"></div>
+                </div>
 
-        <div id="bottom-content">Bottom content</div>
-
-        <div id="sidebar-resizer" resizer="vertical" resizer-width="6" resizer-left="#sidebar" resizer-right="#top-content" resizer-max="400">
-        </div>
-
-        <div id="content-resizer" resizer="horizontal" resizer-height="6" resizer-top="#top-content" resizer-bottom="#bottom-content" resizer-max="800">
+            </div>
         </div>
     </div>
 
-    <!-- <div id="right-content">
 
-        <div id="right-top">Right Top content</div>
-
-        <div id="right-middle">Right Middle content</div>
-
-        <div id="right-bottom">Right Bottom content</div>
-
-        <div id="right-horizontal-1-resizer" resizer="horizontal" resizer-height="6" resizer-top="#right-top" resizer-bottom="#right-middle">
-        </div>
-
-        <div id="right-horizontal-2-resizer" resizer="horizontal" resizer-height="6" resizer-top="#right-middle" resizer-bottom="#right-bottom">
-        </div>
-    </div> -->
-
-
-
-
-    <div id="right-vertical-resizer" resizer="vertical" resizer-width="6" resizer-left="#left-content" resizer-right="#right-content">
-    </div>
 </div>

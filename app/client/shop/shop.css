@@ -1,142 +1,88 @@
-#topnav {
+.shop {
+  /* Vertical */
+  /* Horizontal */
+}
+.shop .container {
+  min-height: 300px;
+  position: relative;
+  padding: 0;
+}
+.shop .split {
   display: flex;
-  height: 35px;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  background-color: #DDD;
-}
-#sidebar {
-  background-color: #EEE;
-  position: absolute;
-  top: 0;
-  bottom: 25%;
   height: 100%;
-  width: 100%;
-  left: 0;
+}
+.shop .split > :nth-child(1) {
   overflow: auto;
 }
-#top-content {
-  position: absolute;
-  top: 0;
-  padding-left: 10px;
-  height: 100%;
-  width: 100%;
-  left: 25%;
-  right: 0;
-  background-color: #444;
-  color: #FFF;
-  overflow: auto;
+.shop .split > :nth-child(2) {
+  flex-grow: 1;
 }
-#right-top {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  left: 0;
-  right: 0;
-  background-color: #EEE;
-  overflow: hidden;
+.shop .split.vertical {
+  flex-direction: column;
 }
-#right-middle {
-  position: absolute;
-  top: 34%;
-  height: 100%;
-  width: 100%;
-  left: 0;
-  right: 0;
-  background-color: #888;
-  overflow: hidden;
+.shop .split.vertical > :nth-child(1) {
+  resize: vertical;
 }
-#right-bottom {
-  position: absolute;
-  top: 67%;
-  height: 100%;
-  width: 100%;
-  left: 0;
-  right: 0;
-  background-color: #999;
-  overflow: hidden;
+.shop .split.horizontal {
+  flex-direction: row;
 }
-#bottom-content {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 74%;
-  left: 0;
-  right: 0;
-  overflow: auto;
-  background-color: #777;
+.shop .split.horizontal > :nth-child(1) {
+  resize: horizontal;
 }
-#sidebar-resizer {
-  background-color: #666;
-  position: absolute;
-  top: 0;
-  bottom: 26%;
-  left: 25%;
-  width: 6px;
-  cursor: e-resize;
+.shop .shopping-cart {
+  background-color: #FFE4CE;
+  min-width: 150px;
+  padding: 2%;
 }
-#right-horizontal-1-resizer {
-  position: absolute;
-  height: 6px;
-  width: 100%;
-  bottom: 66%;
-  left: 0;
-  right: 0;
-  background-color: #666;
-  cursor: n-resize;
+.shop .shop {
+  padding: 2%;
 }
-#right-horizontal-2-resizer {
-  position: absolute;
-  height: 6px;
-  width: 100%;
-  bottom: 33%;
-  left: 0;
-  right: 0;
-  background-color: #666;
-  cursor: n-resize;
+.shop .nav > li > a:focus,
+.shop .nav > li > a:hover {
+  background-color: #FFE4CE;
 }
-#right-vertical-resizer {
-  background-color: #666;
-  position: absolute;
-  top: 35px;
-  bottom: 0;
-  right: 25%;
-  width: 6px;
-  cursor: e-resize;
+.shop a:focus,
+.shop a:hover {
+  color: black;
 }
-#content-resizer {
-  position: absolute;
-  height: 6px;
-  width: 100%;
-  bottom: 26%;
-  left: 0;
-  right: 25%;
-  background-color: #666;
-  cursor: n-resize;
+.shop a {
+  color: black;
 }
-#left-content {
-  position: absolute;
-  top: 35px;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  overflow: hidden;
+.shop .border-right {
+  border-right: solid 3px #FFE4CE;
 }
-#right-content {
-  position: absolute;
-  top: 35px;
-  bottom: 0;
-  left: 75%;
-  right: 0;
-  overflow: hidden;
+.shop hr {
+  border-top: 1px solid #2D2D2D;
 }
-#sidebar-resizer:hover,
-#content-resizer:hover,
-#right-vertical-resizer:hover,
-#right-horizontal-1-resizer:hover,
-#right-horizontal-2-resizer:hover {
-  background-color: #AAA;
+.shop .cart {
+  max-width: 150px;
+  align-self: auto;
+  margin-top: 20px;
+}
+@media screen and (max-width: 600px) {
+  .shop .split.horizontal {
+    flex-direction: column;
+  }
+}
+.shop .form-control {
+  width: 70%;
+  display: inline-flex;
+  height: 30px;
+}
+.product {
+  background-color: white;
+  box-shadow: 2px 2px 4px 2px #B5B2B2;
+  padding: 20px;
+  max-width: 180px;
+  max-height: 240px;
+  margin-right: 10px;
+  margin-top: 10px;
+  float: left;
+}
+.product img {
+  max-width: 90px;
+  max-height: 90px;
+}
+.product span {
+  text-align: center;
 }
