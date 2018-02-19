@@ -61,9 +61,15 @@ router.post('/login', function(req, res) {
             sess['role'] = logedin._doc.role;
 
 
-            res.end(JSON.stringify({ login: true, user: logedin }));
+            res.end(JSON.stringify({ login: true, member: { _id: logedin._doc._id, userName: logedin._doc.userName, cart: logedin._doc.cart } }));
         }
     });
+
+});
+
+router.get('/logout', function(req, res) {
+    req.session.destroy();
+    res.end(JSON.stringify(true));
 
 });
 

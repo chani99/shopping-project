@@ -1,0 +1,44 @@
+<div ng-controller="shop">
+
+    <div id="topnav">Top navbar</div>
+
+    <div id="left-content">
+
+        <div id="sidebar">
+            <h3>Side navbar</h3>
+        </div>
+
+        <div id="top-content">Top content
+            <p>{{content}}</p>
+        </div>
+
+        <div id="bottom-content">Bottom content</div>
+
+        <div id="sidebar-resizer" resizer="vertical" resizer-width="6" resizer-left="#sidebar" resizer-right="#top-content" resizer-max="400">
+        </div>
+
+        <div id="content-resizer" resizer="horizontal" resizer-height="6" resizer-top="#top-content" resizer-bottom="#bottom-content" resizer-max="800">
+        </div>
+    </div>
+
+    <!-- <div id="right-content">
+
+        <div id="right-top">Right Top content</div>
+
+        <div id="right-middle">Right Middle content</div>
+
+        <div id="right-bottom">Right Bottom content</div>
+
+        <div id="right-horizontal-1-resizer" resizer="horizontal" resizer-height="6" resizer-top="#right-top" resizer-bottom="#right-middle">
+        </div>
+
+        <div id="right-horizontal-2-resizer" resizer="horizontal" resizer-height="6" resizer-top="#right-middle" resizer-bottom="#right-bottom">
+        </div>
+    </div> -->
+
+
+
+
+    <div id="right-vertical-resizer" resizer="vertical" resizer-width="6" resizer-left="#left-content" resizer-right="#right-content">
+    </div>
+</div>

@@ -2,16 +2,23 @@ App.controller('login', function($scope, $rootScope, $location, appService, comm
     $scope.user = {}
     $scope.userDetails = {};
     $scope.userDetails.shopping_cart = {};
+
+    //Checks if a user is logged in
     let checkIflogedin = commonData.getData();
     if (checkIflogedin.logedin) $scope.isLogedin = checkIflogedin.logedin;
     if (checkIflogedin.name) $scope.userDetails.name = checkIflogedin.name;
     if (checkIflogedin.logedin) checkCartStatus(checkIflogedin.shopping_cart.length);
 
-    $scope.getProducts = function() {
-        appService.getNorthwind('products', onSuccess, onError);
-    }
 
+    //listens to a broascast logout event
+    $scope.$on('logout', function(event, args) {
+        $scope.isLogedin = args;
+        $scope.userDetails = {};
+        $scope.userDetails.shopping_cart = {};
+        commonData.setData(false, {});
+    });
 
+    //sends login data to sendData service
     $scope.login = function(user) {
         appService.sendData('login', user, loginSucsses, loginError);
     }
@@ -20,27 +27,26 @@ App.controller('login', function($scope, $rootScope, $location, appService, comm
         console.log(res.data);
         if (res.data.login === true) {
             $scope.isLogedin = true;
-            $rootScope.$broadcast('logedin', (res.data.user));
+            $rootScope.$broadcast('logedin', (res.data.member));
+            commonData.setData(true, res.data.member);
             $scope.userDetails = {
-                name: res.data.user.userName,
+                name: res.data.member.userName,
                 shopping_cart: {
                     date: "to do",
                     price: "to do"
                 }
             }
-            checkCartStatus(res.data.user.cart.length);
-
+            checkCartStatus(res.data.member.cart.length);
         } else {
             $scope.loginErr = "wrong username or password";
         }
-
-
     }
 
     function loginError(res) {
         console.log('error');
         console.log(res);
     }
+
 
     function checkCartStatus(cartLength) {
         switch (cartLength) {
@@ -58,40 +64,6 @@ App.controller('login', function($scope, $rootScope, $location, appService, comm
 
     }
 
-    // $scope.addProducts = function() {
-    //     let data ={
-    //         tableName: 'products',
-    //         ProductName: $scope.ProductName,
-    //         QuantityPerUnit: $scope.QuantityPerUnit,
-    //         ReorderLevel: $scope.ReorderLevel,
-    //         SupplierID:  $scope.SupplierID,
-    //         UnitPrice: $scope.UnitPrice,
-    //         UnitsInStock:  $scope.UnitsInStock,
-    //         UnitsOnOrder: $scope.UnitsOnOrder
 
-    //     }
-    //     appService.setNorthwind(data, onSuccess2, onError);
-    // }
-    // function onSuccess2(res) {
-    //     $scope.newPro = res.data;
-    //     console.log(res.data);
-
-    // }
-    // function onSuccess(res) {
-    //     $scope.keys = Object.keys(res.data[0]);
-    //     $scope.data = res.data;
-    //     console.log(res.data);
-
-    // }
-
-    // function onError(res) {
-    //     console.log('error');
-    //     console.log(res);
-    // }
-
-
-    // $scope.viewWeather = function() {
-    //     weatherService.getDataByCityName($scope.cityName, onSuccess, onError );
-    // }
 
 });

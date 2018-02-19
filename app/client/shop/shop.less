@@ -1,0 +1,144 @@
+#topnav {
+    display: flex;
+    height: 35px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: #DDD;
+}
+
+#sidebar {
+	background-color: #EEE;
+    position: absolute;
+    top: 0;
+    bottom: 25%;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    overflow: auto;
+}
+
+#top-content {
+    position: absolute;
+    top: 0;
+    padding-left: 10px;
+    height: 100%;
+    width: 100%;
+    left: 25%;
+    right: 0;
+    background-color: #444;
+    color: #FFF;
+    overflow: auto;
+}
+#right-top {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    right: 0;
+    background-color: #EEE;
+  overflow: hidden;
+}
+#right-middle {
+    position: absolute;
+    top: 34%;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    right: 0;
+    background-color: #888;
+  overflow: hidden;
+}
+#right-bottom {
+    position: absolute;
+    top: 67%;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    right: 0;
+    background-color: #999;
+  overflow: hidden;
+}
+#bottom-content {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 74%;
+    left: 0;
+    right: 0;
+    overflow: auto;
+    background-color: #777;
+}
+
+#sidebar-resizer {
+	background-color: #666;
+    position: absolute;
+    top: 0;
+    bottom: 26%;
+    left: 25%;
+    width: 6px;
+    cursor: e-resize;
+}
+#right-horizontal-1-resizer {
+    position: absolute;
+    height: 6px;
+    width: 100%;
+    bottom: 66%;
+    left: 0;
+    right: 0;
+    background-color: #666;
+    cursor: n-resize;
+}
+#right-horizontal-2-resizer {
+    position: absolute;
+    height: 6px;
+    width: 100%;
+    bottom: 33%;
+    left: 0;
+    right: 0;
+    background-color: #666;
+    cursor: n-resize;
+}
+#right-vertical-resizer {
+	background-color: #666;
+    position: absolute;
+    top: 35px;
+    bottom: 0;
+    right: 25%;
+    width: 6px;
+    cursor: e-resize;
+}
+#content-resizer {
+    position: absolute;
+    height: 6px;
+    width: 100%;
+    bottom: 26%;
+    left: 0;
+    right: 25%;
+    background-color: #666;
+    cursor: n-resize;
+}
+#left-content{
+    position: absolute;
+    top: 35px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+}
+#right-content{
+    position: absolute;
+    top: 35px;
+    bottom: 0;
+    left: 75%;
+    right: 0;
+  overflow: hidden;
+}
+
+#sidebar-resizer:hover, #content-resizer:hover, 
+#right-vertical-resizer:hover, #right-horizontal-1-resizer:hover,
+#right-horizontal-2-resizer:hover{
+	background-color: #AAA;
+}

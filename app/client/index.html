@@ -20,11 +20,13 @@
     <script src="./suppliers/suppliers.controller.js"></script>
     <script src="./home/home.controller.js"></script>
     <script src="./signUp/signup.controller.js"></script>
+    <script src="./shop/shop.controller.js"></script>
 
 
     <link rel="stylesheet" type="text/css" href='app.css'>
     <link rel="stylesheet" type="text/css" href='./home/home.css'>
     <link rel="stylesheet" type="text/css" href='./signUp/signUP.css'>
+    <link rel="stylesheet" type="text/css" href='./shop/shop.css'>
 
 
 
@@ -46,10 +48,10 @@
                     <!-- <div class="font-24">&#9742 02-5802232</div>
                     <div class="font-24">&#x2709 <span class="font-13">mymarket@gmail.com</span></div> -->
                     <div class="font-20">&#9742 02-5802232 | &#x2709 <span class="font-13">mymarket@gmail.com</span></div>
-                    <div class="font-16 float-right" ng-show="logedin" class="float-right">welcome {{ mainData.userName }} <a ng-click="logout({{mainData._id}})">logout</a></div>
+                    <div class="font-16 float-right" ng-show="logedin" class="float-right">welcome {{ mainData.userName }} <a ng-click="logout()">logout</a></div>
 
                 </div>
-            
+
 
             </div>
         </nav>

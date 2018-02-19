@@ -3,7 +3,7 @@ App.controller('signUp', function($scope, $rootScope, $location, appService, com
     $scope.city = ["jerusalem", "Tel Aviv", "Hiafa", "Beer Seva", "Eilat", "Afula", "Kfar Saba", "Petach Tikva", "Raanana", "Beit Shemesh"];
     let userId;
 
-
+    //gets a new users data and sends it to sendData service
     $scope.next = function(newUser) {
         let newMember = new modelsServc.MemberModel(newUser);
         appService.sendData('member/signUp', newMember, nextSucsses, nextError);
@@ -25,6 +25,7 @@ App.controller('signUp', function($scope, $rootScope, $location, appService, com
         console.log('error: ' + res.data);
     }
 
+    //gets a new user's step 2 data and sends it to updateData service
     $scope.submit = function(userDetails) {
         let newMember = new modelsServc.MemberModel(userDetails);
         appService.updateData('member/details', { newMember, userId }, submitSucsses, submitError);
