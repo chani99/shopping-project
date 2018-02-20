@@ -1,0 +1,75 @@
+<div ng-controller="admin" class="shop admin">
+
+    <div class="container">
+        <div class="split horizontal">
+            <div class="shopping-cart">
+                <span class="font-18">
+                         <span class="glyphicon glyphicon-save-file"> </span> Admin Control Panel
+                </span>
+                <button class="glyphicon btn glyphicon-plus-sign float-right font-26" ng-click="newProduct=true"></button>
+                <hr>
+                <div ng-show="newProduct">
+                    <h3>New Product:</h3><br>
+
+                    <form name="LoginForm" class="form-signin" novalidate>
+
+                        <!-- product name -->
+
+                        <label class="">Product Name:</label>
+                        <input type="text" name="product" ng-model="product.name" ng-maxlength="20" ng-minlength="2" ng-pattern="/^[a-zA-Z0-9 ]*$/" class="form-control marg-bottom" placeholder="productName" ng-required="true">
+                        <div class="bg-danger" ng-show="LoginForm.id.$invalid && LoginForm.id.$touched"> Entar a valid id 4-10 digits</div>
+                        <br>
+
+                        <!-- price -->
+                        <label class="">Product Price:</label>
+                        <input type="number" name="price" ng-model="product.price" ng-maxlength="5" ng-minlength="1" class="form-control marg-bottom" placeholder="Price" ng-required="true">
+                        <div class="bg-danger" ng-show="LoginForm.username.$invalid && LoginForm.username.$touched"> Entar a valid username </div>
+                        <br>
+
+                        <label class="">Picture:</label>
+                        <input type="file" ngf-select ng-model="product.file" name="file" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="5MB" />
+                        <br>
+
+                        <select ng-model="product.category" class="form-control marg-bottom">
+                            <option  value="">-select Catecory-</option>
+                            <option ng-repeat="categories in categories" value="{{categories}}">{{categories}}</option>
+                    </select>
+
+                    </form>
+                </div>
+
+            </div>
+            <div class="shop">
+                <nav class="navbar-collapse collapse" role="navigation">
+                    <ul class="navbar-nav nav font-16">
+                        <li>
+                            <a class="border-right" ng-click="milk()">Milk &amp; Eggs</a>
+                        </li>
+                        <li>
+                            <a class="border-right" ng-click="fruit()">Vegetables &amp; Fruit</a>
+                        </li>
+                        <li>
+                            <a class="border-right" ng-click="milk()">Meat &amp; Fish</a>
+                        </li>
+                        <li>
+                            <a ng-click="milk()">Wine &amp; Drink</a>
+                        </li>
+                        <li>
+                            <a>
+                                <input class="form-control" type="search" id="mySearch" ng-model="search">
+                                <button class="btn btn-sm></" ng-click="search()">Search</button>
+                            </a>
+                        </li>
+
+                    </ul>
+                </nav>
+                <div ng-repeat="product in products">
+                    <div ng-include="'shop/productTemp.html'"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>

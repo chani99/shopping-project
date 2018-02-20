@@ -18,7 +18,7 @@ var MemberSchema = new Schema({
 
 // category schema-model
 var CategorySchema = new Schema({
-    _id: Schema.Types.ObjectId,
+    _id: Number,
     name: String
 });
 
@@ -44,7 +44,7 @@ var CartSchema = new Schema({
 var ProductSchema = new Schema({
     _id: Schema.Types.ObjectId,
     name: String,
-    category_id: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
+    category_id: [{ type: Schema.Types.ObjectId, ref: 'category' }],
     price: Number,
     image: String
 });
@@ -77,3 +77,4 @@ module.exports = {
 };
 
 // db.city.save({"_id":1, "city":"Jerusalem"},{"_id":2, "city":"Tel Aviv"},{"_id":3, "city":"Be'er Sheva"},{"_id":4, "city":"Ashdod"},{"_id":5, "city":"Haifa"},{"_id":6, "city":"Rishon Letzion"},{"_id":7, "city":"Afula"},{"_id":8, "city":"Eilat"},{"_id":9, "city":"Bnei Brak"},{"_id":10, "city":"Raanana"},)
+// findOneAndUpdate({ "_id" : 200178755 },{ $set: { "role" : "admin"}})

@@ -12,8 +12,8 @@ App.config(function($routeProvider) {
         .when('/shop', {
             templateUrl: 'shop/shop.html'
         })
-        .when('/shippers', {
-            templateUrl: 'shippers/shippers.view.html'
+        .when('/admin', {
+            templateUrl: 'admin/admin.html'
         })
         .otherwise({ redirectTo: 'home' });
 });

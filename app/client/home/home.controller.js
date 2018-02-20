@@ -1,7 +1,7 @@
 App.controller('login', function($scope, $rootScope, $location, appService, commonData) {
     $scope.user = {}
     $scope.userDetails = {};
-    $scope.userDetails.shopping_cart = {};
+    $scope.userDetails.shopping_cart = [];
 
     //Checks if a user is logged in
     let checkIflogedin = commonData.getData();
@@ -37,6 +37,10 @@ App.controller('login', function($scope, $rootScope, $location, appService, comm
                 }
             }
             checkCartStatus(res.data.member.cart.length);
+            if (res.data.member.role === "admin") {
+                $location.path("/admin");
+
+            }
         } else {
             $scope.loginErr = "wrong username or password";
         }
