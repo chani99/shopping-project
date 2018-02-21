@@ -8,7 +8,7 @@ var express = require('express'),
     login = require('./api/loginApi'),
     fileUpload = require('express-fileupload'),
     cookieParser = require('cookie-parser');
-    session = require('express-session');
+session = require('express-session');
 
 
 app.use(express.static('./app/client'));
@@ -34,13 +34,11 @@ con.once('open', function() {
 });
 
 app.use(cookieParser());
-
 app.use(session({
-    secret: 'somesecret',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true }
-}))
+    secret: "TKRv0IJs=HYqrvagQ#&!F!%V]Ww/4KiVs$s,<<MX",
+    resave: true,
+    saveUninitialized: true
+}));
 
 
 app.listen(port, function() {
