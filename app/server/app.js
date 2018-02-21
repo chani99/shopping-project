@@ -6,6 +6,7 @@ var express = require('express'),
     port = 3000,
     favicon = require('serve-favicon'),
     login = require('./api/loginApi'),
+    fileUpload = require('express-fileupload'),
     session = require('express-session');
 
 
@@ -19,7 +20,7 @@ app.use('/client', express.static(path.join(__dirname, './app/client')));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
+app.use(fileUpload());
 
 
 // db configuration

@@ -6,7 +6,6 @@ var router = express.Router();
 
 
 
-
 // router.use(function(req, res, next) {
 //     const adminRoutes = ['/admin'];
 //     const allowedRoutes = ['/login', '/', '/member', '/favicon.ico'];
@@ -28,6 +27,7 @@ var router = express.Router();
 // });
 
 router.use('/member', require('./membersApi'));
+router.use('/product', require('./produtcsApi'));
 
 router.get('/', function(req, res) {
 
@@ -74,3 +74,4 @@ router.get('/logout', function(req, res) {
 });
 
 module.exports = router;
+module.exports.sess;

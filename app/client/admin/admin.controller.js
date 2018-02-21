@@ -1,6 +1,6 @@
 App.controller('admin', function($scope, $location, commonData, appService) {
     $scope.categories = ["Milk & Eggs", "Vegetables & Fruits", "Meat & Fish", "Wine & Drinks"];
-    $scope.product={};
+    $scope.product = {};
 
     //Checks if a user is logged in
     let checkIflogedin = commonData.getData();
@@ -14,16 +14,27 @@ App.controller('admin', function($scope, $location, commonData, appService) {
 
     });
 
-    $scope.submit = function(product){
-        if(product.category && product.file){
-            var uploadUrl = "/upload";
-            fileUpload.uploadFileToUrl(product.file, uploadUrl, V, X);
-      
+    $scope.submit = function(product) {
+        if (product.category && product.file) {
+            appService.uploadFileToUrl(product.file, "product/upload", fillSucsses, onErr);
         }
         console.log(product);
 
     }
 
 
+    function fillSucsses(filename) {
+        $scope.product.file = filename;
+        appService.sendData('product/newProduct', $scope.product, newProductSucsses, onErr);
+
+    }
+
+    function onErr(err) {
+        alert(err);
+    }
+
+    function newProductSucsses() {
+        alert("new product was saved sucssesfully")
+    }
 
 });

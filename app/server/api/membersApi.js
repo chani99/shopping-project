@@ -1,9 +1,10 @@
 var memberCtrl = require('../controllers/member.controller.js');
 var express = require('express');
 var router = express.Router();
+let loginApi = require('./loginApi.js');
 
-let sess;
-
+// let ;
+let sess = loginApi.sess;
 
 router.use(function(req, res, next) {
     const allowedRoutes = ['/member/signUp', '/favicon.ico'];

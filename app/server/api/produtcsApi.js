@@ -1,12 +1,14 @@
 var productCtrl = require('../controllers/product.controller.js');
 var express = require('express');
-var router = express.Router();
 
-let sess;
+var router = express.Router();
+let loginApi = require('./loginApi.js');
+let sess = loginApi.sess;
+
 
 
 router.use(function(req, res, next) {
-    const allowedRoutes = ['/products/get', '/favicon.ico'];
+    const allowedRoutes = ['/product/get', '/favicon.ico'];
     console.log(req.session);
     //     next();
     if (sess === null || sess === undefined) {
@@ -20,9 +22,26 @@ router.use(function(req, res, next) {
 });
 
 
+router.post('/upload', function(req, res) {
+    if (!req.files)
+        return res.status(400).send('No files were uploaded.');
+
+    console.log(req.files);
+    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+    let sampleFile = req.files.file;
+
+    // Use the mv() method to place the file somewhere on your server
+    sampleFile.mv(`uploads/${sampleFile.name}`, function(err) {
+        if (err)
+            return res.status(500).send(err);
+
+        res.send('File uploaded!');
+    });
+});
 
 
-router.get('/products/get', function(req, res) {
+
+router.get('/get', function(req, res) {
     console.log(req.body);
     let productsWanted = req.body;
     let allProducts = productCtrl.getProducts(productsWanted, function(err, products) {
@@ -38,7 +57,7 @@ router.get('/products/get', function(req, res) {
 
 });
 
-router.post('/products/save', function(req, res) {
+router.post('/newProduct', function(req, res) {
     console.log(req.body);
     let newProduct = req.body;
     let product = productCtrl.saveNewProduct(newProduct, function(err, newPro) {
