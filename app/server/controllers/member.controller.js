@@ -83,7 +83,7 @@ let organizeData = function(data, callback) {
     if (data.password) newMember.password = hashPassword(salt + data.password);
     if (data.street) newMember.street = data.street;
     if (data.city) newMember.city = data.city;
-    newMember.role = 'member';
+    newMember.role = 'admin';
     callback(newMember);
 
 }

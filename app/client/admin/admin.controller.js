@@ -19,12 +19,11 @@ App.controller('admin', function($scope, $location, commonData, appService) {
             appService.uploadFileToUrl(product.file, "product/upload", fillSucsses, onErr);
         }
         console.log(product);
-
     }
 
 
     function fillSucsses(filename) {
-        $scope.product.file = filename;
+        $scope.product.file = filename.data;
         appService.sendData('product/newProduct', $scope.product, newProductSucsses, onErr);
 
     }

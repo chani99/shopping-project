@@ -56,7 +56,7 @@ App.service('appService', function($http) {
 
     }
 
-    this.uploadFileToUrl = function(file, uploadUrl) {
+    this.uploadFileToUrl = function(file, uploadUrl, onSuccess, onError ) {
         var fd = new FormData();
         fd.append('file', file);
 

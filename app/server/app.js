@@ -7,8 +7,8 @@ var express = require('express'),
     favicon = require('serve-favicon'),
     login = require('./api/loginApi'),
     fileUpload = require('express-fileupload'),
+    cookieParser = require('cookie-parser');
     session = require('express-session');
-
 
 
 app.use(express.static('./app/client'));
@@ -33,14 +33,14 @@ con.once('open', function() {
     console.log("connection created");
 });
 
-let sess;
+app.use(cookieParser());
+
 app.use(session({
     secret: 'somesecret',
     resave: false,
     saveUninitialized: true,
     cookie: { secure: true }
 }))
-
 
 
 app.listen(port, function() {

@@ -1,21 +1,18 @@
 var productCtrl = require('../controllers/product.controller.js');
 var express = require('express');
-
 var router = express.Router();
-let loginApi = require('./loginApi.js');
-let sess = loginApi.sess;
 
 
 
 router.use(function(req, res, next) {
-    const allowedRoutes = ['/product/get', '/favicon.ico'];
+    // const allowedRoutes = ['/product/get', '/favicon.ico'];
     console.log(req.session);
     //     next();
-    if (sess === null || sess === undefined) {
+    if (req.session === null || req.session === undefined) {
         res.send(401);
-    } else if (sess._id == req.body.data.userId && allowedRoutes.indexOf(req.originalUrl) > -1) {
+    } else if (req.session._id == req.body.data.userId && allowedRoutes.indexOf(req.originalUrl) > -1) {
         next();
-    } else if (sess._id == req.body.data.userId && sess.role == "admin") {
+    } else if (req.session._id == req.body.data.userId && req.session.role == "admin") {
         next();
     }
 
@@ -35,7 +32,7 @@ router.post('/upload', function(req, res) {
         if (err)
             return res.status(500).send(err);
 
-        res.send('File uploaded!');
+        res.send(req.files.file.name);
     });
 });
 

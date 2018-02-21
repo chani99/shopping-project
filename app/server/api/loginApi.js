@@ -5,7 +5,6 @@ var router = express.Router();
 
 
 
-
 // router.use(function(req, res, next) {
 //     const adminRoutes = ['/admin'];
 //     const allowedRoutes = ['/login', '/', '/member', '/favicon.ico'];
@@ -56,11 +55,10 @@ router.post('/login', function(req, res) {
 
         } else {
             console.log("login: " + logedin);
-            sess = req.session;
-            sess['user'] = logedin._doc.userName;
-            sess['role'] = logedin._doc.role;
-
-
+            req.session.user = logedin._doc.userName;
+            req.session.role = logedin._doc.role;
+            req.session._id = logedin._doc._id;
+            console.log(req.session);
             res.end(JSON.stringify({ login: true, member: { _id: logedin._doc._id, userName: logedin._doc.userName, role: logedin._doc.role, cart: logedin._doc.cart } }));
         }
     });
@@ -74,4 +72,3 @@ router.get('/logout', function(req, res) {
 });
 
 module.exports = router;
-module.exports.sess;

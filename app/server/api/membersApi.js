@@ -1,19 +1,17 @@
 var memberCtrl = require('../controllers/member.controller.js');
 var express = require('express');
 var router = express.Router();
-let loginApi = require('./loginApi.js');
 
 // let ;
-let sess = loginApi.sess;
 
 router.use(function(req, res, next) {
     const allowedRoutes = ['/member/signUp', '/favicon.ico'];
     console.log(req.session);
     if (allowedRoutes.indexOf(req.originalUrl) > -1) {
         next();
-    } else if (sess === null || sess === undefined) {
+    } else if (req.session === null || req.session === undefined) {
         res.send(401);
-    } else if (sess._id == req.body.data.userId) {
+    } else if (req.session._id == req.body.data.userId) {
         next();
     }
 
@@ -32,11 +30,10 @@ router.post('/signUp', function(req, res) {
 
         } else {
             console.log("exists: " + checkRes);
-            sess = req.session;
-            sess['user'] = checkRes._doc.userName;
-            sess['role'] = checkRes._doc.role;
-            sess['_id'] = checkRes._doc._id;
-            console.log(sess);
+            req.session['user'] = checkRes._doc.userName;
+            req.session['role'] = checkRes._doc.role;
+            req.session['_id'] = checkRes._doc._id;
+            console.log(req.session);
             res.end(JSON.stringify({ done: true, member: checkRes._doc._id }));
         }
     });
