@@ -1,5 +1,6 @@
 App.controller('admin', function($scope, $location, commonData, appService) {
     $scope.categories = ["Milk & Eggs", "Vegetables & Fruits", "Meat & Fish", "Wine & Drinks"];
+    $scope.product={};
 
     //Checks if a user is logged in
     let checkIflogedin = commonData.getData();
@@ -12,6 +13,16 @@ App.controller('admin', function($scope, $location, commonData, appService) {
         $location.path("/");
 
     });
+
+    $scope.submit = function(product){
+        if(product.category && product.file){
+            var uploadUrl = "/upload";
+            fileUpload.uploadFileToUrl(product.file, uploadUrl, V, X);
+      
+        }
+        console.log(product);
+
+    }
 
 
 

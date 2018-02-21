@@ -6,34 +6,37 @@
                 <span class="font-18">
                          <span class="glyphicon glyphicon-save-file"> </span> Admin Control Panel
                 </span>
-                <button class="glyphicon btn glyphicon-plus-sign float-right font-26" ng-click="newProduct=true"></button>
+                <button id="btnPlus" class="glyphicon btn glyphicon-plus-sign float-right font-26" ng-click="newProduct=true"></button>
                 <hr>
                 <div ng-show="newProduct">
                     <h3>New Product:</h3><br>
 
-                    <form name="LoginForm" class="form-signin" novalidate>
+                    <form name="productForm" class="form-signin" novalidate>
 
                         <!-- product name -->
 
                         <label class="">Product Name:</label>
                         <input type="text" name="product" ng-model="product.name" ng-maxlength="20" ng-minlength="2" ng-pattern="/^[a-zA-Z0-9 ]*$/" class="form-control marg-bottom" placeholder="productName" ng-required="true">
-                        <div class="bg-danger" ng-show="LoginForm.id.$invalid && LoginForm.id.$touched"> Entar a valid id 4-10 digits</div>
+                        <div class="bg-danger" ng-show="productForm.product.$invalid && productForm.product.$touched"> Entar a valid id 4-10 digits</div>
                         <br>
 
                         <!-- price -->
                         <label class="">Product Price:</label>
                         <input type="number" name="price" ng-model="product.price" ng-maxlength="5" ng-minlength="1" class="form-control marg-bottom" placeholder="Price" ng-required="true">
-                        <div class="bg-danger" ng-show="LoginForm.username.$invalid && LoginForm.username.$touched"> Entar a valid username </div>
+                        <div class="bg-danger" ng-show="productForm.price.$invalid && productForm.price.$touched"> Entar a valid username </div>
                         <br>
 
                         <label class="">Picture:</label>
-                        <input type="file" ngf-select ng-model="product.file" name="file" ngf-pattern="'image/*'" accept="image/*" ngf-max-size="5MB" />
+                        <input type="file" file-model="product.file" accept="image/*" />
+                        <!-- <div class="bg-danger" ng-show="!productForm.file.$touched"> Choose a file to upload </div> -->
                         <br>
 
-                        <select ng-model="product.category" class="form-control marg-bottom">
+                        <select ng-model="product.category" name="category" class="form-control marg-bottom">
                             <option  value="">-select Catecory-</option>
                             <option ng-repeat="categories in categories" value="{{categories}}">{{categories}}</option>
-                    </select>
+                        </select>
+                        <button class="btn btn-lg orange float-right" ng-click="submit(product)" ng-disabled="productForm.$invalid">SUBMIT</button><br>
+   
 
                     </form>
                 </div>
