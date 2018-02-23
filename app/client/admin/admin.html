@@ -18,25 +18,30 @@
                         <label class="">Product Name:</label>
                         <input type="text" name="product" ng-model="product.name" ng-maxlength="20" ng-minlength="2" ng-pattern="/^[a-zA-Z0-9 ]*$/" class="form-control marg-bottom" placeholder="productName" ng-required="true">
                         <div class="bg-danger" ng-show="productForm.product.$invalid && productForm.product.$touched"> Entar a valid id 4-10 digits</div>
-                        <br>
+                        <hr>
 
                         <!-- price -->
                         <label class="">Product Price:</label>
                         <input type="number" name="price" ng-model="product.price" ng-maxlength="5" ng-minlength="1" class="form-control marg-bottom" placeholder="Price" ng-required="true">
                         <div class="bg-danger" ng-show="productForm.price.$invalid && productForm.price.$touched"> Entar a valid username </div>
-                        <br>
+                        <hr>
 
-                        <label class="">Picture:</label>
-                        <input type="file" file-model="product.file" accept="image/*" />
-                        <!-- <div class="bg-danger" ng-show="!productForm.file.$touched"> Choose a file to upload </div> -->
-                        <br>
-
+                        <label class="">Category:</label><br>
                         <select ng-model="product.category" name="category" class="form-control marg-bottom">
                             <option  value="">-select Catecory-</option>
-                            <option ng-repeat="categories in categories" value="{{categories}}">{{categories}}</option>
+                            <option ng-repeat="categories in categories" value="$index">{{categories}}</option>
                         </select>
-                        <button class="btn btn-lg orange float-right" ng-click="submit(product)" ng-disabled="productForm.$invalid">SUBMIT</button><br>
-   
+
+                        <hr>
+                        <label class="">Picture:</label>
+                        <input type="file" file-model="file" accept="image/*" />
+                        <!-- <div class="bg-danger" ng-show="!productForm.file.$touched"> Choose a file to upload </div> -->
+                        <hr>
+
+                        <button class="btn btn-lg orange float-right" ng-click="submit()" ng-disabled="productForm.$invalid">SUBMIT</button><br>
+
+
+
 
                     </form>
                 </div>
@@ -46,16 +51,16 @@
                 <nav class="navbar-collapse collapse" role="navigation">
                     <ul class="navbar-nav nav font-16">
                         <li>
-                            <a class="border-right" ng-click="milk()">Milk &amp; Eggs</a>
+                            <a class="border-right" ng-click="find(milk)">Milk &amp; Eggs</a>
                         </li>
                         <li>
-                            <a class="border-right" ng-click="fruit()">Vegetables &amp; Fruit</a>
+                            <a class="border-right" ng-click="find(fruit)">Vegetables &amp; Fruit</a>
                         </li>
                         <li>
-                            <a class="border-right" ng-click="milk()">Meat &amp; Fish</a>
+                            <a class="border-right" ng-click="find(meat)">Meat &amp; Fish</a>
                         </li>
                         <li>
-                            <a ng-click="milk()">Wine &amp; Drink</a>
+                            <a ng-click="find(drink)">Wine &amp; Drink</a>
                         </li>
                         <li>
                             <a>

@@ -1,13 +1,15 @@
-App.controller('login', function($scope, $rootScope, $location, appService, commonData) {
+App.controller('login', function($scope, $rootScope, $window, $location, appService) {
     $scope.user = {}
     $scope.userDetails = {};
     $scope.userDetails.shopping_cart = [];
 
     //Checks if a user is logged in
-    let checkIflogedin = commonData.getData();
-    if (checkIflogedin.logedin) $scope.isLogedin = checkIflogedin.logedin;
-    if (checkIflogedin.name) $scope.userDetails.name = checkIflogedin.name;
-    if (checkIflogedin.logedin) checkCartStatus(checkIflogedin.shopping_cart.length);
+    let checkIflogedin = JSON.parse($window.sessionStorage.getItem("user"));
+    if (checkIflogedin) {
+        if (checkIflogedin.logedin) $scope.isLogedin = checkIflogedin.logedin;
+        if (checkIflogedin.name) $scope.userDetails.name = checkIflogedin.name;
+        if (checkIflogedin.logedin) checkCartStatus(checkIflogedin.cart.length);
+    }
 
 
     //listens to a broascast logout event
@@ -15,7 +17,9 @@ App.controller('login', function($scope, $rootScope, $location, appService, comm
         $scope.isLogedin = args;
         $scope.userDetails = {};
         $scope.userDetails.shopping_cart = {};
-        commonData.setData(false, {});
+        $window.sessionStorage.removeItem("user");
+        $window.sessionStorage.setItem("logedin", false);
+
     });
 
     //sends login data to sendData service
@@ -28,7 +32,8 @@ App.controller('login', function($scope, $rootScope, $location, appService, comm
         if (res.data.login === true) {
             $scope.isLogedin = true;
             $rootScope.$broadcast('logedin', (res.data.member));
-            commonData.setData(true, res.data.member);
+            let userForSession = { userName: res.data.member.userName, cart: res.data.member.cart, role: res.data.member.role, logedin: true };
+            $window.sessionStorage.setItem("user", JSON.stringify(userForSession));
             $scope.userDetails = {
                 name: res.data.member.userName,
                 shopping_cart: {

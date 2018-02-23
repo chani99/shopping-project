@@ -1,4 +1,4 @@
-App.controller('signUp', function($scope, $rootScope, $location, appService, commonData, modelsServc) {
+App.controller('signUp', function($scope, $rootScope, $location, $window, appService, modelsServc) {
     $scope.newUser = {};
     $scope.city = ["jerusalem", "Tel Aviv", "Hiafa", "Beer Seva", "Eilat", "Afula", "Kfar Saba", "Petach Tikva", "Raanana", "Beit Shemesh"];
     let userId;
@@ -37,7 +37,9 @@ App.controller('signUp', function($scope, $rootScope, $location, appService, com
             console.log(res.data)
             userId = res.data.member;
             $scope.step2 = false;
-            commonData.setData(true, res.data.member);
+            // commonData.setData(true, res.data.member);
+            let userForSession = { userName: res.data.member.userName, cart: res.data.member.cart, role: res.data.member.role, logedin: true };
+            $window.sessionStorage.setItem("user", JSON.stringify(userForSession));
             $rootScope.$broadcast('logedin', (res.data.member));
             $location.path("/");
 

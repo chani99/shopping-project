@@ -1,15 +1,19 @@
-App.controller('shop', function($scope, $rootScope, $location, commonData, appService) {
+App.controller('shop', function($scope, $rootScope, $window, $location, appService) {
     //Checks if a user is logged in
-    let checkIflogedin = commonData.getData();
-    if (!checkIflogedin.logedin) $location.path("/");
-    if ((checkIflogedin.shopping_cart) && (checkIflogedin.shopping_cart.length <= 0)) $scope.empty = true;
+    let checkIflogedin = JSON.parse($window.sessionStorage.getItem("user"));
+    if (checkIflogedin) {
+        if (!checkIflogedin.logedin) $location.path("/");;
+        if ((checkIflogedin.cart) && (checkIflogedin.cart.length <= 0)) $scope.empty = true;
+    }
 
     //listens to a broascast logout event
     $scope.$on('logout', function(event, args) {
-        commonData.setData(false, {});
+        $window.sessionStorage.removeItem("user");
+        $window.sessionStorage.setItem("logedin", false);
         $location.path("/");
 
     });
+
     $scope.content = 'Hello World';
     $scope.products = [{
             name: "apple",

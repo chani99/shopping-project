@@ -17,6 +17,7 @@
     "express-session": "^1.15.6",
     "latest": "^0.2.0",
     "mongoose": "^5.0.4",
+    "mongoose-auto-increment": "^5.0.1",
     "route": "^0.2.5",
     "serve-favicon": "^2.4.5"
   },

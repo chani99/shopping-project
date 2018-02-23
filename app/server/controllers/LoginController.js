@@ -7,8 +7,8 @@ function checkUser(user, callback) {
     let salt = "myApp##"
 
     hashPassword(salt + user.data.password, function(pass) {
-        console.log(user.data.name);
-        console.log(pass);
+        // console.log(user.data.name);
+        // console.log(pass);
 
         model.Member.findOne({
                 userName: user.data.name,

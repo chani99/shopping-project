@@ -1,39 +1,42 @@
-App.controller('admin', function($scope, $location, commonData, appService) {
+App.controller('admin', function($scope, $location, $window, appService) {
     $scope.categories = ["Milk & Eggs", "Vegetables & Fruits", "Meat & Fish", "Wine & Drinks"];
     $scope.product = {};
+    $scope.file = {};
 
     //Checks if a user is logged in
-    let checkIflogedin = commonData.getData();
-    if (!checkIflogedin.logedin) $location.path("/");
-    if ((checkIflogedin.shopping_cart) && (checkIflogedin.shopping_cart.length <= 0));
+    let checkIflogedin = JSON.parse($window.sessionStorage.getItem("user"));
+    if (checkIflogedin) {
+        if ((!checkIflogedin.logedin) && (!checkIflogedin.role == 'admin')) $location.path("/");
+    }
 
     //listens to a broascast logout event
     $scope.$on('logout', function(event, args) {
-        commonData.setData(false, {});
+        $window.sessionStorage.removeItem("user");
+        $window.sessionStorage.setItem("logedin", false);
         $location.path("/");
 
     });
 
-    $scope.submit = function(product) {
-        if (product.category && product.file) {
-            appService.uploadFileToUrl(product.file, "product/upload", fillSucsses, onErr);
+    $scope.submit = function() {
+        if ($scope.product.category && $scope.file) {
+            appService.uploadProduct($scope.product, $scope.file, checkIflogedin.userName, "product/upload", newProductSucsses, onErr);
         }
-        console.log(product);
+        console.log($scope.product);
     }
 
 
-    function fillSucsses(filename) {
-        $scope.product.file = filename.data;
-        appService.sendData('product/newProduct', $scope.product, newProductSucsses, onErr);
+    // function fillSucsses(filename) {
+    //     $scope.product.file = filename.data;
+    //     appService.sendData('product/newProduct', $scope.product, newProductSucsses, onErr);
 
+    // }
+    function newProductSucsses() {
+        alert("new product was saved sucssesfully");
     }
 
     function onErr(err) {
         alert(err);
     }
 
-    function newProductSucsses() {
-        alert("new product was saved sucssesfully")
-    }
 
 });

@@ -22,8 +22,8 @@ function getProducts(type, callback) {
 
 
 
-function saveNewProduct(product, callback) {
-    organizeData(product.data, function(productsForSave) { //if both are ok then save new member
+function saveNewProduct(product, fileName, callback) {
+    organizeData(product, fileName, function(productsForSave) { //if both are ok then save new member
         productsForSave.save(function(err, member) {
             if (err) {
                 callback('Error saving member!')
@@ -45,13 +45,13 @@ module.exports.saveNewProduct = saveNewProduct;
 
 
 
-let organizeData = function(data, callback) {
+let organizeData = function(data, fileName, callback) {
     var newProducts = new model.Product();
     if (data._id) newProducts._id = data._id;
     if (data.name) newProducts.name = data.name;
-    if (data.category_id) newProducts.category_id = data.category_id;
+    if (data.category_id) newProducts.category_id.push(data.category_id);
     if (data.price) newProducts.price = data.price;
-    if (data.image) newProducts.image = data.image;
+    if (fileName) newProducts.image = fileName;
     callback(newProducts);
 
 }

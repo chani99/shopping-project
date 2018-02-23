@@ -45,7 +45,7 @@ router.get('/city', function(req, res) {
 });
 
 router.post('/login', function(req, res) {
-    console.log(req.body);
+    // console.log(req.body);
     let user = req.body;
     let checkUser = loginCtrl.checkUser(user, function(err, logedin) {
         if (err) {
@@ -54,11 +54,12 @@ router.post('/login', function(req, res) {
 
 
         } else {
-            console.log("login: " + logedin);
-            req.session.user = logedin._doc.userName;
-            req.session.role = logedin._doc.role;
-            req.session._id = logedin._doc._id;
-            console.log(req.session);
+            // console.log("login: " + logedin);
+            let session = req.session;
+            session["user"] = logedin._doc.userName;
+            session["role"] = logedin._doc.role;
+            session["_id"] = logedin._doc._id;
+            console.log("Session: %j", session);
             res.end(JSON.stringify({ login: true, member: { _id: logedin._doc._id, userName: logedin._doc.userName, role: logedin._doc.role, cart: logedin._doc.cart } }));
         }
     });
