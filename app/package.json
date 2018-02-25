@@ -19,7 +19,8 @@
     "mongoose": "^5.0.4",
     "mongoose-auto-increment": "^5.0.1",
     "route": "^0.2.5",
-    "serve-favicon": "^2.4.5"
+    "serve-favicon": "^2.4.5",
+    "uuid": "^3.2.1"
   },
   "devDependencies": {
     "http": "0.0.0",

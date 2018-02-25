@@ -16,7 +16,7 @@
                         <!-- product name -->
 
                         <label class="">Product Name:</label>
-                        <input type="text" name="product" ng-model="product.name" ng-maxlength="20" ng-minlength="2" ng-pattern="/^[a-zA-Z0-9 ]*$/" class="form-control marg-bottom" placeholder="productName" ng-required="true">
+                        <input type="text" name="product" ng-model="product.name" ng-maxlength="30" ng-minlength="2" ng-pattern="/^[a-zA-Zא-ת 0-9]*$/" class="form-control marg-bottom" placeholder="productName" ng-required="true">
                         <div class="bg-danger" ng-show="productForm.product.$invalid && productForm.product.$touched"> Entar a valid id 4-10 digits</div>
                         <hr>
 
@@ -29,7 +29,7 @@
                         <label class="">Category:</label><br>
                         <select ng-model="product.category" name="category" class="form-control marg-bottom">
                             <option  value="">-select Catecory-</option>
-                            <option ng-repeat="categories in categories" value="$index">{{categories}}</option>
+                            <option ng-repeat="(key,value) in categories" value={{key}}>{{value}}</option>
                         </select>
 
                         <hr>
@@ -51,16 +51,16 @@
                 <nav class="navbar-collapse collapse" role="navigation">
                     <ul class="navbar-nav nav font-16">
                         <li>
-                            <a class="border-right" ng-click="find(milk)">Milk &amp; Eggs</a>
+                            <a class="border-right" ng-click="find(0)">Milk &amp; Eggs</a>
                         </li>
                         <li>
-                            <a class="border-right" ng-click="find(fruit)">Vegetables &amp; Fruit</a>
+                            <a class="border-right" ng-click="find(1)">Vegetables &amp; Fruit</a>
                         </li>
                         <li>
-                            <a class="border-right" ng-click="find(meat)">Meat &amp; Fish</a>
+                            <a class="border-right" ng-click="find(2)">Meat &amp; Fish</a>
                         </li>
                         <li>
-                            <a ng-click="find(drink)">Wine &amp; Drink</a>
+                            <a ng-click="find(3)">Wine &amp; Drink</a>
                         </li>
                         <li>
                             <a>

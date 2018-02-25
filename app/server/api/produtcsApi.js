@@ -1,11 +1,12 @@
 var productCtrl = require('../controllers/product.controller.js');
 var express = require('express');
 var router = express.Router();
+var uuidv4 = require('uuid/v4');
 
 
 
 router.use(function(req, res, next) {
-    const allowedRoutes = ['/product/get', '/favicon.ico'];
+    const allowedRoutes = ['/product/find', '/favicon.ico'];
     let session = req.session;
 
     console.log("Session Product: %j", session);
@@ -29,9 +30,10 @@ router.post('/upload', function(req, res) {
     console.log(req.files);
     // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
     let sampleFile = req.files.productImage;
+    let filename = uuidv4() + '.jpg'
 
     // Use the mv() method to place the file somewhere on your server
-    sampleFile.mv(`uploads/${sampleFile.name}`, function(err) {
+    sampleFile.mv(`uploads/${filename}`, function(err) {
         if (err) {
             return res.status(500).send(err);
         } else {
@@ -52,11 +54,10 @@ router.post('/upload', function(req, res) {
 });
 
 
-
-router.get('/get', function(req, res) {
+router.post('/find', function(req, res) {
     console.log(req.body);
-    let productsWanted = req.body;
-    let allProducts = productCtrl.getProducts(productsWanted, function(err, products) {
+    let categorey = req.body.data;
+    let allProducts = productCtrl.getProducts(categorey, function(err, products) {
         if (err) {
             console.log(err);
             res.end(JSON.stringify(err));

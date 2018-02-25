@@ -13,6 +13,33 @@ App.service('appService', function($http) {
     }
 
 
+    this.getProducts = function(path, userParams, userName, onSuccess, onError) {
+        $http({
+            url: 'http://localhost:3000/' + path,
+            method: 'POST',
+            data: {
+                data: userParams,
+                userName: userName
+
+            }
+
+        }).then(onSuccess, onError);
+    }
+
+
+    // this.getProducts = function(path, userParams, userName, onSuccess, onError) {
+    //     let data = {
+    //         data: userParams,
+    //         userName: userName
+    //     }
+    //     $http.post('http://localhost:3000/' + path, data, {
+    //             transformRequest: angular.identity,
+    //             headers: { 'Content-Type': undefined }
+    //         }) // PASS THE DATA AS THE SECOND PARAMETER
+    //         .then(onSuccess, onError);
+    // }
+
+
     this.getData = function(path, Params, onSuccess, onError) {
         $http({
             url: 'http://localhost:3000/' + path,

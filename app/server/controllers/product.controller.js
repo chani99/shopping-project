@@ -4,9 +4,8 @@ let model = require("../models/Model.Schemas");
 
 // get products from db by type
 function getProducts(type, callback) {
-    model.Member.find({
-            category_id: type.data
-        },
+    model.Product.find(
+
         function(err, products) {
             if (err) {
                 callback(404, 'Error Occurred!')
@@ -49,7 +48,7 @@ let organizeData = function(data, fileName, callback) {
     var newProducts = new model.Product();
     if (data._id) newProducts._id = data._id;
     if (data.name) newProducts.name = data.name;
-    if (data.category_id) newProducts.category_id.push(data.category_id);
+    if (data.category) newProducts.category_id.push(data.category);
     if (data.price) newProducts.price = data.price;
     if (fileName) newProducts.image = fileName;
     callback(newProducts);

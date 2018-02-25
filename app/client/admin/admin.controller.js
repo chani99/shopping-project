@@ -17,6 +17,7 @@ App.controller('admin', function($scope, $location, $window, appService) {
 
     });
 
+    //upload new product
     $scope.submit = function() {
         if ($scope.product.category && $scope.file) {
             appService.uploadProduct($scope.product, $scope.file, checkIflogedin.userName, "product/upload", newProductSucsses, onErr);
@@ -24,19 +25,21 @@ App.controller('admin', function($scope, $location, $window, appService) {
         console.log($scope.product);
     }
 
-
-    // function fillSucsses(filename) {
-    //     $scope.product.file = filename.data;
-    //     appService.sendData('product/newProduct', $scope.product, newProductSucsses, onErr);
-
-    // }
     function newProductSucsses() {
         alert("new product was saved sucssesfully");
     }
 
     function onErr(err) {
-        alert(err);
+        alert(JSON.stringify(err));
     }
 
+    $scope.find = function(category) {
+        appService.getProducts('product/find', category, checkIflogedin.userName, findSucsses, onErr);
+
+    }
+
+    function findSucsses(res) {
+        console.log(res);
+    }
 
 });

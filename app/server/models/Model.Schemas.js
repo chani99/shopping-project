@@ -2,14 +2,15 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 autoIncrement = require('mongoose-auto-increment');
 
+// db configuration
 var db = 'mongodb://127.0.0.1/north';
 mongoose.connect(db);
 var con = mongoose.connection;
-
 con.on('error', console.error.bind(console, 'connection error:'));
 con.once('open', function() {
     console.log("connection created");
 });
+
 // var connection = mongoose.createConnection("mongodb://localhost/myDatabase");
 
 autoIncrement.initialize(con);
@@ -58,7 +59,7 @@ var CartSchema = new Schema({
 var ProductSchema = new Schema({
     _id: { type: Schema.Types.ObjectId, ref: 'Author' },
     name: String,
-    category_id: [{ type: Schema.Types.ObjectId, ref: 'category' }],
+    category_id: [CategorySchema],
     price: Number,
     image: String
 });
