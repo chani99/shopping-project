@@ -3,25 +3,26 @@ var express = require('express');
 var router = express.Router();
 var uuidv4 = require('uuid/v4');
 
+let data;
 
+// router.use(function(req, res, next) {
+//     const allowedRoutes = ['/product/find/:data', '/favicon.ico'];
+//     let session = req.session;
+//     data = JSON.parse(req.query.data);
+    
+//     console.log("Session Product: %j", session);
+//     console.log("body:  %j", req);
 
-router.use(function(req, res, next) {
-    const allowedRoutes = ['/product/find', '/favicon.ico'];
-    let session = req.session;
+//         next();
+//     if (req.session === null || req.session === undefined) {
+//         res.send(401);
+//     } else if ((req.session.user == req.body.userName || req.session.user == data.userName)  &&  (allowedRoutes.indexOf(req.originalUrl)) > -1) {
+//         next();
+//     } else if ((req.session.user == req.body.userName || req.session.user == data.userName)  && req.session.role == "admin") {
+//         next();
+//     }
 
-    console.log("Session Product: %j", session);
-    console.log("body:  %j", req);
-
-    //     next();
-    if (req.session === null || req.session === undefined) {
-        res.send(401);
-    } else if (req.session.user == req.body.userName && allowedRoutes.indexOf(req.originalUrl) > -1) {
-        next();
-    } else if (req.session.user == req.body.userName && req.session.role == "admin") {
-        next();
-    }
-
-});
+// });
 
 
 router.post('/upload', function(req, res) {
@@ -39,7 +40,7 @@ router.post('/upload', function(req, res) {
         } else {
 
             let newProduct = req.body;
-            let product = productCtrl.saveNewProduct(newProduct, req.files.productImage.name, function(err, newPro) {
+            let product = productCtrl.saveNewProduct(newProduct, filename, function(err, newPro) {
                 if (err) {
                     console.log(err);
                     res.end(JSON.stringify({ done: false, why: err }));
@@ -53,10 +54,20 @@ router.post('/upload', function(req, res) {
     });
 });
 
+function middleware(req, res, next){
+        data = JSON.parse(req.query.data);
 
-router.post('/find', function(req, res) {
-    console.log(req.body);
-    let categorey = req.body.data;
+ if (req.session.user == data.userName){
+    next();
+}
+}
+
+
+
+router.get('/find', middleware, function(req, res, next) {
+
+    console.log(req.query);
+    let categorey = JSON.parse(req.query.data).id;
     let allProducts = productCtrl.getProducts(categorey, function(err, products) {
         if (err) {
             console.log(err);

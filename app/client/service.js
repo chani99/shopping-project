@@ -13,17 +13,16 @@ App.service('appService', function($http) {
     }
 
 
+
     this.getProducts = function(path, userParams, userName, onSuccess, onError) {
-        $http({
-            url: 'http://localhost:3000/' + path,
-            method: 'POST',
-            data: {
-                data: userParams,
-                userName: userName
-
+        $http.get('http://localhost:3000/' + path, {
+            params: {
+                data: {id: userParams,
+                userName: userName}
             }
-
         }).then(onSuccess, onError);
+
+
     }
 
 
