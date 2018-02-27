@@ -59,7 +59,7 @@ var CartSchema = new Schema({
 var ProductSchema = new Schema({
     _id: { type: Schema.Types.ObjectId, ref: 'Author' },
     name: String,
-    category_id: [CategorySchema],
+    category_id: { type: Number, ref: 'category' },
     price: Number,
     image: String
 });

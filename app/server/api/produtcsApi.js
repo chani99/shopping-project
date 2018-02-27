@@ -9,7 +9,7 @@ let data;
 //     const allowedRoutes = ['/product/find/:data', '/favicon.ico'];
 //     let session = req.session;
 //     data = JSON.parse(req.query.data);
-    
+
 //     console.log("Session Product: %j", session);
 //     console.log("body:  %j", req);
 
@@ -34,7 +34,7 @@ router.post('/upload', function(req, res) {
     let filename = uuidv4() + '.jpg'
 
     // Use the mv() method to place the file somewhere on your server
-    sampleFile.mv(`uploads/${filename}`, function(err) {
+    sampleFile.mv(`app/client/uploads/${filename}`, function(err) {
         if (err) {
             return res.status(500).send(err);
         } else {
@@ -54,17 +54,17 @@ router.post('/upload', function(req, res) {
     });
 });
 
-function middleware(req, res, next){
-        data = JSON.parse(req.query.data);
+function findmiddleware(req, res, next) {
+    data = JSON.parse(req.query.data);
 
- if (req.session.user == data.userName){
-    next();
+    if (req.session.user == data.userName) {
+        next();
+    }
 }
-}
 
 
 
-router.get('/find', middleware, function(req, res, next) {
+router.get('/find', findmiddleware, function(req, res, next) {
 
     console.log(req.query);
     let categorey = JSON.parse(req.query.data).id;
@@ -80,6 +80,7 @@ router.get('/find', middleware, function(req, res, next) {
     });
 
 });
+
 
 // router.post('/newProduct', function(req, res) {
 //     console.log(req.body);

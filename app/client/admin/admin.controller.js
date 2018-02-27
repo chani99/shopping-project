@@ -40,6 +40,7 @@ App.controller('admin', function($scope, $location, $window, appService) {
 
     function findSucsses(res) {
         console.log(res);
+        $scope.products = res.data;
     }
 
 });
