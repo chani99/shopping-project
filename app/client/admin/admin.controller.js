@@ -2,6 +2,7 @@ App.controller('admin', function($scope, $location, $window, appService) {
     $scope.categories = ["Milk & Eggs", "Vegetables & Fruits", "Meat & Fish", "Wine & Drinks"];
     $scope.product = {};
     $scope.file = {};
+    $scope.choosen = {};
 
     //Checks if a user is logged in
     let checkIflogedin = JSON.parse($window.sessionStorage.getItem("user"));
@@ -17,6 +18,22 @@ App.controller('admin', function($scope, $location, $window, appService) {
 
     });
 
+    $scope.shownewProduct = function() {
+        $scope.newProduct = true;
+        $scope.title = "New Product";
+        $scope.choosen = {};
+        $scope.imageSrc = false;
+    }
+
+    $scope.getFile = function() {
+        $scope.progress = 0;
+        fileReader.readAsDataUrl($scope.file, $scope)
+            .then(function(result) {
+                $scope.imageSrc = result;
+            });
+    };
+
+
     //upload new product
     $scope.submit = function() {
         if ($scope.product.category && $scope.file) {
@@ -26,6 +43,7 @@ App.controller('admin', function($scope, $location, $window, appService) {
     }
 
     function newProductSucsses() {
+        $scope.newProduct = false;
         alert("new product was saved sucssesfully");
     }
 
@@ -34,6 +52,7 @@ App.controller('admin', function($scope, $location, $window, appService) {
     }
 
     $scope.find = function(category) {
+        $scope.newProduct = false;
         appService.getProducts('product/find', category, checkIflogedin.userName, findSucsses, onErr);
 
     }
@@ -43,4 +62,17 @@ App.controller('admin', function($scope, $location, $window, appService) {
         $scope.products = res.data;
     }
 
+    $scope.chooseItem = function(choosenProduct) {
+        console.log(choosenProduct);
+        $scope.title = "Update Product";
+        $scope.choosen.name = choosenProduct.name;
+        $scope.choosen.price = choosenProduct.price;
+        $scope.choosen.category_id = choosenProduct.category_id;
+        $scope.newProduct = true;
+        $scope.imageSrc = "../uploads/" + choosenProduct.image;
+
+
+
+
+    }
 });

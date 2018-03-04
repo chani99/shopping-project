@@ -6,36 +6,41 @@
                 <span class="font-18">
                          <span class="glyphicon glyphicon-save-file"> </span> Admin Control Panel
                 </span>
-                <button id="btnPlus" class="glyphicon btn glyphicon-plus-sign float-right font-26" ng-click="newProduct=true"></button>
+                <button id="btnPlus" class="glyphicon btn glyphicon-plus-sign float-right font-26" ng-click=shownewProduct()></button>
                 <hr>
                 <div ng-show="newProduct">
-                    <h3>New Product:</h3><br>
+                    <h3>{{title}}</h3><br>
 
                     <form name="productForm" class="form-signin" novalidate>
 
                         <!-- product name -->
 
                         <label class="">Product Name:</label>
-                        <input type="text" name="product" ng-model="product.name" ng-maxlength="30" ng-minlength="2" ng-pattern="/^[a-zA-Zא-ת 0-9]*$/" class="form-control marg-bottom" placeholder="productName" ng-required="true">
+                        <input type="text" name="product" ng-model="product.name" ng-value="choosen.name" ng-maxlength="30" ng-minlength="2" ng-pattern="/^[a-zA-Zא-ת 0-9]*$/" class="form-control marg-bottom" placeholder="productName" ng-required="true">
                         <div class="bg-danger" ng-show="productForm.product.$invalid && productForm.product.$touched"> Entar a valid id 4-10 digits</div>
                         <hr>
 
                         <!-- price -->
                         <label class="">Product Price:</label>
-                        <input type="number" name="price" ng-model="product.price" ng-maxlength="5" ng-minlength="1" class="form-control marg-bottom" placeholder="Price" ng-required="true">
+                        <input type="number" name="price" ng-model="product.price" ng-value="choosen.price" ng-maxlength="5" ng-minlength="1" class="form-control marg-bottom" placeholder="Price" ng-required="true">
                         <div class="bg-danger" ng-show="productForm.price.$invalid && productForm.price.$touched"> Entar a valid username </div>
                         <hr>
 
                         <label class="">Category:</label><br>
                         <select ng-model="product.category" name="category" class="form-control marg-bottom">
                             <option  value="">-select Catecory-</option>
-                            <option ng-repeat="(key,value) in categories" value={{key}}>{{value}}</option>
+                            <option ng-repeat="(key,value) in categories" ng-selected="key == choosen.category_id" value={{key}}>{{value}} </option>
                         </select>
 
                         <hr>
                         <label class="">Picture:</label>
                         <input type="file" file-model="file" accept="image/*" />
                         <!-- <div class="bg-danger" ng-show="!productForm.file.$touched"> Choose a file to upload </div> -->
+                        <b>Preview:</b><br />
+                        <i ng-hide="imageSrc">No image choosed</i>
+                        <img class="newImage" ng-src="{{imageSrc}}" /><br/>
+
+
                         <hr>
 
                         <button class="btn btn-lg orange float-right" ng-click="submit()" ng-disabled="productForm.$invalid">SUBMIT</button><br>
