@@ -3,6 +3,7 @@ App.controller('admin', function($scope, $location, $window, appService) {
     $scope.product = {};
     $scope.file = {};
     $scope.choosen = {};
+    $scope.imageSrc = "";
 
     //Checks if a user is logged in
     let checkIflogedin = JSON.parse($window.sessionStorage.getItem("user"));
@@ -19,31 +20,61 @@ App.controller('admin', function($scope, $location, $window, appService) {
     });
 
     $scope.shownewProduct = function() {
+        $('.form-signin')[0].reset();
+        $("#fileControl").val('');
+        $scope.productForm.$setUntouched();
         $scope.newProduct = true;
         $scope.title = "New Product";
         $scope.choosen = {};
         $scope.imageSrc = false;
     }
 
-    $scope.getFile = function() {
-        $scope.progress = 0;
-        fileReader.readAsDataUrl($scope.file, $scope)
-            .then(function(result) {
-                $scope.imageSrc = result;
-            });
-    };
+
+    $scope.setFile = function(element) {
+        $scope.currentFile = element.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function(event) {
+                $scope.imageSrc = event.target.result
+                $scope.$apply()
+
+            }
+            // when the file is read it triggers the onload event above.
+        reader.readAsDataURL(element.files[0]);
+    }
+
+
 
 
     //upload new product
-    $scope.submit = function() {
-        if ($scope.product.category && $scope.file) {
-            appService.uploadProduct($scope.product, $scope.file, checkIflogedin.userName, "product/upload", newProductSucsses, onErr);
+    $scope.submit = function(title) {
+        switch (title) {
+            case "New Product":
+                if ($scope.product.category && $scope.file) {
+                    appService.uploadProduct($scope.product, $scope.file, checkIflogedin.userName, "product/upload", newProductSucsses, onErr);
+                }
+                break;
+            case "Update Product":
+
+                if (($.isEmptyObject($scope.product)) && ($.isEmptyObject($scope.file))) {
+                    alert("No changes were made");
+
+                } else {
+                    $scope.product._id = $scope.choosen._id;
+                    appService.updateProduct($scope.product, $scope.file, checkIflogedin.userName, "product/update", newProductSucsses, onErr);
+
+                }
+                break;
         }
+
         console.log($scope.product);
     }
 
     function newProductSucsses() {
+        $scope.file = "";
         $scope.newProduct = false;
+        $scope.product = {};
+        // $('.form-signin')[0].reset();
         alert("new product was saved sucssesfully");
     }
 
@@ -64,10 +95,16 @@ App.controller('admin', function($scope, $location, $window, appService) {
 
     $scope.chooseItem = function(choosenProduct) {
         console.log(choosenProduct);
+        $("#fileControl").val('');
         $scope.title = "Update Product";
+        $scope.productForm.$setPristine();
+        $scope.productForm.price = choosenProduct.price;
+        $scope.productForm.product = choosenProduct.name;
         $scope.choosen.name = choosenProduct.name;
         $scope.choosen.price = choosenProduct.price;
         $scope.choosen.category_id = choosenProduct.category_id;
+        $scope.choosen._id = choosenProduct._id;
+
         $scope.newProduct = true;
         $scope.imageSrc = "../uploads/" + choosenProduct.image;
 

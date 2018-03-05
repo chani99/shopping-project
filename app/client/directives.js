@@ -15,18 +15,18 @@ App.directive('fileModel', ['$parse', function($parse) {
     };
 }]);
 
-App.directive("ngFileSelect", function() {
+// App.directive("ngFileSelect", function() {
 
-    return {
-        link: function($scope, el) {
+//     return {
+//         link: function($scope, el) {
 
-            el.bind("change", function(e) {
+//             el.bind("change", function(e) {
 
-                $scope.file = (e.srcElement || e.target).files[0];
-                $scope.getFile();
-            })
+//                 $scope.file = (e.srcElement || e.target).files[0];
+//                 $scope.getFile();
+//             })
 
-        }
+//         }
 
-    }
-})
+//     }
+// })

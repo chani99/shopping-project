@@ -42,8 +42,14 @@ function saveNewProduct(product, fileName, callback) {
 
 }
 
+function updateProduct(updateProduct, callback) {
+
+}
+
+
 module.exports.getProducts = getProducts;
 module.exports.saveNewProduct = saveNewProduct;
+module.exports.updateProduct = updateProduct;
 
 
 

@@ -34,18 +34,21 @@
 
                         <hr>
                         <label class="">Picture:</label>
-                        <input type="file" file-model="file" accept="image/*" />
-                        <!-- <div class="bg-danger" ng-show="!productForm.file.$touched"> Choose a file to upload </div> -->
+                        <!-- <input type="file" id="file" name='file' onchange="angular.element(this).scope().preview_image(event)" /> -->
+                        <input type="file" id="fileControl" file-model="file" onchange="angular.element(this).scope().setFile(this)" accept="image/*">
+
                         <b>Preview:</b><br />
-                        <i ng-hide="imageSrc">No image choosed</i>
-                        <img class="newImage" ng-src="{{imageSrc}}" /><br/>
+                        <img ng-if="imageSrc" class="newImage" ng-src="{{imageSrc}}" /><br/>
 
 
                         <hr>
+                        <div ng-if="title == 'New Product'">
+                            <button class="btn btn-lg orange float-right" ng-click="submit(title)" ng-disabled="productForm.$invalid">SUBMIT</button><br>
+                        </div>
 
-                        <button class="btn btn-lg orange float-right" ng-click="submit()" ng-disabled="productForm.$invalid">SUBMIT</button><br>
-
-
+                        <div ng-if="title == 'Update Product'">
+                            <button class="btn btn-lg orange float-right" ng-click="submit(title)">UPDATE</button><br>
+                        </div>
 
 
                     </form>

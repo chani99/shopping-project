@@ -54,6 +54,45 @@ router.post('/upload', function(req, res) {
     });
 });
 
+
+router.post('/update', function(req, res) {
+    if (req.files) {
+        let sampleFile = req.files.productImage;
+        let filename = uuidv4() + '.jpg'
+        sampleFile.mv(`app/client/uploads/${filename}`, function(err) {
+            if (err) {
+                return res.status(500).send(err);
+            } else {
+                let updateProduct = req.body;
+                updateProduct.file = filename;
+                let product = productCtrl.updateProduct(updateProduct, function(err, updatedPro) {
+                    if (err) {
+                        console.log(err);
+                        res.end(JSON.stringify({ done: false, why: err }));
+                    } else {
+                        res.end(JSON.stringify({ done: true, Product: updatedPro._doc.name }));
+                    }
+                });
+            }
+        });
+
+    } else {
+        let updateProduct = req.body;
+        let product = productCtrl.updateProduct(updateProduct, function(err, updatedPro) {
+            if (err) {
+                console.log(err);
+                res.end(JSON.stringify({ done: false, why: err }));
+            } else {
+                res.end(JSON.stringify({ done: true, Product: updatedPro._doc.name }));
+            }
+        });
+
+
+    }
+});
+
+
+
 function findmiddleware(req, res, next) {
     data = JSON.parse(req.query.data);
 
