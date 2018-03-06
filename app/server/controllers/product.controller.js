@@ -1,5 +1,6 @@
 "use strict";
 let model = require("../models/Model.Schemas");
+var uuidv4 = require('uuid/v4');
 
 
 // get products from db by type
@@ -19,8 +20,19 @@ function getProducts(type, callback) {
 
 }
 
+function saveFile(file, callback) {
+    let sampleFile = file;
+    let filename = uuidv4() + '.jpg'
+    sampleFile.mv(`app/client/uploads/${filename}`, function(err) {
+        if (err) {
+            callback(res.status(500).send(err));
+        } else {
+            callback(filename);
 
+        }
+    })
 
+}
 
 
 function saveNewProduct(product, fileName, callback) {
@@ -42,10 +54,33 @@ function saveNewProduct(product, fileName, callback) {
 
 }
 
-function updateProduct(updateProduct, callback) {
+function updateProduct(req, callback) {
+    if (req.files) { //check if the client sent a file, and if - save it and then update
+        saveFile(req.files, function(err, imageNewName) {
+            if (err) {
+                callback(err);
+            } else {
+                let updateProduct = req.body;
+                updateProduct.image = imageNewName;
+                saveUpdateInDB(updateProduct, function(err, product) {
+                    if (err) callback(err);
+                    else callback(null, product)
+                });
+            }
+        });
 
+    } else { //otherwise just update
+        saveUpdateInDB(req.body, function(err, product) {
+            if (err) callback(err);
+            else callback(null, product)
+        });
+    }
 }
 
+//updates product in mongo db
+function saveUpdateInDB(product, callback) {
+
+}
 
 module.exports.getProducts = getProducts;
 module.exports.saveNewProduct = saveNewProduct;

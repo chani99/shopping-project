@@ -16,9 +16,10 @@ App.controller('admin', function($scope, $location, $window, appService) {
         $window.sessionStorage.removeItem("user");
         $window.sessionStorage.setItem("logedin", false);
         $location.path("/");
-
     });
 
+
+    //open's a empty for user to insert a new product
     $scope.shownewProduct = function() {
         $('.form-signin')[0].reset();
         $("#fileControl").val('');
@@ -29,15 +30,13 @@ App.controller('admin', function($scope, $location, $window, appService) {
         $scope.imageSrc = false;
     }
 
-
+    //preview for image uploaded before sent to server
     $scope.setFile = function(element) {
         $scope.currentFile = element.files[0];
         var reader = new FileReader();
-
         reader.onload = function(event) {
                 $scope.imageSrc = event.target.result
                 $scope.$apply()
-
             }
             // when the file is read it triggers the onload event above.
         reader.readAsDataURL(element.files[0]);
@@ -46,7 +45,7 @@ App.controller('admin', function($scope, $location, $window, appService) {
 
 
 
-    //upload new product
+    //upload or new product
     $scope.submit = function(title) {
         switch (title) {
             case "New Product":
@@ -54,8 +53,8 @@ App.controller('admin', function($scope, $location, $window, appService) {
                     appService.uploadProduct($scope.product, $scope.file, checkIflogedin.userName, "product/upload", newProductSucsses, onErr);
                 }
                 break;
-            case "Update Product":
 
+            case "Update Product":
                 if (($.isEmptyObject($scope.product)) && ($.isEmptyObject($scope.file))) {
                     alert("No changes were made");
 
@@ -67,7 +66,7 @@ App.controller('admin', function($scope, $location, $window, appService) {
                 break;
         }
 
-        console.log($scope.product);
+        // console.log($scope.product);
     }
 
     function newProductSucsses() {
@@ -82,6 +81,10 @@ App.controller('admin', function($scope, $location, $window, appService) {
         alert(JSON.stringify(err));
     }
 
+
+
+
+    //get products by category
     $scope.find = function(category) {
         $scope.newProduct = false;
         appService.getProducts('product/find', category, checkIflogedin.userName, findSucsses, onErr);
@@ -93,6 +96,9 @@ App.controller('admin', function($scope, $location, $window, appService) {
         $scope.products = res.data;
     }
 
+
+
+    //choose product for update - inserts values of choosen product into input's value
     $scope.chooseItem = function(choosenProduct) {
         console.log(choosenProduct);
         $("#fileControl").val('');
@@ -104,12 +110,8 @@ App.controller('admin', function($scope, $location, $window, appService) {
         $scope.choosen.price = choosenProduct.price;
         $scope.choosen.category_id = choosenProduct.category_id;
         $scope.choosen._id = choosenProduct._id;
-
         $scope.newProduct = true;
         $scope.imageSrc = "../uploads/" + choosenProduct.image;
-
-
-
 
     }
 });
