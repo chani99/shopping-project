@@ -21,13 +21,13 @@ function getProducts(type, callback) {
 }
 
 function saveFile(file, callback) {
-    let sampleFile = file;
+    let sampleFile = file.productImage;
     let filename = uuidv4() + '.jpg'
     sampleFile.mv(`app/client/uploads/${filename}`, function(err) {
         if (err) {
             callback(res.status(500).send(err));
         } else {
-            callback(filename);
+            callback(null, filename);
 
         }
     })
@@ -35,8 +35,29 @@ function saveFile(file, callback) {
 }
 
 
-function saveNewProduct(product, fileName, callback) {
-    organizeData(product, fileName, function(productsForSave) { //if both are ok then save new member
+function saveNewProduct(req, callback) {
+    if (!req.files) {
+        callback("no file was uploaded");
+    } else {
+        saveFile(req.files, function(err, imageNewName) {
+            if (err) {
+                callback(err);
+            } else {
+                let newProduct = req.body;
+                newProduct.image = imageNewName;
+                saveNewProductInDB(newProduct, function(err, product) {
+                    if (err) callback(err);
+                    else callback(null, product)
+                });
+            }
+        });
+    }
+
+}
+
+//after saving the file insert new product into db
+function saveNewProductInDB(newProduct, callback) {
+    organizeData(newProduct, function(productsForSave) {
         productsForSave.save(function(err, member) {
             if (err) {
                 console.log(err);
@@ -46,13 +67,10 @@ function saveNewProduct(product, fileName, callback) {
                 callback(null, member);
             }
         })
-
-
     })
 
-
-
 }
+
 
 function updateProduct(req, callback) {
     if (req.files) { //check if the client sent a file, and if - save it and then update
@@ -79,8 +97,25 @@ function updateProduct(req, callback) {
 
 //updates product in mongo db
 function saveUpdateInDB(product, callback) {
+    var query = { "_id": product._id };
+    var options = { new: true };
+    organizeData(product, function(data) {
+        model.Product.findOneAndUpdate(query, data, options, function(err, updatedProduct) {
+            if (err) {
+                console.log('got an error');
+            } else {
+                console.log(updatedProduct);
+                callback(null, updatedProduct);
+            }
+
+        });
+
+    });
+
 
 }
+
+
 
 module.exports.getProducts = getProducts;
 module.exports.saveNewProduct = saveNewProduct;
@@ -88,13 +123,13 @@ module.exports.updateProduct = updateProduct;
 
 
 
-let organizeData = function(data, fileName, callback) {
+let organizeData = function(data, callback) {
     var newProducts = new model.Product();
-    if (data._id) newProducts._id = data._id;
+    // if (data._id) newProducts._id = data._id;
     if (data.name) newProducts.name = data.name;
     if (data.category) newProducts.category_id = data.category;
     if (data.price) newProducts.price = data.price;
-    if (fileName) newProducts.image = fileName;
+    if (data.image) newProducts.image = data.image;
     callback(newProducts);
 
 }

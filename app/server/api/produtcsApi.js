@@ -26,45 +26,18 @@ let data;
 
 
 router.post('/upload', function(req, res) {
-    if (!req.files)
-        return res.status(400).send('No files were uploaded.');
-    console.log(req.files);
-    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-    let sampleFile = req.files.productImage;
-    let filename = uuidv4() + '.jpg'
-
-    // Use the mv() method to place the file somewhere on your server
-    sampleFile.mv(`app/client/uploads/${filename}`, function(err) {
+    let product = productCtrl.saveNewProduct(req, function(err, updatedPro) {
         if (err) {
-            return res.status(500).send(err);
+            console.log(err);
+            res.end(JSON.stringify({ done: false, why: err }));
         } else {
-
-            let newProduct = req.body;
-            let product = productCtrl.saveNewProduct(newProduct, filename, function(err, newPro) {
-                if (err) {
-                    console.log(err);
-                    res.end(JSON.stringify({ done: false, why: err }));
-                } else {
-                    res.end(JSON.stringify({ done: true, Product: newPro._doc.name }));
-                }
-            });
-
+            res.end(JSON.stringify({ done: true, Product: updatedPro._doc.name }));
         }
-
     });
+
 });
 
-
-router.post('/update', function(req, res) {
-    // if (req.files) {
-    //     let sampleFile = req.files.productImage;
-    //     let filename = uuidv4() + '.jpg'
-    //     sampleFile.mv(`app/client/uploads/${filename}`, function(err) {
-    //         if (err) {
-    //             return res.status(500).send(err);
-    //         } else {
-    //             let updateProduct = req.body;
-    //             updateProduct.file = filename;
+router.put('/update', function(req, res) {
     let product = productCtrl.updateProduct(req, function(err, updatedPro) {
         if (err) {
             console.log(err);
@@ -73,22 +46,6 @@ router.post('/update', function(req, res) {
             res.end(JSON.stringify({ done: true, Product: updatedPro._doc.name }));
         }
     });
-    // }
-    //     });
-
-    // } else {
-    //     let updateProduct = req.body;
-    //     let product = productCtrl.updateProduct(updateProduct, function(err, updatedPro) {
-    //         if (err) {
-    //             console.log(err);
-    //             res.end(JSON.stringify({ done: false, why: err }));
-    //         } else {
-    //             res.end(JSON.stringify({ done: true, Product: updatedPro._doc.name }));
-    //         }
-    //     });
-
-
-    // }
 });
 
 
@@ -102,9 +59,7 @@ function findmiddleware(req, res, next) {
 }
 
 
-
 router.get('/find', findmiddleware, function(req, res, next) {
-
     console.log(req.query);
     let categorey = JSON.parse(req.query.data).id;
     let allProducts = productCtrl.getProducts(categorey, function(err, products) {
@@ -120,11 +75,6 @@ router.get('/find', findmiddleware, function(req, res, next) {
 
 });
 
-
-// router.post('/newProduct', function(req, res) {
-//     console.log(req.body);
-
-// });
 
 
 module.exports = router;
