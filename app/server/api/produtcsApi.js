@@ -1,8 +1,6 @@
 var productCtrl = require('../controllers/product.controller.js');
 var express = require('express');
 var router = express.Router();
-var uuidv4 = require('uuid/v4');
-
 let data;
 
 // router.use(function(req, res, next) {
@@ -34,7 +32,6 @@ router.post('/upload', function(req, res) {
             res.end(JSON.stringify({ done: true, Product: updatedPro._doc.name }));
         }
     });
-
 });
 
 router.put('/update', function(req, res) {
@@ -52,7 +49,6 @@ router.put('/update', function(req, res) {
 
 function findmiddleware(req, res, next) {
     data = JSON.parse(req.query.data);
-
     if (req.session.user == data.userName) {
         next();
     }
@@ -60,7 +56,6 @@ function findmiddleware(req, res, next) {
 
 
 router.get('/find', findmiddleware, function(req, res, next) {
-    console.log(req.query);
     let categorey = JSON.parse(req.query.data).id;
     let allProducts = productCtrl.getProducts(categorey, function(err, products) {
         if (err) {
@@ -68,7 +63,6 @@ router.get('/find', findmiddleware, function(req, res, next) {
             res.end(JSON.stringify(err));
 
         } else {
-            console.log(products);
             res.end(JSON.stringify(products));
         }
     });
