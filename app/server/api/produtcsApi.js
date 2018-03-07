@@ -56,8 +56,7 @@ function findmiddleware(req, res, next) {
 
 
 router.get('/find', findmiddleware, function(req, res, next) {
-    let categorey = JSON.parse(req.query.data).id;
-    let allProducts = productCtrl.getProducts(categorey, function(err, products) {
+    let allProducts = productCtrl.getProducts(req, function(err, products) {
         if (err) {
             console.log(err);
             res.end(JSON.stringify(err));

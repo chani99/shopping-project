@@ -87,7 +87,15 @@ App.controller('admin', function($scope, $location, $window, appService) {
     //get products by category
     $scope.find = function(category) {
         $scope.newProduct = false;
-        appService.getProducts('product/find', category, checkIflogedin.userName, findSucsses, onErr);
+        if (category !== 'search') {
+            appService.getProducts('product/find', category, checkIflogedin.userName, findSucsses, onErr);
+        } else {
+            let searchValue = {
+                id: category,
+                value: $scope.search
+            }
+            appService.getProducts('product/find', searchValue, checkIflogedin.userName, findSucsses, onErr);
+        }
 
     }
 

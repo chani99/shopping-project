@@ -4,19 +4,38 @@ var uuidv4 = require('uuid/v4');
 
 
 // get products from db by type
-function getProducts(type, callback) {
-    model.Product.find({
-            category_id: type
-        },
+function getProducts(req, callback) {
+    let categorey = JSON.parse(req.query.data).id;
+    if (!categorey.id) {
+        model.Product.find({
+                category_id: categorey
+            },
 
-        function(err, products) {
-            if (err) {
-                callback(404, 'Error Occurred!')
-            } else {
-                callback(null, products);
-            }
+            function(err, products) {
+                if (err) {
+                    callback(404, 'Error Occurred!')
+                } else {
+                    callback(null, products);
+                }
 
-        });
+            });
+    } else {
+        let search = JSON.parse(req.query.data).id;
+        model.Product.find({
+                name: new RegExp(search.value)
+                    // name: /fish/
+            },
+
+            function(err, products) {
+                if (err) {
+                    callback(404, 'Error Occurred!')
+                } else {
+                    callback(null, products);
+                }
+
+            });
+
+    }
 
 }
 
