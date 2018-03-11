@@ -15,18 +15,50 @@ App.directive('fileModel', ['$parse', function($parse) {
     };
 }]);
 
-// App.directive("ngFileSelect", function() {
-
+// App.directive("shopDirective", function() {
 //     return {
-//         link: function($scope, el) {
+//         templateUrl: 'templates/shopTemp.html',
+//         scope: {
 
-//             el.bind("change", function(e) {
+//         }
+//     }
+// });
 
-//                 $scope.file = (e.srcElement || e.target).files[0];
-//                 $scope.getFile();
-//             })
+App.directive("shopDirective", function() {
 
+        return {
+            templateUrl: 'templates/shopTemp.html',
+            scope: {
+                productsObject: "=",
+                searchObject: "=",
+                findFunction: "&",
+                // sucsses: "&sucssesFn",
+                // err: "&errFn",
+                chooseItemFunction: "&"
+            }
+        }
+    })
+    // link: function($scope, element, attrs) {
+    //     let checkIflogedin = JSON.parse($window.sessionStorage.getItem("user"));
+
+//     $scope.find = function(category) {
+//         $scope.newProduct = false;
+//         if (category !== 'search') {
+//             appService.getProducts('product/find', category, checkIflogedin.userName, findSucsses, $scope.err);
+//         } else {
+//             let searchValue = {
+//                 id: category,
+//                 value: $scope.search
+//             }
+//             appService.getProducts('product/find', searchValue, checkIflogedin.userName, findSucsses, $scope.err);
 //         }
 
 //     }
-// })
+
+
+//     function findSucsses(res) {
+//         console.log(res);
+//         productsObject = res.data;
+//     }
+
+// }

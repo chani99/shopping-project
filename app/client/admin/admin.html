@@ -55,34 +55,8 @@
                 </div>
 
             </div>
-            <div class="shop">
-                <nav class="navbar-collapse collapse" role="navigation">
-                    <ul class="navbar-nav nav font-16">
-                        <li>
-                            <a class="border-right" ng-click="find(0)">Milk &amp; Eggs</a>
-                        </li>
-                        <li>
-                            <a class="border-right" ng-click="find(1)">Vegetables &amp; Fruit</a>
-                        </li>
-                        <li>
-                            <a class="border-right" ng-click="find(2)">Meat &amp; Fish</a>
-                        </li>
-                        <li>
-                            <a ng-click="find(3)">Wine &amp; Drink</a>
-                        </li>
-                        <li>
-                            <a>
-                                <input class="form-control" type="search" id="mySearch" ng-model="search">
-                                <button class="btn btn-sm></" ng-click="find('search')">Search</button>
-                            </a>
-                        </li>
-
-                    </ul>
-                </nav>
-                <div ng-repeat="product in products">
-                    <div ng-include="'../shop/productTemp.html'"></div>
-                </div>
-
+            <!-- directive that brings the shop items -->
+            <div shop-directive products-object="products" search-object="search" find-function="find(type)" choose-item-function="chooseItem(item)">
             </div>
         </div>
     </div>

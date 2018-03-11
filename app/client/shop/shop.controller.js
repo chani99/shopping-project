@@ -15,55 +15,7 @@ App.controller('shop', function($scope, $rootScope, $window, $location, appServi
     });
 
     $scope.content = 'Hello World';
-    $scope.products = [{
-            name: "apple",
-            image: "apple.jpg",
-            description: "red Hermon apple",
-            price: 2.5
-        }, {
-            name: "apple",
-            image: "apple.jpg",
-            description: "red Hermon apple",
-            price: 2.5
-        }, {
-            name: "apple",
-            image: "apple.jpg",
-            description: "red Hermon apple",
-            price: 2.5
-        }, {
-            name: "apple",
-            image: "apple.jpg",
-            description: "red Hermon apple",
-            price: 2.5
-        }, {
-            name: "apple",
-            image: "apple.jpg",
-            description: "red Hermon apple",
-            price: 2.5
-        }, {
-            name: "apple",
-            image: "apple.jpg",
-            description: "red Hermon apple",
-            price: 2.5
-        }, {
-            name: "apple",
-            image: "apple.jpg",
-            description: "red Hermon apple",
-            price: 2.5
-        }, {
-            name: "apple",
-            image: "apple.jpg",
-            description: "red Hermon apple",
-            price: 2.5
-        }, {
-            name: "apple",
-            image: "apple.jpg",
-            description: "red Hermon apple",
-            price: 2.5
-        },
-
-    ]
-
+    $scope.product = {};
 
 
 });
