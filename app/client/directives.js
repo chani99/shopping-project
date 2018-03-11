@@ -37,7 +37,7 @@ App.directive("shopDirective", function() {
                 chooseItemFunction: "&"
             }
         }
-    })
+    });
     // link: function($scope, element, attrs) {
     //     let checkIflogedin = JSON.parse($window.sessionStorage.getItem("user"));
 
