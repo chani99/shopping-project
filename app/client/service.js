@@ -1,10 +1,10 @@
 //http srvices
-App.service('appService', function($http) {
+App.service("appService", function($http) {
 
     this.sendData = function(path, userParams, onSuccess, onError) {
         $http({
-            url: 'http://localhost:3000/' + path,
-            method: 'POST',
+            url: "http://localhost:3000/" + path,
+            method: "POST",
             data: {
                 data: userParams
             }
@@ -15,7 +15,7 @@ App.service('appService', function($http) {
 
 
     this.getProducts = function(path, userParams, userName, onSuccess, onError) {
-        $http.get('http://localhost:3000/' + path, {
+        $http.get("http://localhost:3000/" + path, {
             params: {
                 data: {
                     id: userParams,
@@ -33,9 +33,9 @@ App.service('appService', function($http) {
     //         data: userParams,
     //         userName: userName
     //     }
-    //     $http.post('http://localhost:3000/' + path, data, {
+    //     $http.post("http://localhost:3000/" + path, data, {
     //             transformRequest: angular.identity,
-    //             headers: { 'Content-Type': undefined }
+    //             headers: { "Content-Type": undefined }
     //         }) // PASS THE DATA AS THE SECOND PARAMETER
     //         .then(onSuccess, onError);
     // }
@@ -43,8 +43,8 @@ App.service('appService', function($http) {
 
     this.getData = function(path, Params, onSuccess, onError) {
         $http({
-            url: 'http://localhost:3000/' + path,
-            method: 'GET',
+            url: "http://localhost:3000/" + path,
+            method: "GET",
             data: {
                 data: Params
             }
@@ -55,8 +55,8 @@ App.service('appService', function($http) {
 
     this.updateData = function(path, Params, onSuccess, onError) {
         $http({
-            url: 'http://localhost:3000/' + path,
-            method: 'PUT',
+            url: "http://localhost:3000/" + path,
+            method: "PUT",
             data: {
                 data: Params
             }
@@ -68,9 +68,9 @@ App.service('appService', function($http) {
     this.uploadProduct = function(product, productImage, userName, path, success, error) {
 
         var formData = buildFormData(product, productImage, userName);
-        $http.post('http://localhost:3000/' + path, formData, {
+        $http.post("http://localhost:3000/" + path, formData, {
             transformRequest: angular.identity,
-            headers: { 'Content-Type': undefined }
+            headers: { "Content-Type": undefined }
 
         }).then(success, error);
 
@@ -80,9 +80,9 @@ App.service('appService', function($http) {
     this.updateProduct = function(product, productImage, userName, path, success, error) {
 
         var formData = buildFormData(product, productImage, userName);
-        $http.put('http://localhost:3000/' + path, formData, {
+        $http.put("http://localhost:3000/" + path, formData, {
             transformRequest: angular.identity,
-            headers: { 'Content-Type': undefined }
+            headers: { "Content-Type": undefined }
 
         }).then(success, error);
 
@@ -95,7 +95,7 @@ App.service('appService', function($http) {
 
         for (var key in product) {
             if (product.hasOwnProperty(key)) {
-                formData.append(key, product[key] === undefined ? 'value-from-client-is-undefined' : product[key]);
+                formData.append(key, product[key] === undefined ? "value-from-client-is-undefined" : product[key]);
             }
         }
         formData.append("userName", userName)

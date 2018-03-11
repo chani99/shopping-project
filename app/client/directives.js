@@ -1,12 +1,12 @@
 //file upload directive
-App.directive('fileModel', ['$parse', function($parse) {
+App.directive("fileModel", ["$parse", function($parse) {
     return {
-        restrict: 'A',
+        restrict: "A",
         link: function(scope, element, attrs) {
             var model = $parse(attrs.fileModel);
             var modelSetter = model.assign;
 
-            element.bind('change', function() {
+            element.bind("change", function() {
                 scope.$apply(function() {
                     modelSetter(scope, element[0].files[0]);
                 });
@@ -17,7 +17,7 @@ App.directive('fileModel', ['$parse', function($parse) {
 
 // App.directive("shopDirective", function() {
 //     return {
-//         templateUrl: 'templates/shopTemp.html',
+//         templateUrl: "templates/shopTemp.html",
 //         scope: {
 
 //         }
@@ -27,7 +27,7 @@ App.directive('fileModel', ['$parse', function($parse) {
 App.directive("shopDirective", function() {
 
         return {
-            templateUrl: 'templates/shopTemp.html',
+            templateUrl: "templates/shopTemp.html",
             scope: {
                 productsObject: "=",
                 searchObject: "=",
@@ -43,14 +43,14 @@ App.directive("shopDirective", function() {
 
 //     $scope.find = function(category) {
 //         $scope.newProduct = false;
-//         if (category !== 'search') {
-//             appService.getProducts('product/find', category, checkIflogedin.userName, findSucsses, $scope.err);
+//         if (category !== "search") {
+//             appService.getProducts("product/find", category, checkIflogedin.userName, findSucsses, $scope.err);
 //         } else {
 //             let searchValue = {
 //                 id: category,
 //                 value: $scope.search
 //             }
-//             appService.getProducts('product/find', searchValue, checkIflogedin.userName, findSucsses, $scope.err);
+//             appService.getProducts("product/find", searchValue, checkIflogedin.userName, findSucsses, $scope.err);
 //         }
 
 //     }

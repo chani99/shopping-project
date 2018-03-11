@@ -1,6 +1,6 @@
 "use strict";
 let model = require("../models/Model.Schemas");
-let crypto = require('crypto');
+let crypto = require("crypto");
 
 
 // Checks if a id exists in the system
@@ -21,7 +21,7 @@ function getall(callback) {
     }
     // model.City.find({}, function(err, city) {
     //     if (err) {
-    //         callback(404, 'Error Occurred!');
+    //         callback(404, "Error Occurred!");
     //     } else {
     //         console.log(city);
     //         callback(null, city);
@@ -43,7 +43,7 @@ module.exports.getall = getall;
 //     newCity.name = citylist[x];
 //     newCity.save(function(err, city) {
 //         if (err) {
-//             console.log('Error Occurred!')
+//             console.log("Error Occurred!")
 //         } else {
 //             console.log(city + x)
 //         }
