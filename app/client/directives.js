@@ -15,50 +15,17 @@ App.directive('fileModel', ['$parse', function($parse) {
     };
 }]);
 
-// App.directive("shopDirective", function() {
-//     return {
-//         templateUrl: 'templates/shopTemp.html',
-//         scope: {
 
-//         }
-//     }
-// });
 
 App.directive("shopDirective", function() {
 
-        return {
-            templateUrl: 'templates/shopTemp.html',
-            scope: {
-                productsObject: "=",
-                searchObject: "=",
-                findFunction: "&",
-                // sucsses: "&sucssesFn",
-                // err: "&errFn",
-                chooseItemFunction: "&"
-            }
+    return {
+        templateUrl: 'templates/shopTemp.html',
+        scope: {
+            productsObject: "=",
+            searchObject: "=",
+            findFunction: "&",
+            chooseItemFunction: "&"
         }
-    })
-    // link: function($scope, element, attrs) {
-    //     let checkIflogedin = JSON.parse($window.sessionStorage.getItem("user"));
-
-//     $scope.find = function(category) {
-//         $scope.newProduct = false;
-//         if (category !== 'search') {
-//             appService.getProducts('product/find', category, checkIflogedin.userName, findSucsses, $scope.err);
-//         } else {
-//             let searchValue = {
-//                 id: category,
-//                 value: $scope.search
-//             }
-//             appService.getProducts('product/find', searchValue, checkIflogedin.userName, findSucsses, $scope.err);
-//         }
-
-//     }
-
-
-//     function findSucsses(res) {
-//         console.log(res);
-//         productsObject = res.data;
-//     }
-
-// }
+    }
+})
