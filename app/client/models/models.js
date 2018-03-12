@@ -2,7 +2,7 @@
     "use strict";
   
 
-    App.service('modelsServc', function() {
+    App.service("modelsServc", function() {
 
         this.MemberModel = function(data) {
                 if(data.id) this._id =  (data.id);

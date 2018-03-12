@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 App.controller('shop', function($scope, $rootScope, $window, $location, $modal, $log, appService) {
+=======
+App.controller("shop", function($scope, $rootScope, $window, $location, appService) {
+>>>>>>> 4a717e6c0046ee7d4fe51dcd8cccfe405a4ba470
     //Checks if a user is logged in
     let checkIflogedin = JSON.parse($window.sessionStorage.getItem("user"));
     if (checkIflogedin) {
@@ -7,14 +11,14 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
     }
 
     //listens to a broascast logout event
-    $scope.$on('logout', function(event, args) {
+    $scope.$on("logout", function(event, args) {
         $window.sessionStorage.removeItem("user");
         $window.sessionStorage.setItem("logedin", false);
         $location.path("/");
 
     });
 
-    $scope.content = 'Hello World';
+    $scope.content = "Hello World";
     $scope.product = {};
 
 
