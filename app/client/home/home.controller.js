@@ -1,4 +1,4 @@
-App.controller("login", function($scope, $rootScope, $window, $location, appService) {
+App.controller('login', function($scope, $rootScope, $window, $location, appService) {
     $scope.user = {}
     $scope.userDetails = {};
     $scope.userDetails.shopping_cart = [];
@@ -13,7 +13,7 @@ App.controller("login", function($scope, $rootScope, $window, $location, appServ
 
 
     //listens to a broascast logout event
-    $scope.$on("logout", function(event, args) {
+    $scope.$on('logout', function(event, args) {
         $scope.isLogedin = args;
         $scope.userDetails = {};
         $scope.userDetails.shopping_cart = {};
@@ -24,14 +24,14 @@ App.controller("login", function($scope, $rootScope, $window, $location, appServ
 
     //sends login data to sendData service
     $scope.login = function(user) {
-        appService.sendData("login", user, loginSucsses, loginError);
+        appService.sendData('login', user, loginSucsses, loginError);
     }
 
     function loginSucsses(res) {
         console.log(res.data);
         if (res.data.login === true) {
             $scope.isLogedin = true;
-            $rootScope.$broadcast("logedin", (res.data.member));
+            $rootScope.$broadcast('logedin', (res.data.member));
             let userForSession = { userName: res.data.member.userName, cart: res.data.member.cart, role: res.data.member.role, logedin: true };
             $window.sessionStorage.setItem("user", JSON.stringify(userForSession));
             $scope.userDetails = {
@@ -52,7 +52,7 @@ App.controller("login", function($scope, $rootScope, $window, $location, appServ
     }
 
     function loginError(res) {
-        console.log("error");
+        console.log('error');
         console.log(res);
     }
 

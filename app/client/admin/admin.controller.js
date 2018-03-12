@@ -1,4 +1,4 @@
-App.controller("admin", function($scope, $location, $window, appService) {
+App.controller('admin', function($scope, $location, $window, appService) {
     $scope.categories = ["Milk & Eggs", "Vegetables & Fruits", "Meat & Fish", "Wine & Drinks"];
     // $scope.products = {};
     $scope.product = {};
@@ -9,21 +9,21 @@ App.controller("admin", function($scope, $location, $window, appService) {
     //Checks if a user is logged in
     let checkIflogedin = JSON.parse($window.sessionStorage.getItem("user"));
     if (checkIflogedin) {
-        if ((!checkIflogedin.logedin) && (!checkIflogedin.role == "admin")) $location.path("/");
+        if ((!checkIflogedin.logedin) && (!checkIflogedin.role == 'admin')) $location.path("/");
     }
 
     //listens to a broascast logout event
-    $scope.$on("logout", function(event, args) {
+    $scope.$on('logout', function(event, args) {
         $window.sessionStorage.removeItem("user");
         $window.sessionStorage.setItem("logedin", false);
         $location.path("/");
     });
 
 
-    //open"s a empty for user to insert a new product
+    //open's a empty for user to insert a new product
     $scope.shownewProduct = function() {
-        $(".form-signin")[0].reset();
-        $("#fileControl").val("");
+        $('.form-signin')[0].reset();
+        $("#fileControl").val('');
         $scope.productForm.$setUntouched();
         $scope.newProduct = true;
         $scope.title = "New Product";
@@ -74,7 +74,7 @@ App.controller("admin", function($scope, $location, $window, appService) {
         $scope.file = "";
         $scope.newProduct = false;
         $scope.product = {};
-        // $(".form-signin")[0].reset();
+        // $('.form-signin')[0].reset();
         alert("new product was saved sucssesfully");
     }
 
@@ -88,14 +88,14 @@ App.controller("admin", function($scope, $location, $window, appService) {
     //get products by category
     $scope.find = function(category) {
         $scope.newProduct = false;
-        if (category !== "search") {
-            appService.getProducts("product/find", category, checkIflogedin.userName, findSucsses, onErr);
+        if (category !== 'search') {
+            appService.getProducts('product/find', category, checkIflogedin.userName, findSucsses, onErr);
         } else {
             let searchValue = {
                 id: category,
                 value: $scope.search
             }
-            appService.getProducts("product/find", searchValue, checkIflogedin.userName, findSucsses, onErr);
+            appService.getProducts('product/find', searchValue, checkIflogedin.userName, findSucsses, onErr);
         }
 
     }
@@ -111,7 +111,7 @@ App.controller("admin", function($scope, $location, $window, appService) {
     //choose product for update - inserts values of choosen product into input's value
     $scope.chooseItem = function(choosenProduct) {
         console.log(choosenProduct);
-        $("#fileControl").val("");
+        $("#fileControl").val('');
         $scope.title = "Update Product";
         $scope.productForm.$setPristine();
         $scope.productForm.price = choosenProduct.price;

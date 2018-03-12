@@ -1,6 +1,6 @@
 "use strict";
 let model = require("../models/Model.Schemas");
-var uuidv4 = require("uuid/v4");
+var uuidv4 = require('uuid/v4');
 
 
 // get products from db by type
@@ -13,7 +13,7 @@ function getProducts(req, callback) {
 
             function(err, products) {
                 if (err) {
-                    callback(404, "Error Occurred!")
+                    callback(404, 'Error Occurred!')
                 } else {
                     callback(null, products);
                 }
@@ -28,7 +28,7 @@ function getProducts(req, callback) {
 
             function(err, products) {
                 if (err) {
-                    callback(404, "Error Occurred!")
+                    callback(404, 'Error Occurred!')
                 } else {
                     callback(null, products);
                 }
@@ -41,7 +41,7 @@ function getProducts(req, callback) {
 
 function saveFile(file, callback) {
     let sampleFile = file.productImage;
-    let filename = uuidv4() + ".jpg"
+    let filename = uuidv4() + '.jpg'
     sampleFile.mv(`app/client/uploads/${filename}`, function(err) {
         if (err) {
             callback(res.status(500).send(err));
@@ -80,7 +80,7 @@ function saveNewProductInDB(newProduct, callback) {
         productsForSave.save(function(err, member) {
             if (err) {
                 console.log(err);
-                callback("Error saving member!")
+                callback('Error saving member!')
             } else {
                 console.log(member);
                 callback(null, member);
@@ -121,7 +121,7 @@ function saveUpdateInDB(product, callback) {
     organizeData(product, function(data) {
         model.Product.findOneAndUpdate(query, data, options, function(err, updatedProduct) {
             if (err) {
-                console.log("got an error");
+                console.log('got an error');
             } else {
                 console.log(updatedProduct);
                 callback(null, updatedProduct);

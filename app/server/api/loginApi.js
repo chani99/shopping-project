@@ -1,23 +1,23 @@
-var loginCtrl = require("../controllers/LoginController.js");
-let cityCtrl = require("../controllers/cityController.js");
-var express = require("express");
+var loginCtrl = require('../controllers/LoginController.js');
+let cityCtrl = require('../controllers/cityController.js');
+var express = require('express');
 var router = express.Router();
 
 
 
 // router.use(function(req, res, next) {
-//     const adminRoutes = ["/admin"];
-//     const allowedRoutes = ["/login", "/", "/member", "/favicon.ico"];
+//     const adminRoutes = ['/admin'];
+//     const allowedRoutes = ['/login', '/', '/member', '/favicon.ico'];
 
 //     if (allowedRoutes.indexOf(req.originalUrl) > -1) {
 //         next();
 //     } else if (sess === null || sess === undefined) {
 //         res.send(401);
-//     } else if (sess.user.name == "user") {
+//     } else if (sess.user.name == 'user') {
 //         next();
 
 //         if (adminRoutes.indexOf(req.originalUrl) > -1) {
-//             res.send(401, "only admins");
+//             res.send(401, 'only admins');
 //         }
 
 
@@ -25,15 +25,15 @@ var router = express.Router();
 
 // });
 
-router.use("/member", require("./membersApi"));
-router.use("/product", require("./produtcsApi"));
+router.use('/member', require('./membersApi'));
+router.use('/product', require('./produtcsApi'));
 
-router.get("/", function(req, res) {
+router.get('/', function(req, res) {
 
-    res.sendFile(path.join(__dirname, "../../client/index.html"));
+    res.sendFile(path.join(__dirname, '../../client/index.html'));
 });
 
-router.get("/city", function(req, res) {
+router.get('/city', function(req, res) {
     let getCity = cityCtrl.getall(function(err, citylist) {
         if (err) {
             console.log(err);
@@ -44,7 +44,7 @@ router.get("/city", function(req, res) {
     });
 });
 
-router.post("/login", function(req, res) {
+router.post('/login', function(req, res) {
     // console.log(req.body);
     let user = req.body;
     let checkUser = loginCtrl.checkUser(user, function(err, logedin) {
@@ -66,7 +66,7 @@ router.post("/login", function(req, res) {
 
 });
 
-router.get("/logout", function(req, res) {
+router.get('/logout', function(req, res) {
     req.session.destroy();
     res.end(JSON.stringify(true));
 
