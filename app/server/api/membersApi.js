@@ -11,7 +11,8 @@ router.use(function(req, res, next) {
         next();
     } else if (req.session === null || req.session === undefined) {
         res.send(401);
-    } else if (req.session._id == req.body.data.userId) {
+        // } else if (req.session._id == req.body.data.userId) {
+    } else if (req.session.user == req.body.userName) {
         next();
     }
 
@@ -54,5 +55,17 @@ router.put('/details', function(req, res) {
 
 });
 
+router.put('/addToCart', function(req, res) { //to do...
+    console.log(req.body);
+    let userDetails = req.body;
+    let updateDetals = memberCtrl.updateDetals(userDetails, function(err, updated) {
+        if (err) {
+            console.log(err);
+            res.end(JSON.stringify({ done: false, why: err }));
+        } else {
+            res.end(JSON.stringify({ done: true, member: { _id: updated._doc._id, userName: updated._doc.userName, role: updated._doc.role, cart: updated._doc.cart } }));
+        }
+    });
 
+});
 module.exports = router;

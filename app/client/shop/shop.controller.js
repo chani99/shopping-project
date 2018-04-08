@@ -55,27 +55,37 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
             size: 'lg',
             resolve: {
                 selectedUsr: function() {
-                    return $scope.usr;
+                    return coosenItem;
                 }
             }
         });
-        dialogInst.result.then(function(newusr) {
-            $scope.usrs.push(newusr);
-            $scope.usr = { name: '', job: '', age: '', sal: '', addr: '' };
+        dialogInst.result.then(function(item) {
+            if (item.qty > 0) {
+                alert(JSON.stringify(item));
+                // appService.updateCart('member/addToCart', { item: item, user: checkIflogedin.userName }, submitSucsses, submitError);
+                appService.updateCart('member/addToCart', checkIflogedin.userName, item, submitSucsses, submitError);
+            }
         }, function() {
             $log.info('Modal dismissed at: ' + new Date());
         });
     };
+
+    function submitSucsses() {
+        alert("The product was added to your shopping cart");
+    }
+
+    function submitError(err) {
+        alert(err);
+    }
 
 
 
 });
 
 App.controller('DialogInstCtrl', function($scope, $modalInstance, selectedUsr, $log) {
-    $scope.usr = selectedUsr;
+    $scope.item = selectedUsr;
     $scope.submitUser = function() {
-        $modalInstance.close($scope.usr);
-        //	$scope.usr = {name: '', job: '', age: '', sal: '', addr:''};
+        $modalInstance.close($scope.item);
     };
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');

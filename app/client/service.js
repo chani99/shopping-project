@@ -83,13 +83,20 @@ App.service('appService', function($http) {
 
     //http POST for updating data and uploading files
     this.updateProduct = function(product, productImage, userName, path, success, error) {
-        var formData = buildFormData(product, productImage, userName);
+            var formData = buildFormData(product, productImage, userName);
+            $http.put('http://localhost:3000/' + path, formData, {
+                transformRequest: angular.identity,
+                headers: { 'Content-Type': undefined }
+            }).then(success, error);
+        }
+        // appService.updateCart('member/addToCart', { item: item, user: checkIflogedin.userName }, submitSucsses, submitError);
+
+    this.updateCart = function(path, userName, product, success, error) {
+        var formData = buildFormData(product, null, userName);
         $http.put('http://localhost:3000/' + path, formData, {
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
         }).then(success, error);
-
-
     }
 
 });
