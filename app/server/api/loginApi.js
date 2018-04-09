@@ -29,9 +29,9 @@ router.use('/member', require('./membersApi'));
 router.use('/product', require('./produtcsApi'));
 
 router.get('/', function(req, res) {
-
     res.sendFile(path.join(__dirname, '../../client/index.html'));
 });
+
 
 router.get('/city', function(req, res) {
     let getCity = cityCtrl.getall(function(err, citylist) {
@@ -45,13 +45,11 @@ router.get('/city', function(req, res) {
 });
 
 router.post('/login', function(req, res) {
-    // console.log(req.body);
     let user = req.body;
     let checkUser = loginCtrl.checkUser(user, function(err, logedin) {
         if (err) {
             console.log(err);
             res.end(JSON.stringify({ login: false, Cause: err }));
-
 
         } else {
             // console.log("login: " + logedin);

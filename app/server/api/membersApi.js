@@ -57,8 +57,8 @@ router.put('/details', function(req, res) {
 
 router.put('/addToCart', function(req, res) { //to do...
     let cartItem = req.body;
-    let userDetails = {user: req.session.user, id: req.session.id};
-    let addToCart = memberCtrl.addToCart(userDetails, cartItem, function(err, updated) {
+    let userId = req.session;
+    let addToCart = memberCtrl.addToCart(userId, cartItem, function(err, updated) {
         if (err) {
             console.log(err);
             res.end(JSON.stringify({ done: false, why: err }));

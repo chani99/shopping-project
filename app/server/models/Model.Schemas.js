@@ -51,8 +51,8 @@ var OrderSchema = new Schema({
 
 
 var CartSchema = new Schema({
-    _id: Schema.Types.ObjectId,
-    member_id: [{ type: Schema.Types.ObjectId, ref: 'Member' }],
+    // _id: Schema.Types.ObjectId,
+    member_id: Number,
     date_created: Date
 });
 
