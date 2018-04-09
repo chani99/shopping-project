@@ -1,10 +1,27 @@
 //http srvices
-App.service("appService", function($http) {
+App.service('appService', function($http) {
 
+    //build form data function
+    function buildFormData(product, productImage, userName) {
+        var formData = new FormData();
+
+        for (var key in product) {
+            if (product.hasOwnProperty(key)) {
+                formData.append(key, product[key] === undefined ? 'value-from-client-is-undefined' : product[key]);
+            }
+        }
+        formData.append("userName", userName)
+        if ($.isEmptyObject(productImage) == false) {
+            formData.append("productImage", productImage);
+        }
+        return formData;
+    }
+
+    //http POST
     this.sendData = function(path, userParams, onSuccess, onError) {
         $http({
-            url: "http://localhost:3000/" + path,
-            method: "POST",
+            url: 'http://localhost:3000/' + path,
+            method: 'POST',
             data: {
                 data: userParams
             }
@@ -13,9 +30,9 @@ App.service("appService", function($http) {
     }
 
 
-
+    //http GET for products
     this.getProducts = function(path, userParams, userName, onSuccess, onError) {
-        $http.get("http://localhost:3000/" + path, {
+        $http.get('http://localhost:3000/' + path, {
             params: {
                 data: {
                     id: userParams,
@@ -27,36 +44,23 @@ App.service("appService", function($http) {
 
     }
 
-
-    // this.getProducts = function(path, userParams, userName, onSuccess, onError) {
-    //     let data = {
-    //         data: userParams,
-    //         userName: userName
-    //     }
-    //     $http.post("http://localhost:3000/" + path, data, {
-    //             transformRequest: angular.identity,
-    //             headers: { "Content-Type": undefined }
-    //         }) // PASS THE DATA AS THE SECOND PARAMETER
-    //         .then(onSuccess, onError);
-    // }
-
-
+    //http GET for login
     this.getData = function(path, Params, onSuccess, onError) {
-        $http({
-            url: "http://localhost:3000/" + path,
-            method: "GET",
-            data: {
-                data: Params
-            }
+            $http({
+                url: 'http://localhost:3000/' + path,
+                method: 'GET',
+                data: {
+                    data: Params
+                }
 
-        }).then(onSuccess, onError);
+            }).then(onSuccess, onError);
 
-    }
-
+        }
+        //http PUT to update user details
     this.updateData = function(path, Params, onSuccess, onError) {
         $http({
-            url: "http://localhost:3000/" + path,
-            method: "PUT",
+            url: 'http://localhost:3000/' + path,
+            method: 'PUT',
             data: {
                 data: Params
             }
@@ -65,44 +69,34 @@ App.service("appService", function($http) {
 
     }
 
-    this.uploadProduct = function(product, productImage, userName, path, success, error) {
-
+    //http POST for inserting data and uploading files
+    this.uploadProduct = function(product, productImage, userName, path, success, error) { //
         var formData = buildFormData(product, productImage, userName);
-        $http.post("http://localhost:3000/" + path, formData, {
+        $http.post('http://localhost:3000/' + path, formData, {
             transformRequest: angular.identity,
-            headers: { "Content-Type": undefined }
+            headers: { 'Content-Type': undefined }
 
         }).then(success, error);
 
 
     }
 
+    //http POST for updating data and uploading files
     this.updateProduct = function(product, productImage, userName, path, success, error) {
+            var formData = buildFormData(product, productImage, userName);
+            $http.put('http://localhost:3000/' + path, formData, {
+                transformRequest: angular.identity,
+                headers: { 'Content-Type': undefined }
+            }).then(success, error);
+        }
+        // appService.updateCart('member/addToCart', { item: item, user: checkIflogedin.userName }, submitSucsses, submitError);
 
-        var formData = buildFormData(product, productImage, userName);
-        $http.put("http://localhost:3000/" + path, formData, {
+    this.updateCart = function(path, userName, product, success, error) {
+        var formData = buildFormData(product, null, userName);
+        $http.put('http://localhost:3000/' + path, formData, {
             transformRequest: angular.identity,
-            headers: { "Content-Type": undefined }
-
+            headers: { 'Content-Type': undefined }
         }).then(success, error);
-
-
-    }
-
-
-    function buildFormData(product, productImage, userName) {
-        var formData = new FormData();
-
-        for (var key in product) {
-            if (product.hasOwnProperty(key)) {
-                formData.append(key, product[key] === undefined ? "value-from-client-is-undefined" : product[key]);
-            }
-        }
-        formData.append("userName", userName)
-        if ($.isEmptyObject(productImage) == false) {
-            formData.append("productImage", productImage);
-        }
-        return formData;
     }
 
 });

@@ -1,10 +1,10 @@
-var productCtrl = require("../controllers/product.controller.js");
-var express = require("express");
+var productCtrl = require('../controllers/product.controller.js');
+var express = require('express');
 var router = express.Router();
 let data;
 
 // router.use(function(req, res, next) {
-//     const allowedRoutes = ["/product/find/:data", "/favicon.ico"];
+//     const allowedRoutes = ['/product/find/:data', '/favicon.ico'];
 //     let session = req.session;
 //     data = JSON.parse(req.query.data);
 
@@ -23,7 +23,7 @@ let data;
 // });
 
 
-router.post("/upload", function(req, res) {
+router.post('/upload', function(req, res) {
     let product = productCtrl.saveNewProduct(req, function(err, updatedPro) {
         if (err) {
             console.log(err);
@@ -34,7 +34,7 @@ router.post("/upload", function(req, res) {
     });
 });
 
-router.put("/update", function(req, res) {
+router.put('/update', function(req, res) {
     let product = productCtrl.updateProduct(req, function(err, updatedPro) {
         if (err) {
             console.log(err);
@@ -55,7 +55,7 @@ function findmiddleware(req, res, next) {
 }
 
 
-router.get("/find", findmiddleware, function(req, res, next) {
+router.get('/find', findmiddleware, function(req, res, next) {
     let allProducts = productCtrl.getProducts(req, function(err, products) {
         if (err) {
             console.log(err);

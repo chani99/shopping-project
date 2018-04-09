@@ -1,0 +1,54 @@
+<form class="form-horizontal" role="form" ng-submit="submitUser()">
+    <div class="modal-header">
+        <div class="ProductImg">
+            <h3 class="modal-title">Add to Cart</h3>
+
+            <img src="../uploads/{{item.image}}">
+        </div>
+        <hr>
+        <span class="font-18"><b>{{item.name}}</b></span><br>
+        <span>price: <b class="font-16">{{item.price}}</b> $</span><br>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="UserAge" class="col-sm-3 control-label">QTY</label>
+            <div class="col-sm-5">
+                <input type="number" class="form-control" id="QTY" placeholder="QTY" ng-model="item.qty">
+            </div>
+        </div>
+        <!-- <div class="form-group">
+            <label for="UserName" class="col-sm-3 control-label">User Name</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="Name" placeholder="User Name" ng-model="usr.name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="UserJob" class="col-sm-3 control-label">Job</label>
+            <div class="col-sm-5">
+                <input class="form-control" type="text" id="UserJob" ng-model="usr.job">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="UserAge" class="col-sm-3 control-label">Age</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="UserAge" placeholder="Age" ng-model="usr.age">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="UserSal" class="col-sm-3 control-label">Salary</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="UserSal" placeholder="Salary" ng-model="usr.sal">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="UserAddr" class="col-sm-3 control-label">Address</label>
+            <div class="col-sm-5">
+                <textarea rows="4" name="UserAddr" id="UserAddr" placeholder="Address" class="form-control" ng-model="usr.addr"></textarea>
+            </div>
+        </div> -->
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-primary" type="submit">Add to Cart</button>
+    </div>
+</form>
