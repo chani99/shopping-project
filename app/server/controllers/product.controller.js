@@ -134,8 +134,22 @@ function saveUpdateInDB(product, callback) {
 
 }
 
+function getProductPrice(productId, callback) {
+    model.Product.find({
+            _id: productId
+        }, { price: 1 },
+        function(err, price) {
+            if (err) {
+                callback(404, 'Error Occurred!')
+            } else {
+                callback(price);
+            }
 
+        });
 
+}
+
+module.exports.getProductPrice = getProductPrice;
 module.exports.getProducts = getProducts;
 module.exports.saveNewProduct = saveNewProduct;
 module.exports.updateProduct = updateProduct;

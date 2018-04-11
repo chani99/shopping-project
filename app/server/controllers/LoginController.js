@@ -13,7 +13,7 @@ function checkUser(user, callback) {
         model.Member.findOne({
             userName: user.data.name,
             password: pass
-        }).populate('cart').exec(
+        }).populate('cart', 'date_created').exec(
             function(err, member) {
                 if (err) {
                     callback(404, 'Error Occurred!')

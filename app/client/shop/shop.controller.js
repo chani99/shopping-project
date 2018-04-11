@@ -63,7 +63,7 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
             if (item.qty > 0) {
                 alert(JSON.stringify(item));
                 // appService.updateCart('member/addToCart', { item: item, user: checkIflogedin.userName }, submitSucsses, submitError);
-                appService.updateCart('member/addToCart', checkIflogedin.userName, item, submitSucsses, submitError);
+                appService.updateCart('cart/addToCart', checkIflogedin.userName, item, submitSucsses, submitError);
             }
         }, function() {
             $log.info('Modal dismissed at: ' + new Date());

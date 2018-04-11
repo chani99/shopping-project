@@ -27,7 +27,7 @@ var router = express.Router();
 
 router.use('/member', require('./membersApi'));
 router.use('/product', require('./produtcsApi'));
-
+router.use('/cart', require('./cartApi'));
 router.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, '../../client/index.html'));
 });
