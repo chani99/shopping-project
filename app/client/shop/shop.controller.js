@@ -70,12 +70,14 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
         });
     };
 
-    function submitSucsses() {
+    function submitSucsses(cart) {
+        console.log(cart);
         alert("The product was added to your shopping cart");
     }
 
     function submitError(err) {
         alert(err);
+        console.log(err);
     }
 
 
