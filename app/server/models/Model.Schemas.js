@@ -67,10 +67,11 @@ var ProductSchema = new Schema({
 // ProductSchema.plugin(autoIncrement.plugin, 'product');
 
 var CartItem = new Schema({
-    _product_id: [{ type: Schema.Types.ObjectId, ref: 'product' }],
+    // _product_id: [{ type: Schema.Types.ObjectId, ref: 'product' }],
+    _product_id: { type: Schema.ObjectId, ref: 'product' },
     quantity: Number,
     totla_price: Number,
-    _cart_id: [{ type: Schema.Types.ObjectId, ref: 'cart' }],
+    _cart_id: { type: Schema.ObjectId, ref: 'cart' },
 });
 
 

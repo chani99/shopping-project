@@ -112,59 +112,36 @@ function checkIfCart(memberId, callback) {
 
 
 function getAllCartItems(cartId, callback) {
+  
 
-    model.Cart_item.find({ _cart_id: cartId }).populate('products', 'price').exec(
+    model.Cart_item.find({ _cart_id: cartId }).populate('product', 'name').exec(
         function(err, items) {
             if (err) {
                 callback(404, 'Error Occurred!')
             } else {
+                console.log(items);
                 callback(null, items);
 
             }
 
         });
 
+        // model.Cart_item.find({ _cart_id: cartId }, function(err, items) {
+        //     model.Cart_item.populate(items, {path:"product"}, function(err, poItems){
+        //         if (err) {
+        //             callback(404, 'Error Occurred!')
+        //         } else {
+        //             console.log(poItems);
+        //     callback(null, poItems);
 
+        //     }
 
+        // });
 
-    // model.Cart_item.findOne({ _cart_id: cartId }).populate('products', 'name')
-    //     .exec(function(err, items) { if (err) { console.log(err) } else { console.log(items) } })
-    // model.Cart_item.find({ //check if id exists
-    //     cart_id: cartId
-    // }).populate('product').exec(
-    //     function(err, items) {
-    //         if (err) {
-    //             callback(404, 'Error Occurred!');
-    //         } else {
-    //             callback(null, items);
-
-    //         }
-
-    //     });
-
-
+    // });
 }
 
-// let organizeData = function(data, callback) {
-//     let salt = "myApp##"
-//     var newMember = new model.Member();
-//     if (data._id) newMember._id = data._id;
-//     if (data.fname) newMember.fname = data.fname;
-//     if (data.lname) newMember.lname = data.lname;
-//     if (data.userName) newMember.userName = data.userName;
-//     if (data.email) newMember.email = data.email;
-//     if (data.password) newMember.password = hashPassword(salt + data.password);
-//     if (data.street) newMember.street = data.street;
-//     if (data.city) newMember.city = data.city;
-//     if (data.cart) newMember.cart = data.cart;
-//     newMember.role = 'client';
-//     callback(newMember);
+    
 
-// }
-
-// function hashPassword(password) {
-//     let newpass = crypto.createHash('md5').update(password).digest("hex");
-//     return (newpass);
-// }
 
 module.exports.addToCart = addToCart;

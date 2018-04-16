@@ -56,92 +56,9 @@ function updateDetals(user, callback) {
 
     });
 
-    // userName: user.data.name,
-    // password: pass
 
 }
 
-// function addToCart(user, cartItem, callback) {
-//     checkIfCart(user, function(member) {
-//         if (member === false) {
-//             createNewCart(user, function(err, cart) {
-//                 if (err) {
-//                     callback("err creating cart" + err);
-//                 } else {
-//                     let data = { data: { userId: user._id, newMember: { cart: cart._doc._id } } }
-//                     updateDetals(data, function(err, member) {
-//                         if (err) callback("error!: " + err);
-//                         else {
-//                             addToCartStep2(cart._doc._id, cartItem, wasDone);
-
-//                         }
-//                     });
-//                 }
-//             });
-//         } else {
-//             addToCartStep2(cart._doc._id, cartItem, wasDone);
-//         }
-
-//         function wasDone(err, newCartItem) {
-//             if (err) {
-//                 callback("error adding item to cart")
-//             } else {
-//                 callback(null, newCartItem);
-
-//             }
-//         }
-
-//     });
-
-//     function createNewCart(user, callback) {
-//         var newCart = new model.Cart();
-//         newCart.member_id = user._id;
-//         newCart.date_created = new Date();
-//         newCart.save(function(err, cart) {
-//             if (err) {
-//                 callback('Error saving cart!' + err)
-//             } else {
-//                 console.log(cart);
-//                 callback(null, cart);
-//             }
-//         })
-//     }
-
-
-
-//     function addToCartStep2(cartId, cartItem, callback) {
-//         let price = products.getProductPrice(cartItem.product_id, function(price) {
-//             var newCartItem = new model.Cart_item();
-//             newCartItem.product_id = cartItem.product_id;
-//             newCartItem.quantity = cartItem.quantity * price;
-//             newCartItem.cart_id = cartId;
-//             callback(newCart);
-
-//         });
-//     }
-
-
-
-
-// }
-
-// function checkIfCart(memberId, callback) {
-//     model.Member.findOne({ //check if id exists
-//             _id: memberId
-//         },
-//         function(err, member) {
-//             if (err) {
-//                 callback(404, 'Error Occurred!');
-//             } else {
-//                 member._doc.cart.length === 0 ? callback(false) : callback(member);
-
-//             }
-
-//         });
-
-// }
-
-// module.exports.addToCart = addToCart;
 module.exports.checkExists = checkExists;
 module.exports.updateDetals = updateDetals;
 
