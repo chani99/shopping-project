@@ -1,0 +1,9 @@
+<div class="cartItem">
+    <button class="btn" ng-click="removeCartItem({item: _id})">x</button>
+    <div class="cartImage">
+        <img src="../uploads/{{item.product_id.image}}">
+    </div>
+    <span class="font-18"><b>{{item.product_id.name}}</b></span><br>
+    <span class="font-14"><b>{{item.quantity}}</b></span><br>
+    <span>price: <b class="font-16">{{item.totla_price}}</b> $</span><br>
+</div>

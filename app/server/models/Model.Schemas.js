@@ -68,17 +68,17 @@ var ProductSchema = new Schema({
 
 var CartItem = new Schema({
     // _product_id: [{ type: Schema.Types.ObjectId, ref: 'product' }],
-    _product_id: { type: Schema.ObjectId, ref: 'product' },
+    product_id: { type: Schema.Types.ObjectId, ref: 'product' },
     quantity: Number,
     totla_price: Number,
-    _cart_id: { type: Schema.ObjectId, ref: 'cart' },
+    cart_id: { type: Schema.ObjectId, ref: 'cart' },
 });
 
 
-var ShopCity = new Schema({
-    _id: Number,
-    city: String
-});
+// var ShopCity = new Schema({
+//     _id: Number,
+//     city: String
+// });
 
 
 module.exports = {
@@ -87,8 +87,8 @@ module.exports = {
     Order: mongoose.model('order', OrderSchema),
     Cart: mongoose.model('cart', CartSchema),
     Product: mongoose.model('product', ProductSchema),
-    Cart_item: mongoose.model('cart_item', CartItem),
-    City: mongoose.model('city', ShopCity)
+    Cart_item: mongoose.model('cart_item', CartItem)
+        // City: mongoose.model('city', ShopCity)
 
 };
 

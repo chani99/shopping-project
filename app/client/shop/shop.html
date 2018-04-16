@@ -12,7 +12,10 @@
                     <img class="cart" src="../images/cart.png" alt="my mareket">
                 </div>
                 <div ng-if="!empty">
-                    Your items:
+                    Your items:<br>
+                    <div ng-repeat="item in items">
+                        <div ng-include="'../shop/cartItemTemp.html'"></div>
+                    </div>
 
 
                 </div>

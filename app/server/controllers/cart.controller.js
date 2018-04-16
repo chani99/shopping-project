@@ -58,10 +58,10 @@ function addToCart(user, cartItem, callback) {
         products.getProductPrice(cartItem._id, function(price) {
             var newCartItem = new model.Cart_item();
             let priceFromDB = price[0];
-            newCartItem._product_id = cartItem._id;
+            newCartItem.product_id = cartItem._id;
             newCartItem.totla_price = cartItem.qty * priceFromDB._doc.price;
             newCartItem.quantity = cartItem.qty;
-            newCartItem._cart_id = cartId;
+            newCartItem.cart_id = cartId;
             newCartItem.save(function(err, cartItem) {
                 if (err) {
                     console.log(err);
@@ -112,36 +112,43 @@ function checkIfCart(memberId, callback) {
 
 
 function getAllCartItems(cartId, callback) {
-  
 
-    model.Cart_item.find({ _cart_id: cartId }).populate('product', 'name').exec(
-        function(err, items) {
-            if (err) {
-                callback(404, 'Error Occurred!')
-            } else {
-                console.log(items);
-                callback(null, items);
 
-            }
+    model.Cart_item.find({ cart_id: cartId })
+        // .select('product_id')
+        .populate('product_id')
+        .populate('cart_id')
+        .exec()
+        .then(docs => {
+            // if (err) {
+            //     callback(404, 'Error Occurred!')
+            // } else {
+            console.log(docs);
+            callback(null, docs);
+
+            // }
 
         });
 
-        // model.Cart_item.find({ _cart_id: cartId }, function(err, items) {
-        //     model.Cart_item.populate(items, {path:"product"}, function(err, poItems){
-        //         if (err) {
-        //             callback(404, 'Error Occurred!')
-        //         } else {
-        //             console.log(poItems);
-        //     callback(null, poItems);
 
-        //     }
 
-        // });
+
+    // model.Cart_item.find({ _cart_id: cartId }, function(err, items) {
+    //     model.Cart_item.populate(items, {path:"product"}, function(err, poItems){
+    //         if (err) {
+    //             callback(404, 'Error Occurred!')
+    //         } else {
+    //             console.log(poItems);
+    //     callback(null, poItems);
+
+    //     }
+
+    // });
 
     // });
 }
 
-    
+
 
 
 module.exports.addToCart = addToCart;

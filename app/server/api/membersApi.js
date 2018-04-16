@@ -11,8 +11,8 @@ router.use(function(req, res, next) {
         next();
     } else if (req.session === null || req.session === undefined) {
         res.send(401);
-        } else if (req.originalUrl === '/member/details' || req.session._id == req.body.data.userId) {
-            next();
+    } else if (req.originalUrl === '/member/details' || req.session._id == req.body.data.userId) {
+        next();
 
     } else if (req.session.user == req.body.userName) {
         next();
@@ -71,3 +71,6 @@ router.put('/addToCart', function(req, res) { //to do...
 
 });
 module.exports = router;
+
+
+// db.members.update({ "_id" : 200178754 },{ $set: { "role": "admin" } })

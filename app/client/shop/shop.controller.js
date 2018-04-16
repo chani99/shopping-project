@@ -72,6 +72,7 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
 
     function submitSucsses(cart) {
         console.log(cart);
+        $scope.items = cart.data.cart;
         alert("The product was added to your shopping cart");
     }
 
