@@ -113,7 +113,7 @@ function checkIfCart(memberId, callback) {
 
 function getAllCartItems(cartId, callback) {
 
-    model.Cart_item.find({ _cart_id: cartId }).populate('product', 'name').exec(
+    model.Cart_item.find({ _cart_id: cartId }).populate('products', 'price').exec(
         function(err, items) {
             if (err) {
                 callback(404, 'Error Occurred!')

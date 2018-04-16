@@ -11,7 +11,9 @@ router.use(function(req, res, next) {
         next();
     } else if (req.session === null || req.session === undefined) {
         res.send(401);
-        // } else if (req.session._id == req.body.data.userId) {
+        } else if (req.originalUrl === '/member/details' || req.session._id == req.body.data.userId) {
+            next();
+
     } else if (req.session.user == req.body.userName) {
         next();
     }

@@ -142,7 +142,7 @@ function getProductPrice(productId, callback) {
             if (err) {
                 callback(404, 'Error Occurred!')
             } else {
-                geri1470callback(price);
+                callback(price);
             }
 
         });

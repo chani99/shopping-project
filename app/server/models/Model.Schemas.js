@@ -32,10 +32,10 @@ var MemberSchema = new Schema({
 });
 
 // category schema-model
-var CategorySchema = new Schema({
-    _id: Number,
-    name: String
-});
+// var CategorySchema = new Schema({
+//     _id: Number,
+//     name: String
+// });
 
 var OrderSchema = new Schema({
     _id: Schema.Types.ObjectId,
@@ -59,12 +59,12 @@ var CartSchema = new Schema({
 var ProductSchema = new Schema({
     // _id: { type: Schema.Types.ObjectId, ref: 'Author' },
     name: String,
-    category_id: { type: Number, ref: 'category' },
+    // category_id: { type: Number, ref: 'category' },
+    category_id: Number,
     price: Number,
     image: String
 });
 // ProductSchema.plugin(autoIncrement.plugin, 'product');
-// var Book = connection.model('product', bookSchema);
 
 var CartItem = new Schema({
     _product_id: [{ type: Schema.Types.ObjectId, ref: 'product' }],
@@ -82,7 +82,7 @@ var ShopCity = new Schema({
 
 module.exports = {
     Member: mongoose.model('members', MemberSchema),
-    Category: mongoose.model('category', CategorySchema),
+    // Category: mongoose.model('category', CategorySchema),
     Order: mongoose.model('order', OrderSchema),
     Cart: mongoose.model('cart', CartSchema),
     Product: mongoose.model('product', ProductSchema),
