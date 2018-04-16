@@ -57,20 +57,20 @@ var CartSchema = new Schema({
 });
 
 var ProductSchema = new Schema({
-    _id: { type: Schema.Types.ObjectId, ref: 'Author' },
+    // _id: { type: Schema.Types.ObjectId, ref: 'Author' },
     name: String,
     category_id: { type: Number, ref: 'category' },
     price: Number,
     image: String
 });
-ProductSchema.plugin(autoIncrement.plugin, 'product');
+// ProductSchema.plugin(autoIncrement.plugin, 'product');
 // var Book = connection.model('product', bookSchema);
 
 var CartItem = new Schema({
-    product_id: [{ type: Schema.Types.Number, ref: 'product' }],
+    _product_id: [{ type: Schema.Types.ObjectId, ref: 'product' }],
     quantity: Number,
     totla_price: Number,
-    cart_id: [{ type: Schema.Types.ObjectId, ref: 'cart' }],
+    _cart_id: [{ type: Schema.Types.ObjectId, ref: 'cart' }],
 });
 
 
