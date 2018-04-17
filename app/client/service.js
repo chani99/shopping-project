@@ -99,13 +99,30 @@ App.service('appService', function($http) {
         }).then(success, error);
     }
 
-    this.deleteFromCart = function(path, userName, data, success, error){
-        var formData = buildFormData(data, null, userName);
-        $http.delete('http://localhost:3000/' + path, formData, {
-            transformRequest: angular.identity,
-            headers: { 'Content-Type': undefined }
+    this.deleteFromCart = function(path, userName, data, success, error) {
+        $http({
+            url: 'http://localhost:3000/' + path,
+            method: 'DELETE',
+            data: {
+                data: data,
+                userName: userName
+            },
+            headers: { "Content-Type": "application/json;charset=utf-8" }
+
+
         }).then(success, error);
+
     }
 
 
+});
+
+App.service('totalPrice', function() {
+    this.totalPrice = function(cartItems) {
+        let cartTotalPrice = 0;
+        for (i = 0; i < cartItems.length; i++) {
+            cartTotalPrice += cartItems[i].totla_price;
+        }
+        return (cartTotalPrice)
+    }
 });

@@ -54,11 +54,20 @@ router.post('/login', function(req, res) {
         } else {
             // console.log("login: " + logedin);
             let session = req.session;
-            session["user"] = logedin._doc.userName;
-            session["role"] = logedin._doc.role;
-            session["_id"] = logedin._doc._id;
+            session["user"] = logedin.member._doc.userName;
+            session["role"] = logedin.member._doc.role;
+            session["_id"] = logedin.member._doc._id;
             console.log("Session: %j", session);
-            res.end(JSON.stringify({ login: true, member: { _id: logedin._doc._id, userName: logedin._doc.userName, role: logedin._doc.role, cart: logedin._doc.cart } }));
+            res.end(JSON.stringify({
+                login: true,
+                member: {
+                    _id: logedin.member._doc._id,
+                    userName: logedin.member._doc.userName,
+                    role: logedin.member._doc.role,
+                    cart: logedin.member._doc.cart,
+                    cartItems: logedin.cartItem
+                }
+            }));
         }
     });
 

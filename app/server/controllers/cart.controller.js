@@ -129,38 +129,63 @@ function getAllCartItems(cartId, callback) {
             // }
 
         });
-    }
-
-
-
-
-function deleteFromCart(cartItemId, cartId, callback){
-    model.Cart_item.find({ _id:cartItemId })
-    .remove()
-    .exec(
-        function(err, res){
-            if(err) {
-                callback(err);
-            } else {
-                getAllCartItems(cartId, function(err, AllCartItems) {
-                    if (err) {
-                        console.log(err);
-                        callback('Error getting all cart items!');
-
-                    } else {
-                        callback(null, AllCartItems);
-
-                    }
-                });
-            }
-        
-        });
-        
 }
 
 
 
 
+function deleteFromCart(cartItemId, cartId, callback) {
+    model.Cart_item.find({ _id: cartItemId })
+        .remove()
+        .exec(
+            function(err, res) {
+                if (err) {
+                    callback(err);
+                } else {
+                    getAllCartItems(cartId, function(err, AllCartItems) {
+                        if (err) {
+                            console.log(err);
+                            callback('Error getting all cart items!');
+
+                        } else {
+                            callback(null, AllCartItems);
+
+                        }
+                    });
+                }
+
+            });
+
+}
+
+
+
+
+function deleteAllItems(cartId, callback) {
+    model.Cart_item.find({ cart_id: cartId })
+        .remove()
+        .exec(
+            function(err, res) {
+                if (err) {
+                    callback(err);
+                } else {
+                    getAllCartItems(cartId, function(err, AllCartItems) {
+                        if (err) {
+                            console.log(err);
+                            callback('Error getting all cart items!');
+
+                        } else {
+                            callback(null, AllCartItems);
+
+                        }
+                    });
+                }
+
+            });
+
+}
 
 module.exports.addToCart = addToCart;
 module.exports.deleteFromCart = deleteFromCart;
+module.exports.getAllCartItems = getAllCartItems;
+module.exports.deleteAllItems = deleteAllItems;

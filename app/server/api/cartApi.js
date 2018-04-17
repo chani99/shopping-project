@@ -7,6 +7,7 @@ var router = express.Router();
 router.use(function(req, res, next) {
     const allowedRoutes = ['/favicon.ico'];
     console.log(req.session);
+    console.log(req);
     if (allowedRoutes.indexOf(req.originalUrl) > -1) {
         next();
     } else if (req.session === null || req.session === undefined) {
@@ -20,8 +21,10 @@ router.use(function(req, res, next) {
 
 
 router.delete('/deleteCartItem', function(req, res) {
-    let cartItemId = req.body;
-    let deleteAitem = cartCtrl.deleteFromCart(cartItemId, function(err, updatedCart) {
+    let cartItemId = req.body.data.cartItemId;
+    let cartId = req.body.data.cartId;
+
+    let deleteAitem = cartCtrl.deleteFromCart(cartItemId, cartId, function(err, updatedCart) {
         if (err) {
             console.log(err);
             res.end(JSON.stringify({ done: false, why: err }));
@@ -30,14 +33,25 @@ router.delete('/deleteCartItem', function(req, res) {
         }
     });
 
+});
 
+router.delete('/deleteCart', function(req, res) {
+    let cartId = req.body.data;
 
+    let deleteAllItems = cartCtrl.deleteAllItems(cartId, function(err, updatedCart) {
+        if (err) {
+            console.log(err);
+            res.end(JSON.stringify({ done: false, why: err }));
+        } else {
+            res.end(JSON.stringify({ done: true, updatedCart }));
+        }
+    });
 
 });
 
 
 
-router.put('/addToCart', function(req, res) { 
+router.put('/addToCart', function(req, res) {
     let cartItem = req.body;
     let userId = req.session;
     let addToCart = cartCtrl.addToCart(userId, cartItem, function(err, cart) {

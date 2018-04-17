@@ -1,5 +1,6 @@
 let model = require("../models/Model.Schemas");
 let crypto = require('crypto');
+let cart = require("./cart.controller");
 
 
 // Checks if a user exists in the system
@@ -7,9 +8,6 @@ function checkUser(user, callback) {
     let salt = "myApp##"
 
     hashPassword(salt + user.data.password, function(pass) {
-        // console.log(user.data.name);
-        // console.log(pass);
-
         model.Member.findOne({
             userName: user.data.name,
             password: pass
@@ -18,7 +16,23 @@ function checkUser(user, callback) {
                 if (err) {
                     callback(404, 'Error Occurred!')
                 } else {
-                    member !== null ? callback(null, member) : callback('no match');
+                    // member !== null ? callback(null, member) : callback('no match');
+                    if (member !== null) {
+                        if (member._doc.cart !== []) {
+                            let cartid = member._doc.cart[0];
+                            cart.getAllCartItems(cartid._doc._id, function(err, cartItems) {
+                                callback(null, { member: member, cartItem: cartItems });
+
+                            });
+
+                        } else {
+                            callback(null, member);
+                        }
+
+                    } else {
+                        callback('no match');
+                    }
+
                 }
 
 

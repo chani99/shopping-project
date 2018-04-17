@@ -1,9 +1,15 @@
-App.controller('shop', function($scope, $rootScope, $window, $location, $modal, $log, appService) {
+App.controller('shop', function($scope, $rootScope, $window, $location, $modal, $log, appService, totalPrice) {
     //Checks if a user is logged in
     let checkIflogedin = JSON.parse($window.sessionStorage.getItem("user"));
     if (checkIflogedin) {
         if (!checkIflogedin.logedin) $location.path("/");;
         if ((checkIflogedin.cart) && (checkIflogedin.cart.length <= 0)) $scope.empty = true;
+        if ((checkIflogedin.cart) && (checkIflogedin.cart.length > 0)) {
+            let cartFromSession = JSON.parse($window.sessionStorage.getItem("cartItems"));
+            $scope.items = cartFromSession;
+            $scope.total = totalPrice.totalPrice(cartFromSession);
+        }
+
     }
 
     //listens to a broascast logout event
@@ -11,6 +17,7 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
         $window.sessionStorage.removeItem("user");
         $window.sessionStorage.setItem("logedin", false);
         $location.path("/");
+
 
     });
 
@@ -36,28 +43,34 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
             }
             appService.getProducts('product/find', searchValue, checkIflogedin.userName, findSucsses, onErr);
         }
-
     }
 
     function findSucsses(res) {
         $scope.products = res.data;
         console.log($scope.products);
-
     }
 
-    $scope.removeCartItem = function(cartItemId, cartId){
-        data ={
+    //delete a item from shopping cart
+    $scope.removeCartItem = function(cartItemId, cartId) {
+        data = {
             cartItemId: cartItemId,
             cartId: cartId
         }
         appService.deleteFromCart('cart/deleteCartItem', checkIflogedin.userName, data, dltSucsses, submitError);
-
     }
-    function dltSucsses(cart){
-        $scope.items = "";
-        var myEl = angular.element( document.querySelector( '#cartItems' ) ); 
-        myEl.empty();
-        $scope.items = cart.data.cart;
+
+    $scope.emeptyCart = function(cartId) {
+        let make_sure = confirm("Are you sure you want to empty your cart?");
+        if (make_sure) appService.deleteFromCart('cart/deleteCart', checkIflogedin.userName, cartId, dltSucsses, submitError);
+    }
+
+    //after deleteing a cart item
+    function dltSucsses(cart) {
+        $scope.items = cart.data.updatedCart;
+        $scope.total = totalPrice.totalPrice(cart.data.updatedCart);
+        $window.sessionStorage.removeItem("cartItems");
+        $window.sessionStorage.setItem("cartItems", JSON.stringify(updatedCart));
+
 
 
     }
@@ -86,9 +99,15 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
         });
     };
 
+
     function submitSucsses(cart) {
         console.log(cart);
         $scope.items = cart.data.cart;
+        $scope.total = totalPrice.totalPrice(cart.data.cart);
+
+        $window.sessionStorage.removeItem("cartItems");
+        $window.sessionStorage.setItem("cartItems", JSON.stringify(cart.data.cart));
+
         alert("The product was added to your shopping cart");
     }
 
@@ -101,6 +120,8 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
 
 });
 
+
+//dialog popup controller
 App.controller('DialogInstCtrl', function($scope, $modalInstance, selectedUsr, $log) {
     $scope.item = selectedUsr;
     $scope.submitUser = function() {

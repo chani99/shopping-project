@@ -1,4 +1,4 @@
-App.controller('login', function($scope, $rootScope, $window, $location, appService) {
+App.controller('login', function($scope, $rootScope, $window, $location, appService, totalPrice) {
     $scope.user = {}
     $scope.userDetails = {};
     $scope.userDetails.shopping_cart = [];
@@ -34,11 +34,14 @@ App.controller('login', function($scope, $rootScope, $window, $location, appServ
             $rootScope.$broadcast('logedin', (res.data.member));
             let userForSession = { userName: res.data.member.userName, cart: res.data.member.cart, role: res.data.member.role, logedin: true };
             $window.sessionStorage.setItem("user", JSON.stringify(userForSession));
+            $window.sessionStorage.setItem("cartItems", JSON.stringify(res.data.member.cartItems));
+
+
             $scope.userDetails = {
                 name: res.data.member.userName,
                 shopping_cart: {
-                    date: "to do",
-                    price: "to do"
+                    date: res.data.member.cart[0].date_created,
+                    price: totalPrice.totalPrice(res.data.member.cartItems)
                 }
             }
             checkCartStatus(res.data.member.cart.length);

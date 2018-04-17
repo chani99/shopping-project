@@ -12,12 +12,24 @@
                     <img class="cart" src="../images/cart.png" alt="my mareket">
                 </div>
                 <div ng-if="!empty" id="cartItems">
-                    Your items:<br>
+                    <div>
+                        <b class="font-18"> Your cart items:</b>
+                        <button class="btn orange glyphicon glyphicon-trash float-right" ng-click="emeptyCart(items[0].cart_id._id)"></button>
+                    </div>
+                    <br>
                     <div ng-repeat="item in items">
                         <div ng-include="'../shop/cartItemTemp.html'"></div>
                     </div>
-                    All Total: {{total}}
-                    <button class="btn" ng-click="pay">Buy All</button>
+                    <hr>
+                    <div class="float-right text-right">
+                        <b>All Total: <br>
+                            <span class="font-20">{{total}}
+                            </span>  $
+                        </b>
+                        <br>
+                        <button class="btn orange" ng-click="pay">Buy All</button>
+
+                    </div>
 
                 </div>
             </div>
