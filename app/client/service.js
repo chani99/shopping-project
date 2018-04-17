@@ -99,4 +99,13 @@ App.service('appService', function($http) {
         }).then(success, error);
     }
 
+    this.deleteFromCart = function(path, userName, data, success, error){
+        var formData = buildFormData(data, null, userName);
+        $http.delete('http://localhost:3000/' + path, formData, {
+            transformRequest: angular.identity,
+            headers: { 'Content-Type': undefined }
+        }).then(success, error);
+    }
+
+
 });

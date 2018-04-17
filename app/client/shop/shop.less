@@ -139,17 +139,53 @@
 
 .cartItem{
   background-color: white;
-  padding: 20px;
-  width:220px;
-  height: 100px;
+  padding: 2%;
+  width:210px;
+  height: 90px;
   margin-right: 10px;
   margin-top: 10px;
   img{
-    width: 65px;
-    height: 65px;
+    max-width: 65px;
+    max-height: 65px;
     position:relative;
-    margin: auto;
+    padding: 2%;
     
     }
+    .btn{
+      padding: 0;
+      background: none;
+      margin-right: 4px;
+
+    }
+    .cartImage{
+      margin: auto 0;
+
+    }
 }
+
+.cartItem-flx-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: stretch;
+
+}
+.cartItem-flex-item-1{
+  width: 35%;
+  box-sizing: border-box;
+  }
+  .cartItem-flex-item-2{
+    width: 55%;
+    box-sizing: border-box;
+    }
+  .no-padding{
+    padding: 0;
+}
+
+
+@media screen and (max-width: 600px) {
+.signUp-flex-item{
+        width: 100%;
+    }
+  }
 

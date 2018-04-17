@@ -19,11 +19,25 @@ router.use(function(req, res, next) {
 });
 
 
+router.delete('/deleteCartItem', function(req, res) {
+    let cartItemId = req.body;
+    let deleteAitem = cartCtrl.deleteFromCart(cartItemId, function(err, updatedCart) {
+        if (err) {
+            console.log(err);
+            res.end(JSON.stringify({ done: false, why: err }));
+        } else {
+            res.end(JSON.stringify({ done: true, updatedCart }));
+        }
+    });
 
 
 
 
-router.put('/addToCart', function(req, res) { //to do...
+});
+
+
+
+router.put('/addToCart', function(req, res) { 
     let cartItem = req.body;
     let userId = req.session;
     let addToCart = cartCtrl.addToCart(userId, cartItem, function(err, cart) {

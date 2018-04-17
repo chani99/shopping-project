@@ -11,12 +11,13 @@
                     Your Shopping Cart is empty! <br> Start shopping now <br>
                     <img class="cart" src="../images/cart.png" alt="my mareket">
                 </div>
-                <div ng-if="!empty">
+                <div ng-if="!empty" id="cartItems">
                     Your items:<br>
                     <div ng-repeat="item in items">
                         <div ng-include="'../shop/cartItemTemp.html'"></div>
                     </div>
-
+                    All Total: {{total}}
+                    <button class="btn" ng-click="pay">Buy All</button>
 
                 </div>
             </div>

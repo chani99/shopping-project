@@ -45,6 +45,23 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
 
     }
 
+    $scope.removeCartItem = function(cartItemId, cartId){
+        data ={
+            cartItemId: cartItemId,
+            cartId: cartId
+        }
+        appService.deleteFromCart('cart/deleteCartItem', checkIflogedin.userName, data, dltSucsses, submitError);
+
+    }
+    function dltSucsses(cart){
+        $scope.items = "";
+        var myEl = angular.element( document.querySelector( '#cartItems' ) ); 
+        myEl.empty();
+        $scope.items = cart.data.cart;
+
+
+    }
+
     //modal product popup function
     $scope.usrs = [];
     $scope.usr = { name: '', job: '', age: '', sal: '', addr: '' };
@@ -61,8 +78,7 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
         });
         dialogInst.result.then(function(item) {
             if (item.qty > 0) {
-                alert(JSON.stringify(item));
-                // appService.updateCart('member/addToCart', { item: item, user: checkIflogedin.userName }, submitSucsses, submitError);
+                // alert(JSON.stringify(item));
                 appService.updateCart('cart/addToCart', checkIflogedin.userName, item, submitSucsses, submitError);
             }
         }, function() {
