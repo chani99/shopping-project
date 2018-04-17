@@ -18,7 +18,7 @@ function checkUser(user, callback) {
                 } else {
                     // member !== null ? callback(null, member) : callback('no match');
                     if (member !== null) {
-                        if (member._doc.cart !== []) {
+                        if (member._doc.cart.length > 0) {
                             let cartid = member._doc.cart[0];
                             cart.getAllCartItems(cartid._doc._id, function(err, cartItems) {
                                 callback(null, { member: member, cartItem: cartItems });
@@ -26,7 +26,7 @@ function checkUser(user, callback) {
                             });
 
                         } else {
-                            callback(null, member);
+                            callback(null, { member: member, cartItem: null });
                         }
 
                     } else {

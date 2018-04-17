@@ -34,20 +34,18 @@ App.controller('login', function($scope, $rootScope, $window, $location, appServ
             $rootScope.$broadcast('logedin', (res.data.member));
             let userForSession = { userName: res.data.member.userName, cart: res.data.member.cart, role: res.data.member.role, logedin: true };
             $window.sessionStorage.setItem("user", JSON.stringify(userForSession));
-            $window.sessionStorage.setItem("cartItems", JSON.stringify(res.data.member.cartItems));
-
-
-            $scope.userDetails = {
-                name: res.data.member.userName,
-                shopping_cart: {
-                    date: res.data.member.cart[0].date_created,
-                    price: totalPrice.totalPrice(res.data.member.cartItems)
-                }
-            }
-            checkCartStatus(res.data.member.cart.length);
             if (res.data.member.role === "admin") {
                 $location.path("/admin");
-
+            } else {
+                $window.sessionStorage.setItem("cartItems", JSON.stringify(res.data.member.cartItems));
+                $scope.userDetails = {
+                    name: res.data.member.userName,
+                    shopping_cart: {
+                        date: res.data.member.cart[0].date_created,
+                        price: totalPrice.totalPrice(res.data.member.cartItems)
+                    }
+                }
+                checkCartStatus(res.data.member.cart.length);
             }
         } else {
             $scope.loginErr = "wrong username or password";
