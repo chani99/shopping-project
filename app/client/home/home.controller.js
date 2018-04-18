@@ -2,6 +2,18 @@ App.controller('login', function($scope, $rootScope, $window, $location, appServ
     $scope.user = {}
     $scope.userDetails = {};
     $scope.userDetails.shopping_cart = [];
+    let user =  JSON.parse($window.sessionStorage.getItem("user"));
+    cartFromSession = JSON.parse($window.sessionStorage.getItem("cartItems"));
+    if(user){
+    $scope.userDetails = {
+        name: user.userName,
+        shopping_cart: {
+            date:user.cart[0].date_created,
+            price: totalPrice.totalPrice(cartFromSession)
+        }
+    }
+}
+
 
     //Checks if a user is logged in
     let checkIflogedin = JSON.parse($window.sessionStorage.getItem("user"));

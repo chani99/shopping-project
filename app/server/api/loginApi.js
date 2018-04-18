@@ -57,6 +57,7 @@ router.post('/login', function(req, res) {
             session["user"] = logedin.member._doc.userName;
             session["role"] = logedin.member._doc.role;
             session["_id"] = logedin.member._doc._id;
+            session["pass"] = logedin.member._doc.password;
             console.log("Session: %j", session);
             res.end(JSON.stringify({
                 login: true,
@@ -74,6 +75,7 @@ router.post('/login', function(req, res) {
 });
 
 router.get('/logout', function(req, res) {
+    loginCtrl.CheckUsersCart(req.session.user, req.session.pass);
     req.session.destroy();
     res.end(JSON.stringify(true));
 
