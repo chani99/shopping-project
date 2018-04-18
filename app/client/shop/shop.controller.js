@@ -61,7 +61,7 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
 
     $scope.emeptyCart = function(cartId) {
         let make_sure = confirm("Are you sure you want to empty your cart?");
-        if (make_sure) appService.deleteFromCart('cart/deleteCart', checkIflogedin.userName, cartId, dltSucsses, submitError);
+        if (make_sure) appService.deleteFromCart('cart/deleteCart', checkIflogedin.userName, cartId, dltAllSucsses, submitError);
     }
 
     //after deleteing a cart item
@@ -70,9 +70,13 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
         $scope.total = totalPrice.totalPrice(cart.data.updatedCart);
         $window.sessionStorage.removeItem("cartItems");
         $window.sessionStorage.setItem("cartItems", JSON.stringify(updatedCart));
+    }
 
-
-
+    //after deleteing a all cart item
+    function dltAllSucsses(cart) {
+        $scope.items = [];
+        $scope.total = 0;
+        $window.sessionStorage.removeItem("cartItems");
     }
 
     //modal product popup function
@@ -102,13 +106,14 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
 
     function submitSucsses(cart) {
         console.log(cart);
+        $scope.empty = false;
         $scope.items = cart.data.cart;
         $scope.total = totalPrice.totalPrice(cart.data.cart);
 
         $window.sessionStorage.removeItem("cartItems");
         $window.sessionStorage.setItem("cartItems", JSON.stringify(cart.data.cart));
 
-        alert("The product was added to your shopping cart");
+        // alert("The product was added to your shopping cart");
     }
 
     function submitError(err) {

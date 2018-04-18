@@ -185,27 +185,29 @@ function deleteAllItems(cartId, callback) {
 
 }
 
-function deleteCart(cartId, memberId){
-model.Cart.find({_id: cartId})
-.remove()
-.exec(
-    function(err, res) {
-        if (err) {
-            callback(err);
-        } else {
-            //update member schema - remove the cart id from there
-            let memberDta ={
-                data: {
-                    userId: memberId,
-                    newMember: {
-                        cart: []
+function deleteCart(cartId, memberId) {
+    model.Cart.find({ _id: cartId })
+        .remove()
+        .exec(
+            function(err, res) {
+                if (err) {
+                    callback(err);
+                } else {
+                    //update member schema - remove the cart id from there
+                    let memberDta = {
+                        data: {
+                            userId: memberId,
+                            newMember: {
+                                cart: []
+                            }
+                        }
                     }
-                }
-            }
-            member.updateDetals(memberDta);
+                    member.updateDetals(memberDta, function(err, updated) {
+                        console.log(updated);
+                    });
 
-        }
-    });
+                }
+            });
 
 }
 
