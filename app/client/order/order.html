@@ -1,0 +1,99 @@
+<div ng-controller="order">
+    <div class="signUp-flx-container">
+
+
+        <div class="signUp-flex-item no-padding">
+            My Cart
+            <a href="#!shop">Back to shop</a>
+
+            <div ng-repeat="item in items">
+                <div ng-include="'../order/orderTemp.html'"></div>
+                <hr>
+            </div>
+            <br> Total price: {{total}}
+        </div>
+
+
+
+        <div class="signUp-flex-item gray2">
+
+
+            <form name="LoginForm" class="form-signin" novalidate>
+
+                <h4 class="">New Member - Register:</h4>
+                <!-- id -->
+                <div ng-hide="step2">
+                    <label class="">User id:</label>
+                    <input type="number" name="id" ng-model="newUser.id" ng-maxlength="10" ng-minlength="4" class="form-control marg-bottom" placeholder="User id" ng-required="true" autofocus>
+                    <div class="bg-danger" ng-show="LoginForm.id.$invalid && LoginForm.id.$touched"> Entar a valid id 4-10 digits</div>
+
+                    <!-- user name -->
+                    <label class="">User name:</label>
+                    <input type="text" name="username" ng-model="newUser.userName" ng-maxlength="15" ng-minlength="3" ng-pattern="/^[a-zA-Z0-9]*$/" class="form-control marg-bottom" placeholder="User name" ng-required="true">
+                    <div class="bg-danger" ng-show="LoginForm.username.$invalid && LoginForm.username.$touched"> Entar a valid username </div>
+
+                    <!-- email -->
+                    <label class="">Email:</label>
+                    <input type="email" name="email" ng-model="newUser.email" class="form-control marg-bottom" placeholder="email" ng-required="true">
+                    <div class="bg-danger" ng-show="LoginForm.email.$invalid && LoginForm.email.$touched"> Entar a valid email </div>
+
+                    <!-- password -->
+                    <label class="">Password:</label>
+                    <input type="password" name="pass1" ng-model="newUser.password" ng-maxlength="10" ng-minlength="4" ng-pattern="/^[a-zA-Z0-9]*$/" class="form-control marg-bottom" placeholder="password" ng-required="true">
+                    <div class="bg-danger" ng-show="LoginForm.pass1.$invalid && LoginForm.pass1.$touched"> Entar a valid password 4-10 digits </div>
+
+                    <!-- password confirm -->
+                    <label class="">Password confirm:</label>
+                    <input type="password" name="pass2" ng-model="newUser.password2" class="form-control marg-bottom" placeholder="password confirm" ng-required="true">
+                    <div class="bg-danger" ng-show="LoginForm.pass2.$invalid && LoginForm.pass2.$touched"> confirm your password </div>
+                    <div ng-show="LoginForm.pass2.$touched && newUser.password != newUser.password2" class="bg-danger">Your passwords must match.</div>
+
+                    <!-- next button -->
+                    <button class="btn btn-lg orange float-right" ng-click="next(newUser)" ng-disabled="LoginForm.$invalid">NEXT</button><br>
+                </div>
+            </form>
+            <form name="LoginForm2" class="form-signin" novalidate>
+                <div ng-show="step2">
+                    <p>{{step1success}}</p>
+                    <br>
+
+                    <!-- street -->
+                    <label class="">Street:</label>
+                    <input type="text" name="street" ng-model="newUser2.street" ng-maxlength="25" ng-minlength="3" ng-pattern="/^[a-zA-Z0-9]*$/" class="form-control marg-bottom" placeholder="Street" ng-required="true">
+                    <div class="bg-danger" ng-show="LoginForm2.street.$invalid && LoginForm2.street.$touched"> Entar a valid street </div>
+
+                    <!-- city -->
+                    <label class="">City:</label>
+                    <select ng-model="newUser2.city" class="form-control marg-bottom">
+                            <option  value="">-select a city-</option>
+                            <option ng-repeat="city in city" value="{{city}}">{{city}}</option>
+                    </select>
+
+
+                    <!-- first name -->
+                    <label class="">First Name:</label>
+                    <input type="text" name="fname" ng-model="newUser2.fname" ng-maxlength="20" ng-minlength="2" ng-pattern="/^[a-zA-Z0-9]*$/" class="form-control marg-bottom" placeholder="Street" ng-required="true">
+                    <div class="bg-danger" ng-show="LoginForm2.fname.$invalid && LoginForm2.fname.$touched"> Entar a valid street </div>
+
+                    <!-- last name -->
+                    <label class="">Last Name:</label>
+                    <input type="text" name="lname" ng-model="newUser2.lname" ng-maxlength="20" ng-minlength="2" ng-pattern="/^[a-zA-Z0-9]*$/" class="form-control marg-bottom" placeholder="Street" ng-required="true">
+                    <div class="bg-danger" ng-show="LoginForm2.lname.$invalid && LoginForm2.lname.$touched"> Entar a valid street </div>
+
+                    <!-- submit button -->
+                    <button class="btn btn-lg orange float-right" ng-click="submit(newUser2)" ng-disabled="LoginForm.$invalid">SUBMIT</button><br>
+
+
+                </div>
+            </form>
+
+
+        </div>
+
+
+
+
+
+    </div>
+
+</div>

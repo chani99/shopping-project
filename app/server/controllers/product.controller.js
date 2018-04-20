@@ -118,7 +118,7 @@ function updateProduct(req, callback) {
 function saveUpdateInDB(product, callback) {
     var query = { "_id": product._id };
     var options = { new: true };
-    organizeData(product, function(data) {
+    organizeDataForUpdate(product, function(data) {
         model.Product.findOneAndUpdate(query, data, options, function(err, updatedProduct) {
             if (err) {
                 console.log('got an error');
@@ -164,5 +164,18 @@ let organizeData = function(data, callback) {
     if (data.price) newProducts.price = data.price;
     if (data.image) newProducts.image = data.image;
     callback(newProducts);
+
+}
+
+
+
+let organizeDataForUpdate = function(data, callback) {
+    var updateProduct = {};
+    // if (data._id) newProducts._id = data._id;
+    if (data.name) updateProduct.name = data.name;
+    if (data.category) updateProduct.category_id = data.category;
+    if (data.price) updateProduct.price = data.price;
+    if (data.image) updateProduct.image = data.image;
+    callback(updateProduct);
 
 }

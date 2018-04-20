@@ -9,7 +9,7 @@ App.controller('admin', function($scope, $location, $window, appService) {
     //Checks if a user is logged in
     let checkIflogedin = JSON.parse($window.sessionStorage.getItem("user"));
     if (checkIflogedin) {
-        if ((!checkIflogedin.logedin) && (!checkIflogedin.role == 'admin')) $location.path("/");
+        if ((!checkIflogedin.logedin) && (!checkIflogedin.member.role == 'admin')) $location.path("/");
     }
 
     //listens to a broascast logout event
@@ -51,7 +51,7 @@ App.controller('admin', function($scope, $location, $window, appService) {
         switch (title) {
             case "New Product":
                 if ($scope.product.category && $scope.file) {
-                    appService.uploadProduct($scope.product, $scope.file, checkIflogedin.userName, "product/upload", newProductSucsses, onErr);
+                    appService.uploadProduct($scope.product, $scope.file, checkIflogedin.member.userName, "product/upload", newProductSucsses, onErr);
                 }
                 break;
 
@@ -61,7 +61,7 @@ App.controller('admin', function($scope, $location, $window, appService) {
 
                 } else {
                     $scope.product._id = $scope.choosen._id;
-                    appService.updateProduct($scope.product, $scope.file, checkIflogedin.userName, "product/update", newProductSucsses, onErr);
+                    appService.updateProduct($scope.product, $scope.file, checkIflogedin.member.userName, "product/update", newProductSucsses, onErr);
 
                 }
                 break;
@@ -89,13 +89,13 @@ App.controller('admin', function($scope, $location, $window, appService) {
     $scope.find = function(category) {
         $scope.newProduct = false;
         if (category !== 'search') {
-            appService.getProducts('product/find', category, checkIflogedin.userName, findSucsses, onErr);
+            appService.getProducts('product/find', category, checkIflogedin.member.userName, findSucsses, onErr);
         } else {
             let searchValue = {
                 id: category,
                 value: $scope.search
             }
-            appService.getProducts('product/find', searchValue, checkIflogedin.userName, findSucsses, onErr);
+            appService.getProducts('product/find', searchValue, checkIflogedin.member.userName, findSucsses, onErr);
         }
 
     }

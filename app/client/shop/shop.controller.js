@@ -3,8 +3,8 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
     let checkIflogedin = JSON.parse($window.sessionStorage.getItem("user"));
     if (checkIflogedin) {
         if (!checkIflogedin.logedin) $location.path("/");;
-        if ((checkIflogedin.cart) && (checkIflogedin.cart.length <= 0)) $scope.empty = true;
-        if ((checkIflogedin.cart) && (checkIflogedin.cart.length > 0)) {
+        if ((checkIflogedin.member.cart) && (checkIflogedin.member.cart.length <= 0)) $scope.empty = true;
+        if ((checkIflogedin.member.cart) && (checkIflogedin.member.cart.length > 0)) {
             let cartFromSession = JSON.parse($window.sessionStorage.getItem("cartItems"));
             $scope.items = cartFromSession;
             $scope.total = totalPrice.totalPrice(cartFromSession);
@@ -21,7 +21,6 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
 
     });
 
-    $scope.content = 'Hello World';
     $scope.product = {};
 
 
@@ -35,13 +34,13 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
     $scope.find = function(category) {
         // $scope.newProduct = false;
         if (category !== 'search') {
-            appService.getProducts('product/find', category, checkIflogedin.userName, findSucsses, onErr);
+            appService.getProducts('product/find', category, checkIflogedin.member.userName, findSucsses, onErr);
         } else {
             let searchValue = {
                 id: category,
                 value: $scope.search
             }
-            appService.getProducts('product/find', searchValue, checkIflogedin.userName, findSucsses, onErr);
+            appService.getProducts('product/find', searchValue, checkIflogedin.member.userName, findSucsses, onErr);
         }
     }
 
@@ -56,12 +55,12 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
             cartItemId: cartItemId,
             cartId: cartId
         }
-        appService.deleteFromCart('cart/deleteCartItem', checkIflogedin.userName, data, dltSucsses, submitError);
+        appService.deleteFromCart('cart/deleteCartItem', checkIflogedin.member.userName, data, dltSucsses, submitError);
     }
 
     $scope.emeptyCart = function(cartId) {
         let make_sure = confirm("Are you sure you want to empty your cart?");
-        if (make_sure) appService.deleteFromCart('cart/deleteCart', checkIflogedin.userName, cartId, dltAllSucsses, submitError);
+        if (make_sure) appService.deleteFromCart('cart/deleteCart', checkIflogedin.member.userName, cartId, dltAllSucsses, submitError);
     }
 
     //after deleteing a cart item
@@ -69,7 +68,7 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
         $scope.items = cart.data.updatedCart;
         $scope.total = totalPrice.totalPrice(cart.data.updatedCart);
         $window.sessionStorage.removeItem("cartItems");
-        $window.sessionStorage.setItem("cartItems", JSON.stringify(updatedCart));
+        $window.sessionStorage.setItem("cartItems", JSON.stringify(cart.data.updatedCart));
     }
 
     //after deleteing a all cart item
@@ -96,7 +95,7 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
         dialogInst.result.then(function(item) {
             if (item.qty > 0) {
                 // alert(JSON.stringify(item));
-                appService.updateCart('cart/addToCart', checkIflogedin.userName, item, submitSucsses, submitError);
+                appService.updateCart('cart/addToCart', checkIflogedin.member.userName, item, submitSucsses, submitError);
             }
         }, function() {
             $log.info('Modal dismissed at: ' + new Date());
@@ -109,7 +108,6 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
         $scope.empty = false;
         $scope.items = cart.data.cart;
         $scope.total = totalPrice.totalPrice(cart.data.cart);
-
         $window.sessionStorage.removeItem("cartItems");
         $window.sessionStorage.setItem("cartItems", JSON.stringify(cart.data.cart));
 

@@ -22,6 +22,9 @@
 
         </ul>
     </nav>
+    <div ng-hide="productsObject">
+        <img class="w-100 marg-bottom" src="../images/online.jpg" alt="my mareket">
+    </div>
     <div ng-repeat="product in productsObject">
         <div ng-include="'../shop/productTemp.html'"></div>
     </div>
