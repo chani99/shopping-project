@@ -76,6 +76,8 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
         $scope.items = [];
         $scope.total = 0;
         $window.sessionStorage.removeItem("cartItems");
+        $window.sessionStorage.setItem("cartItems", JSON.stringify($scope.items));
+
     }
 
     //modal product popup function
@@ -104,14 +106,14 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
 
 
     function submitSucsses(cart) {
-        console.log(cart);
         $scope.empty = false;
         $scope.items = cart.data.cart;
         $scope.total = totalPrice.totalPrice(cart.data.cart);
         $window.sessionStorage.removeItem("cartItems");
         $window.sessionStorage.setItem("cartItems", JSON.stringify(cart.data.cart));
-
-        // alert("The product was added to your shopping cart");
+        let userForSession = { member: cart.data.member, logedin: true };
+        $window.sessionStorage.removeItem("user");
+        $window.sessionStorage.setItem("user", JSON.stringify(userForSession));
     }
 
     function submitError(err) {

@@ -17,21 +17,21 @@ function addToCart(user, cartItem, callback) {
                     member.updateDetals(data, function(err, member) {
                         if (err) callback("error!: " + err);
                         else {
-                            addToCartStep2(cart._doc._id, cartItem, wasDone);
+                            addToCartStep2(cart._doc._id, cartItem, member, wasDone);
 
                         }
                     });
                 }
             });
         } else {
-            addToCartStep2(memberAndCart.member._doc.cart[0], cartItem, wasDone);
+            addToCartStep2(memberAndCart.member._doc.cart[0], cartItem, memberAndCart.member, wasDone)
         }
 
-        function wasDone(err, AllCartItems) {
+        function wasDone(err, AllCartItems, member) {
             if (err) {
                 callback("error adding item to cart")
             } else {
-                callback(null, AllCartItems);
+                callback(null, AllCartItems, member);
 
             }
         }
@@ -54,7 +54,7 @@ function addToCart(user, cartItem, callback) {
 
 
 
-    function addToCartStep2(cartId, cartItem, callback) {
+    function addToCartStep2(cartId, cartItem, member, callback) {
         products.getProductPrice(cartItem._id, function(price) {
             var newCartItem = new model.Cart_item();
             let priceFromDB = price[0];
@@ -75,7 +75,8 @@ function addToCart(user, cartItem, callback) {
 
                         } else {
                             console.log(AllCartItems);
-                            callback(null, AllCartItems);
+                            callback(null, AllCartItems, member);
+
 
                         }
                     });
@@ -93,19 +94,18 @@ function addToCart(user, cartItem, callback) {
 function checkIfCart(memberId, callback) {
     model.Member.findOne({ //check if id exists
             _id: memberId
-        },
-        // }).populate('cart')
-        // .exec(
-        function(err, member) {
-            if (err) {
-                callback(404, 'Error Occurred!');
-            } else {
+        }).populate('cart')
+        .exec(
+            function(err, member) {
+                if (err) {
+                    callback(404, 'Error Occurred!');
+                } else {
 
-                member._doc.cart.length === 0 ? callback({ hasCart: false, member: member }) : callback({ hasCart: true, member: member });
+                    member._doc.cart.length === 0 ? callback({ hasCart: false, member: member }) : callback({ hasCart: true, member: member });
 
-            }
+                }
 
-        });
+            });
 
 }
 

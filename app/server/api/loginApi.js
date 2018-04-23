@@ -66,7 +66,9 @@ router.post('/login', function(req, res) {
                     userName: logedin.member._doc.userName,
                     role: logedin.member._doc.role,
                     cart: logedin.member._doc.cart,
-                    cartItems: logedin.cartItem
+                    cartItems: logedin.cartItem,
+                    city: logedin.member._doc.city,
+                    street: logedin.member._doc.street
                 }
             }));
         }
@@ -75,9 +77,16 @@ router.post('/login', function(req, res) {
 });
 
 router.get('/logout', function(req, res) {
-    loginCtrl.CheckUsersCart(req.session.user, req.session.pass);
-    req.session.destroy();
-    res.end(JSON.stringify(true));
+    if (req.session.user) {
+        loginCtrl.CheckUsersCart(req.session.user, req.session.pass);
+        req.session.destroy();
+        res.end(JSON.stringify(true));
+    } else {
+        res.end(JSON.stringify(true));
+
+
+    }
+
 
 });
 

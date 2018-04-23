@@ -1,4 +1,6 @@
-var App = angular.module('nodejsApp', ['ngRoute', 'ui.bootstrap']);
+var App = angular.module('nodejsApp', ['ngRoute', 'ui.bootstrap', 'credit-cards']);
+
+
 
 
 App.config(function($routeProvider) {
@@ -64,3 +66,9 @@ App.controller('mainController', function($scope, $rootScope, $window, $location
     }
 
 });
+
+App.filter('yesNo', function() {
+    return function(boolean) {
+        return boolean ? 'Yes' : 'No';
+    }
+})

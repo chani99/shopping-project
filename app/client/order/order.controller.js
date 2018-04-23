@@ -17,121 +17,42 @@ App.controller('order', function($scope, $rootScope, $window, $location, $modal,
         $window.sessionStorage.removeItem("user");
         $window.sessionStorage.setItem("logedin", false);
         $location.path("/");
-
-
     });
 
+    //
     $scope.product = {};
+    $scope.order = {};
+    $scope.city = ["jerusalem", "Tel Aviv", "Hiafa", "Beer Seva", "Eilat", "Afula", "Kfar Saba", "Petach Tikva", "Raanana", "Beit Shemesh"];
+    $scope.order.street = checkIflogedin.member.street;
+    $scope.order.city = checkIflogedin.member.city;
+
+
+
+
+    //date picker
+    var disableDates = ["2018-04-24", "2018-04-25", "2018-04-28"]
+    $(function() {
+        $("#datepicker").datepicker({
+            beforeShowDay: function(date) {
+                var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+                return [disableDates.indexOf(string) == -1]
+            },
+            showButtonPanel: true
+        });
+    });
+
+    //credit card 
+
+
+    $scope.orderButton = function() {
+        alert("BOM");
+        console.log($scope.order);
+        console.log($scope.card);
+
+
+    }
+
+
+
+
 });
-
-
-
-//     function onErr(err) {
-//         alert(JSON.stringify(err));
-//     }
-
-
-//     //get products by category
-//     $scope.find = function(category) {
-//         // $scope.newProduct = false;
-//         if (category !== 'search') {
-//             appService.getProducts('product/find', category, checkIflogedin.member.userName, findSucsses, onErr);
-//         } else {
-//             let searchValue = {
-//                 id: category,
-//                 value: $scope.search
-//             }
-//             appService.getProducts('product/find', searchValue, checkIflogedin.member.userName, findSucsses, onErr);
-//         }
-//     }
-
-//     function findSucsses(res) {
-//         $scope.products = res.data;
-//         console.log($scope.products);
-//     }
-
-//     //delete a item from shopping cart
-//     $scope.removeCartItem = function(cartItemId, cartId) {
-//         data = {
-//             cartItemId: cartItemId,
-//             cartId: cartId
-//         }
-//         appService.deleteFromCart('cart/deleteCartItem', checkIflogedin.member.userName, data, dltSucsses, submitError);
-//     }
-
-//     $scope.emeptyCart = function(cartId) {
-//         let make_sure = confirm("Are you sure you want to empty your cart?");
-//         if (make_sure) appService.deleteFromCart('cart/deleteCart', checkIflogedin.member.userName, cartId, dltAllSucsses, submitError);
-//     }
-
-//     //after deleteing a cart item
-//     function dltSucsses(cart) {
-//         $scope.items = cart.data.updatedCart;
-//         $scope.total = totalPrice.totalPrice(cart.data.updatedCart);
-//         $window.sessionStorage.removeItem("cartItems");
-//         $window.sessionStorage.setItem("cartItems", JSON.stringify(cart.data.updatedCart));
-//     }
-
-//     //after deleteing a all cart item
-//     function dltAllSucsses(cart) {
-//         $scope.items = [];
-//         $scope.total = 0;
-//         $window.sessionStorage.removeItem("cartItems");
-//     }
-
-//     //modal product popup function
-//     $scope.usrs = [];
-//     $scope.usr = { name: '', job: '', age: '', sal: '', addr: '' };
-//     $scope.chooseItem = function(coosenItem) {
-//         var dialogInst = $modal.open({
-//             templateUrl: '../templates/selectedProdactModal.html',
-//             controller: 'DialogInstCtrl',
-//             size: 'lg',
-//             resolve: {
-//                 selectedUsr: function() {
-//                     return coosenItem;
-//                 }
-//             }
-//         });
-//         dialogInst.result.then(function(item) {
-//             if (item.qty > 0) {
-//                 // alert(JSON.stringify(item));
-//                 appService.updateCart('cart/addToCart', checkIflogedin.member.userName, item, submitSucsses, submitError);
-//             }
-//         }, function() {
-//             $log.info('Modal dismissed at: ' + new Date());
-//         });
-//     };
-
-
-//     function submitSucsses(cart) {
-//         console.log(cart);
-//         $scope.empty = false;
-//         $scope.items = cart.data.cart;
-//         $scope.total = totalPrice.totalPrice(cart.data.cart);
-//         $window.sessionStorage.removeItem("cartItems");
-//         $window.sessionStorage.setItem("cartItems", JSON.stringify(cart.data.cart));
-
-//         // alert("The product was added to your shopping cart");
-//     }
-
-//     function submitError(err) {
-//         alert(err);
-//         console.log(err);
-//     }
-
-
-
-// });
-
-
-// //dialog popup controller
-// App.controller('DialogInstCtrl', function($scope, $modalInstance, selectedUsr, $log) {
-//     $scope.item = selectedUsr;
-//     $scope.submitUser = function() {
-//         $modalInstance.close($scope.item);
-//     };
-//     $scope.cancel = function() {
-//         $modalInstance.dismiss('cancel');
-//     };
-// });

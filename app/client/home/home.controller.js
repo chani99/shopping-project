@@ -6,7 +6,7 @@ App.controller('login', function($scope, $rootScope, $window, $location, appServ
     let cartFromSession = JSON.parse($window.sessionStorage.getItem("cartItems"));
     if (user) {
         $scope.user = user;
-        $scope.userDetails.name = user.userName;
+        $scope.userDetails.name = user.member.userName;
         if (user.member.cart.length > 0) $scope.userDetails.shopping_cart = {
             date: user.member.cart[0].date_created,
             price: totalPrice.totalPrice(cartFromSession)
@@ -72,13 +72,19 @@ App.controller('login', function($scope, $rootScope, $window, $location, appServ
                 break;
             case 1:
                 let cartFromSession = JSON.parse($window.sessionStorage.getItem("cartItems"));
-                if (!cartFromSession) { $window.sessionStorage.setItem("cartItems", JSON.stringify(member.cartItems)); }
                 $scope.userDetails.name = member.userName;
                 $scope.userDetails.shopping_cart = {
                     status: "open",
                     date: member.cart[0].date_created,
-                    price: totalPrice.totalPrice(member.cartItems)
                 };
+
+                if (!cartFromSession) {
+                    $window.sessionStorage.setItem("cartItems", JSON.stringify(member.cartItems));
+                    $scope.userDetails.shopping_cart.price = totalPrice.totalPrice(member.cartItems);
+                } else {
+                    $scope.userDetails.shopping_cart.price = totalPrice.totalPrice(cartFromSession);
+                }
+
                 break;
             default:
                 $scope.userDetails.shopping_cart.status = "new";

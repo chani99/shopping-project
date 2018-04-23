@@ -54,12 +54,12 @@ router.delete('/deleteCart', function(req, res) {
 router.put('/addToCart', function(req, res) {
     let cartItem = req.body;
     let userId = req.session;
-    let addToCart = cartCtrl.addToCart(userId, cartItem, function(err, cart) {
+    let addToCart = cartCtrl.addToCart(userId, cartItem, function(err, cart, member) {
         if (err) {
             console.log(err);
             res.end(JSON.stringify({ done: false, why: err }));
         } else {
-            res.end(JSON.stringify({ done: true, cart }));
+            res.end(JSON.stringify({ done: true, cart, member: member }));
         }
     });
 
