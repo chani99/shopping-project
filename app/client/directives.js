@@ -29,3 +29,15 @@ App.directive("shopDirective", function() {
         }
     }
 })
+
+// App.directive("orderForm-directive", function() {
+    
+//         return {
+//             templateUrl: 'templates/shopTemp.html',
+//             scope: {
+//                orderObject: "=",
+//                 cardObject: "=",
+//                 orderButtonFunction: "&"
+//             }
+//         }
+//     })

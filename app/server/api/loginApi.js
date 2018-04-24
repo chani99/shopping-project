@@ -24,7 +24,7 @@ var router = express.Router();
 //     }
 
 // });
-
+router.use('/order', require('./orderApi'));
 router.use('/member', require('./membersApi'));
 router.use('/product', require('./produtcsApi'));
 router.use('/cart', require('./cartApi'));
@@ -33,16 +33,16 @@ router.get('/', function(req, res) {
 });
 
 
-router.get('/city', function(req, res) {
-    let getCity = cityCtrl.getall(function(err, citylist) {
-        if (err) {
-            console.log(err);
-            res.end(JSON.stringify({ login: false, Cause: err }));
-        } else {
-            res.end(JSON.stringify(citylist));
-        }
-    });
-});
+// router.get('/city', function(req, res) {
+//     let getCity = cityCtrl.getall(function(err, citylist) {
+//         if (err) {
+//             console.log(err);
+//             res.end(JSON.stringify({ login: false, Cause: err }));
+//         } else {
+//             res.end(JSON.stringify(citylist));
+//         }
+//     });
+// });
 
 router.post('/login', function(req, res) {
     let user = req.body;

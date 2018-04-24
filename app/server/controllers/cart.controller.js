@@ -185,6 +185,20 @@ function deleteAllItems(cartId, callback) {
 
 }
 
+function deleteOneCart(cartId, callback){
+    model.Cart.find({ _id: cartId })
+    .remove()
+    .exec(
+        function(err, res) {
+            if (err) {
+                callback(err);
+            } else {
+                callback(null, res);
+            }
+        });        
+}
+
+
 function deleteCart(cartId, memberId) {
     model.Cart.find({ _id: cartId })
         .remove()
@@ -211,7 +225,7 @@ function deleteCart(cartId, memberId) {
 
 }
 
-
+module.exports.deleteOneCart = deleteOneCart;
 module.exports.deleteCart = deleteCart;
 module.exports.addToCart = addToCart;
 module.exports.deleteFromCart = deleteFromCart;

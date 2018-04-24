@@ -31,35 +31,26 @@ var MemberSchema = new Schema({
     order: [{ type: Schema.Types.ObjectId, ref: 'order' }]
 });
 
-// category schema-model
-// var CategorySchema = new Schema({
-//     _id: Number,
-//     name: String
-// });
 
 var OrderSchema = new Schema({
-    _id: Schema.Types.ObjectId,
-    member_id: [{ type: Schema.Types.ObjectId, ref: 'members' }],
+    member_id: [{ type: Number, ref: 'members' }],
     cart_id: [{ type: Schema.Types.ObjectId, ref: 'cart' }],
     Price: Number,
     derliver_city: String,
     deliver_street: String,
-    dliver_date: Date,
+    deliver_date: Date,
     order_date: Date,
     credit_card_4dig: Number
 });
 
 
 var CartSchema = new Schema({
-    // _id: Schema.Types.ObjectId,
     member_id: Number,
     date_created: Date
 });
 
 var ProductSchema = new Schema({
-    // _id: { type: Schema.Types.ObjectId, ref: 'Author' },
     name: String,
-    // category_id: { type: Number, ref: 'category' },
     category_id: Number,
     price: Number,
     image: String
@@ -67,7 +58,6 @@ var ProductSchema = new Schema({
 // ProductSchema.plugin(autoIncrement.plugin, 'product');
 
 var CartItem = new Schema({
-    // _product_id: [{ type: Schema.Types.ObjectId, ref: 'product' }],
     product_id: { type: Schema.Types.ObjectId, ref: 'product' },
     quantity: Number,
     totla_price: Number,
@@ -75,20 +65,13 @@ var CartItem = new Schema({
 });
 
 
-// var ShopCity = new Schema({
-//     _id: Number,
-//     city: String
-// });
-
 
 module.exports = {
     Member: mongoose.model('members', MemberSchema),
-    // Category: mongoose.model('category', CategorySchema),
     Order: mongoose.model('order', OrderSchema),
     Cart: mongoose.model('cart', CartSchema),
     Product: mongoose.model('product', ProductSchema),
     Cart_item: mongoose.model('cart_item', CartItem)
-        // City: mongoose.model('city', ShopCity)
 
 };
 

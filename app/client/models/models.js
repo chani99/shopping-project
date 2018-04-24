@@ -19,7 +19,17 @@
         }
             
         
-
-    });
   
-  
+    
+    this.OrderModel = function(data) {
+        if(data.member_id) this.member_id = data.member_id;
+        if(data.cart_id) this.cart_id = data.cart_id;
+        if(data.totalPrice) this.Price = data.totalPrice;
+        if(data.city) this.derliver_city = data.city;
+        if(data.street) this.deliver_street = data.street;
+        if(data.date) this.deliver_date = data.date;
+        if(data.credit) this.credit_card_4dig = data.credit;
+    
+    }
+    
+});

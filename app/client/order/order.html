@@ -17,106 +17,24 @@
 
         <div class="signUp-flex-item gray2">
 
+                <div ng-if="cartNotEmpty">
+                    <div ng-include="'order/orderFormTemplate.html'">
+                </div>
 
-            <form name="orderForm" class="form-signin" novalidate>
+                <div ng-if="!cartNotEmpty" ng-hide="orderDone">
+                    Your shopping cart is empty <br>
+                    To add items to the cart, return to the store
+                    <a href="#!shop">Back to shop</a>
+                    
+                </div>
 
-                <h3 class="">Order:</h3>
-                <hr>
-                <h4 class="">Shipping details:</h4>
-
-
-                <!-- city -->
-                <label class="">City:</label>
-                <select ng-model="order.city" class="form-control marg-bottom">
-                            <option value="">-select a city-</option>
-                            <option ng-repeat="city in city" value="{{city}}">{{city}}</option>
-                </select>
-
-                <!-- street -->
-                <label class="">Street:</label>
-                <input type="text" name="street" ng-model="order.street" ng-maxlength="25" ng-minlength="3" ng-pattern="/^[a-zA-Z0-9 ]*$/" class="form-control marg-bottom" value="order.street" placeholder="Street " ng-required="true ">
-                <div class="bg-danger" ng-show="orderForm.street.$invalid && orderForm.street.$touched"> Entar a valid street </div>
-
-
-                <!-- date -->
-                <label class="">Date:</label>
-                <input type="text" id="datepicker" class="marg-bottom form-control" ng-model="order.date">
-
-
-                <hr>
-
-                <h4 class="">Payment:</h4>
-                <form name="ccForm">
-                    <div class="form-group">
-                        <label for="card-number">Card Number</label>
-                        <input type="text" class="form-control" id="cardNumber" cc-number cc-eager-type name="ccNumber" ng-model="card.number">
-                    </div>
-                    <table class="table">
-                        <tr>
-                            <th>Valid</th>
-                            <th>Eager Type</th>
-                            <th>Type</th>
-                        </tr>
-                        <tr>
-                            <td>
-                                {{ccForm.ccNumber.$valid | yesNo}}
-                            </td>
-                            <td>
-                                {{ccForm.ccNumber.$ccEagerType || 'Unknown'}}
-                            </td>
-                            <td>
-                                {{ccForm.ccNumber.$ccType || 'Unknown'}}
-                            </td>
-                        </tr>
-                    </table>
-                    <div class="form-group">
-                        <label for="cvc">CVC</label>
-                        <input type="text" class="form-control" id="cvc" cc-cvc cc-type="ccForm.ccNumber.$ccType" name="ccCvc" ng-model="card.cvc">
-                    </div>
-                    <table class="table">
-                        <tr>
-                            <th>Valid</th>
-                        </tr>
-                        <tr>
-                            <td>
-                                {{ccForm.ccCvc.$valid | yesNo}}
-                            </td>
-                        </tr>
-                    </table>
-                    <div class="form-group">
-                        <label for="card-number">Expiration</label>
-                        <div class="row" cc-exp>
-                            <div class="col-xs-3">
-                                <input placeholder="MM" type="text" class="form-control" cc-exp-month name="ccExpMonth" ng-model="card.expiration.month">
-                            </div>
-                            <div class="col-xs-3">
-                                <input placeholder="YY" type="text" class="form-control" cc-exp-year name="ccExpYear" ng-model="card.expiration.year">
-                            </div>
-                        </div>
-                    </div>
-                    <table class="table">
-                        <tr>
-                            <th>Valid Month</th>
-                            <th>Valid Year</th>
-                            <th>Valid Pair</th>
-                        </tr>
-                        <tr>
-                            <td>
-                                {{ccForm.ccExpMonth.$valid | yesNo}}
-                            </td>
-                            <td>
-                                {{ccForm.ccExpYear.$valid | yesNo}}
-                            </td>
-                            <td>
-                                {{!ccForm.$error.ccExp | yesNo}}
-                            </td>
-                        </tr>
-                    </table>
-                </form>
-                <!-- order button -->
-                <button class="btn btn-lg orange float-right" ng-click="orderButton()">ORDER</button><br>
-            </form>
-
+                <div ng-if="orderDone">
+                        <div ng-include="'order/orderDone.html'">
+                </div>
+    
+            <!-- directive that order form
+            <div orderForm-directive order-object="order" card-object="card" orderButton-function="orderButton()"> -->
+                
 
         </div>
 
