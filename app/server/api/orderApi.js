@@ -43,7 +43,9 @@ router.post('/order', function(req, res) {
                                             data: {
                                                 userId: order.data.member_id,
                                                 newMember: {
-                                                    cart: []
+                                                    cart: [],
+                                                    lastPurchaseDate:order.data.order_date,
+                                                    lastPurchasePrice:order.data.Price,
                                                 }
                                             }
                                         }

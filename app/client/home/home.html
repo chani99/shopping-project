@@ -13,11 +13,11 @@
 
                 <button class="btn btn-lg orange" type="submit" ng-click="login(user)">Sign in</button><br>
                 <span calss="error" id="login_error"></span>
-                <h5 class="">Not Registered? <a href="#!signUp">Sign up</a></h5>
+                <h5 class="">Not Registered? <a ng-href="#!signUp">Sign up</a></h5>
                 <div ng-model="loginErr" class="bg-danger">{{loginErr}}</div>
 
             </div>
-            <button ng-show="isLogedin" class="btn btn-lg btn-block orange"><a href="#!shop">{{userDetails.button}}</a></button><br>
+            <div ng-show="isLogedin" class="btn btn-lg btn-block orange"><a ng-href="#!shop">{{userDetails.button}}</a></div><br>
             <br>
 
         </div>
@@ -30,7 +30,7 @@
         <div class="home-flex-item">
             <img class="w-50 marg-bottom" src="../images/cart.png" alt="my mareket">
             <br>
-            <h4>
+            <h4 class="orange_light padding-all">
                 Aviailanle Products in our store: {{statistics.products}}<br> Number of orders submitted in our store: {{statistics.orders}}<br>
             </h4>
             <div class="yellow padding-all" ng-switch="userDetails.shopping_cart.status">

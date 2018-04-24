@@ -1,6 +1,8 @@
 App.controller('order', function($scope, $rootScope, $window, $location, $modal, $log, appService, totalPrice, modelsServc) {
     //Checks if a user is logged in
     $scope.cartNotEmpty = false;
+    $scope.orderDone = false;
+
     let checkIflogedin = JSON.parse($window.sessionStorage.getItem("user"));
     if (checkIflogedin) {
         if (!checkIflogedin.logedin) $location.path("/");;
@@ -33,6 +35,7 @@ App.controller('order', function($scope, $rootScope, $window, $location, $modal,
 
 
     //date picker
+    var dateToday = new Date(); 
     var disableDates = ["2018-04-24", "2018-04-25", "2018-04-28"] //todo
     $(function() {
         $("#datepicker").datepicker({
@@ -40,7 +43,9 @@ App.controller('order', function($scope, $rootScope, $window, $location, $modal,
                 var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
                 return [disableDates.indexOf(string) == -1]
             },
-            showButtonPanel: true
+            showButtonPanel: true,
+            minDate: dateToday
+
         });
     });
 
@@ -70,8 +75,9 @@ App.controller('order', function($scope, $rootScope, $window, $location, $modal,
         $scope.cartNotEmpty = false;
         $window.sessionStorage.removeItem("cartItems");
         $window.sessionStorage.setItem("cartItems", JSON.stringify([]));
+        let userForSession = { userName: res.data.member.userName, cart: res.data.member.cart, role: res.data.member.role, member: res.data.member, logedin: true };
         $window.sessionStorage.removeItem("user");
-        $window.sessionStorage.setItem("user", JSON.stringify(res.data.member));
+        $window.sessionStorage.setItem("user", JSON.stringify(userForSession));
         console.log(res);
     }
     

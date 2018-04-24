@@ -36,4 +36,23 @@ let organizeOrderData = function(data, callback) {
 
 }
 
+function sumOfAllOrders(callback){
+
+    var query = model.Order.find({}).select('_id');
+
+    query.exec(function (err, allOrders) {
+        if (err)  {callback(err);
+        } else{
+            // let sum = 0;
+            
+            // for (let i = 0; i < allOrders.length; i++) { 
+            //     sum += allOrders[i]._doc.Price;
+            // }
+            callback(allOrders.length);
+        }
+    });
+}
+
+
 module.exports.addOrder = addOrder;
+module.exports.sumOfAllOrders = sumOfAllOrders;

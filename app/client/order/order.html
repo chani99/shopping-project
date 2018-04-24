@@ -18,18 +18,18 @@
         <div class="signUp-flex-item gray2">
 
                 <div ng-if="cartNotEmpty">
-                    <div ng-include="'order/orderFormTemplate.html'">
+                    <div ng-include="'order/orderFormTemplate.html'"></div>
                 </div>
 
-                <div ng-if="!cartNotEmpty" ng-hide="orderDone">
+                <div ng-if="!cartNotEmpty && !orderDone">
                     Your shopping cart is empty <br>
                     To add items to the cart, return to the store
-                    <a href="#!shop">Back to shop</a>
-                    
+                    <a ng-href="#!shop">Back to shop</a>
                 </div>
 
-                <div ng-if="orderDone">
-                        <div ng-include="'order/orderDone.html'">
+                <div ng-show="orderDone">
+                    <h1>test!!!!!</h1>
+                        <div ng-include="'order/orderDone.html'"></div>
                 </div>
     
             <!-- directive that order form

@@ -28,6 +28,7 @@ App.service('appService', function($http) {
 
         }).then(onSuccess, onError);
     }
+    // headers: { "Content-Type": 'application/xml' }
 
 
     //http GET for products

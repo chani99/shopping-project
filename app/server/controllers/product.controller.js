@@ -149,6 +149,16 @@ function getProductPrice(productId, callback) {
 
 }
 
+function CountProductsInDB(callback){
+
+    model.Product.find({})
+    .then(res =>{
+        callback(res.length);
+    })
+}
+
+
+module.exports.CountProductsInDB = CountProductsInDB;
 module.exports.getProductPrice = getProductPrice;
 module.exports.getProducts = getProducts;
 module.exports.saveNewProduct = saveNewProduct;

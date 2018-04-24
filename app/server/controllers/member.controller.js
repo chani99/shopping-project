@@ -76,6 +76,9 @@ let organizeData = function(data, callback) {
     if (data.street) newMember.street = data.street;
     if (data.city) newMember.city = data.city;
     if (data.cart) newMember.cart = data.cart;
+    if (data.lastPurchaseDate) newMember.lastPurchaseDate = data.lastPurchaseDate;
+    if (data.lastPurchasePrice) newMember.lastPurchasePrice = data.lastPurchasePrice;
+
     newMember.role = 'client';
     callback(newMember);
 

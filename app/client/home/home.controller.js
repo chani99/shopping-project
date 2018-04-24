@@ -2,10 +2,14 @@ App.controller('login', function($scope, $rootScope, $window, $location, appServ
     $scope.user = {}
     $scope.userDetails = {};
     $scope.userDetails.shopping_cart = [];
+    $scope.statistics ={};
     let user = JSON.parse($window.sessionStorage.getItem("user"));
     let cartFromSession = JSON.parse($window.sessionStorage.getItem("cartItems"));
     if (user) {
         $scope.user = user;
+        let statistics = JSON.parse($window.sessionStorage.getItem("statistics"));
+        $scope.statistics.products =statistics.allProduct;
+        $scope.statistics.orders =statistics.allOrders;
         $scope.userDetails.name = user.member.userName;
         if (user.member.cart.length > 0) $scope.userDetails.shopping_cart = {
             date: user.member.cart[0].date_created,
@@ -45,10 +49,13 @@ App.controller('login', function($scope, $rootScope, $window, $location, appServ
         console.log(res.data);
         if (res.data.login === true) {
             $scope.isLogedin = true;
+            $scope.statistics.products =res.data.allProduct;
+            $scope.statistics.orders =res.data.allOrders;
             $rootScope.$broadcast('logedin', (res.data.member));
             // let userForSession = { userName: res.data.member.userName, cart: res.data.member.cart, role: res.data.member.role, logedin: true };
             let userForSession = { member: res.data.member, logedin: true };
             $window.sessionStorage.setItem("user", JSON.stringify(userForSession));
+            $window.sessionStorage.setItem("statistics", JSON.stringify({allOrders: res.data.allOrders, allProduct: res.data.allProduct }));
             if (res.data.member.role === "admin") {
                 $location.path("/admin");
             } else {

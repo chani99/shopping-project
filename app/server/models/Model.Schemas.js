@@ -28,6 +28,8 @@ var MemberSchema = new Schema({
     street: String,
     role: String,
     cart: [{ type: Schema.Types.ObjectId, ref: 'cart' }],
+    lastPurchaseDate:Date,
+    lastPurchasePrice:Number,
     order: [{ type: Schema.Types.ObjectId, ref: 'order' }]
 });
 
