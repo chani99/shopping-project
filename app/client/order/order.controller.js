@@ -48,10 +48,8 @@ App.controller('order', function($scope, $rootScope, $window, $location, $modal,
     //date picker
     let dateToday = new Date();
     var disableDates = [];
-
  
     $scope.loadDatePicker = function(){
-    // $(function() {
         $("#datepicker").datepicker({
             beforeShowDay: function(date) {
                 var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
@@ -61,7 +59,6 @@ App.controller('order', function($scope, $rootScope, $window, $location, $modal,
             minDate: dateToday
 
         });
-    // });
 }
 
     //get order and send to server
