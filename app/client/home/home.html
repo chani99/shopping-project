@@ -41,9 +41,10 @@
                 </div>
                 <div ng-switch-when="closed">
                     {{userDetails.button = "Start Shopping"}}
-                    <span>{{userDetails.name}}, your last purches was at: {{userDetails.shooping_cart.date | date: 'dd/MM/yyyy'}}. <br> of total price of: {{userDetails.shooping_cart.price}}.
+                    <span>{{userDetails.name}}, your last purches was at: {{userDetails.lastPurchaseDate | date: 'dd/MM/yyyy'}}. <br> of total price of: {{userDetails.lastPurchasePrice}}.
                     </span>
                 </div>
+                
                 <div ng-switch-when="new">
                     {{userDetails.button = "Start Shopping"}}
                     <span>{{userDetails.name}}, welcome to jsMarket, enjoy your shopping.

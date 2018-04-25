@@ -65,7 +65,10 @@ router.post('/login', function(req, res) {
                             cart: logedin.member._doc.cart,
                             cartItems: logedin.cartItem,
                             city: logedin.member._doc.city,
-                            street: logedin.member._doc.street
+                            street: logedin.member._doc.street,
+                            lastPurchasePrice: logedin.member._doc.lastPurchasePrice,
+                            lastPurchaseDate: logedin.member._doc.lastPurchaseDate,
+                            
                         }
                     }));
         

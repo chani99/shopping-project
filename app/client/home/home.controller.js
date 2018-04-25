@@ -76,6 +76,8 @@ App.controller('login', function($scope, $rootScope, $window, $location, appServ
         switch (cartLength) {
             case 0:
                 $scope.userDetails.shopping_cart.status = "closed";
+                $scope.userDetails.lastPurchaseDate = member.lastPurchaseDate;
+                $scope.userDetails.lastPurchasePrice = member.lastPurchasePrice;
                 break;
             case 1:
                 let cartFromSession = JSON.parse($window.sessionStorage.getItem("cartItems"));

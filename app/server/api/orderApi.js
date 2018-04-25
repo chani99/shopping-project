@@ -24,6 +24,22 @@ router.use(function(req, res, next) {
 
 });
 
+router.get('/dates', function(req, res) {
+    orderCtrl.checkOrderDates(function(err, dates){
+        if (err) {
+            console.log(err);
+            res.end(JSON.stringify({ done: false, why: err }));
+        }   else {
+            res.end(JSON.stringify(dates));
+    
+        }
+
+    });
+
+    
+
+
+
 
 router.post('/order', function(req, res) {
     let order = req.body;
@@ -34,18 +50,19 @@ router.post('/order', function(req, res) {
                     console.log(err);
                     res.end(JSON.stringify({ done: false, why: err }));
                 } else {
-                    cartCtrl.deleteOneCart(order.data.cart_id, function(err, done){
-                                if(err) {
-                                    console.log(err);
-                                    res.end(JSON.stringify("problem updating mamber"));
-                                } else {
+                    // cartCtrl.deleteOneCart(order.data.cart_id, function(err, done){
+                    //             if(err) {
+                    //                 console.log(err);
+                    //                 res.end(JSON.stringify("problem updating mamber"));
+                    //             } else {
                                         let memberDta = {
                                             data: {
                                                 userId: order.data.member_id,
                                                 newMember: {
                                                     cart: [],
-                                                    lastPurchaseDate:order.data.order_date,
-                                                    lastPurchasePrice:order.data.Price,
+                                                    lastPurchaseDate:newOrder._doc.order_date,
+                                                    lastPurchasePrice:newOrder._doc.Price,
+                                                    order: newOrder._doc._id
                                                 }
                                             }
                                         }
@@ -57,9 +74,9 @@ router.post('/order', function(req, res) {
                                 });
 
                             }
-                    });
+                    // });
 
-                }
+                // }
         
     });
             

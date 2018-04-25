@@ -53,6 +53,31 @@ function sumOfAllOrders(callback){
     });
 }
 
+function checkOrderDates(callback){
+    var query = model.Order.find({}).select('deliver_date -_id');
+        query.exec(function (err, dates) {
+            if (err)  {callback(err);
+            } else {
+                let datesBooked3Times = [];
+                
+                for (let i = 0; i < dates.length; i++) { 
+                    let tempDate = [];
+                    for (let x = 0; x < dates.length+1; x++) { 
+                        if(date[i] == date[x]+1){
+                            tempDate.push(date[x]+1);
+                        }
+                    }
+                        if (tempDate.length >=1) datesBooked3Times.push(tempDate[0]);
+                    }
+                    callback(datesBooked3Times);
+                    
+                }
+            
+        });
+    
 
+}
+
+module.exports.checkOrderDates = checkOrderDates;
 module.exports.addOrder = addOrder;
 module.exports.sumOfAllOrders = sumOfAllOrders;

@@ -32,11 +32,14 @@ App.controller('order', function($scope, $rootScope, $window, $location, $modal,
     $scope.order.city = checkIflogedin.member.city;
 
 
-
+    appService.getData("order/dates", checkIflogedin.member.userName, onSuccessDates, onError);
+    function onSuccessDates(dates){
+        let disableDates = dates.data
+    }
 
     //date picker
     var dateToday = new Date(); 
-    var disableDates = ["2018-04-24", "2018-04-25", "2018-04-28"] //todo
+    // var disableDates = ["2018-04-24", "2018-04-25", "2018-04-28"] //todo
     $(function() {
         $("#datepicker").datepicker({
             beforeShowDay: function(date) {
@@ -53,10 +56,11 @@ App.controller('order', function($scope, $rootScope, $window, $location, $modal,
     //credit card 
     $scope.orderButton = function() {
         let last4 = getLast4($scope.card.number);
+        let userCart = checkIflogedin.member.cart[0];
         let data = {
             member_id: checkIflogedin.member._id,
-            cart_id: checkIflogedin.member.cart[0]._id,
-            totalPrice:   $scope.total,
+            cart_id: userCart._id,
+            totalPrice: $scope.total,
             city: $scope.order.city,
             street: $scope.order.street,
             date: $scope.order.date,

@@ -75,6 +75,7 @@ let organizeData = function(data, callback) {
     if (data.password) newMember.password = hashPassword(salt + data.password);
     if (data.street) newMember.street = data.street;
     if (data.city) newMember.city = data.city;
+    if (data.order) newMember.order = data.order;    
     if (data.cart) newMember.cart = data.cart;
     if (data.lastPurchaseDate) newMember.lastPurchaseDate = data.lastPurchaseDate;
     if (data.lastPurchasePrice) newMember.lastPurchasePrice = data.lastPurchasePrice;

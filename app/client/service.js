@@ -44,7 +44,7 @@ App.service('appService', function($http) {
 
 
     }
-
+    
     //http GET for login
     this.getData = function(path, Params, onSuccess, onError) {
             $http({
