@@ -1,4 +1,49 @@
-<h2>
-        Your purchase was successful <br>
-        To download the receipt click here
-</h2>
+<div class=" text-center orderDone">
+    <img ng-src="../images/bRidMadc9.png">
+
+    <h3>
+        Your purchase was successful <br> To download the receipt <a ng-click="getReceipt()">click here<a>
+</h3>
+<div class="btn btn-lg btn-block orange">
+        <a href="#!shop">Back to shop</a>
+</div>
+</div>
+
+<div class="text-left receipt" id="receipt">
+    <img id="logoR" src="images/logo-01.png " alt="my mareket ">
+
+    <h4>
+        Receipt: <br> No. {{order.order._id}}
+    </h4>
+<h5>
+    Hello {{order.member.fname}} {{order.member.lname}},<br>
+    Just to let you know, we've received your order. Thanks for shopping with us.<br>
+    The following item(s) will be delivered to {{order.order.deliver_street}}, {{order.order.derliver_city}}.
+    <br>
+</h5>
+    
+    <hr> Here's what you'll be getting on {{order.order.deliver_date | date : "dd.MM.y " }}:
+    <table class="table">
+        <tr>
+            <td>Image</td>
+            <td>Product Name</td>
+            <td>Quantity</td>
+            <td>Price</td>
+            <td>Total price</td>
+            <tr>
+
+                <tr ng-repeat="x in order.items ">
+                    <td><img class="t-img"ng-src="../uploads/{{x.product_id.image}} "></td>
+                    <td>{{ x.product_id.name }}</td>
+                    <td>{{ x.quantity }}</td>
+                    <td>{{ x.product_id.price }}$</td>
+                    <td>{{ x.totla_price }}$</td>
+                </tr>
+    </table>
+
+    <hr>
+
+    <h3>Total price:<b>  {{order.order.Price}}<b>$</h3>
+                      
+                
+    </div>

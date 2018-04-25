@@ -29,10 +29,14 @@ App.config(function($routeProvider) {
 
 //index controller
 App.controller('mainController', function($scope, $rootScope, $window, $location, appService, modelsServc) {
-    $scope.mainData = "";
+    $scope.mainData ={};
     $scope.isLogedin = $window.sessionStorage.getItem("user");
     $scope.logedin = $window.sessionStorage.getItem("logedin");
+    if($scope.isLogedin)$scope.mainData.userName = JSON.parse($scope.isLogedin).member.userName;
 
+
+    
+  
     $scope.$on('logedin', function(event, args) {
         $scope.mainData = args;
         $scope.logedin = true;
@@ -67,8 +71,16 @@ App.controller('mainController', function($scope, $rootScope, $window, $location
 
 });
 
+//filter for credit card validation
 App.filter('yesNo', function() {
     return function(boolean) {
         return boolean ? 'Yes' : 'No';
     }
 })
+
+//filter for first carecter uppercase
+App.filter('capitalize', function() {
+    return function(input) {
+      return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
+    }
+});

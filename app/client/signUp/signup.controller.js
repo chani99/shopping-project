@@ -1,5 +1,6 @@
 App.controller('signUp', function($scope, $rootScope, $location, $window, appService, modelsServc) {
     $scope.newUser = {};
+    $scope.statistics ={};
     $scope.city = ["jerusalem", "Tel Aviv", "Hiafa", "Beer Seva", "Eilat", "Afula", "Kfar Saba", "Petach Tikva", "Raanana", "Beit Shemesh"];
     let userId;
 
@@ -38,9 +39,16 @@ App.controller('signUp', function($scope, $rootScope, $location, $window, appSer
             userId = res.data.member;
             $scope.step2 = false;
             // commonData.setData(true, res.data.member);
-            let userForSession = { userName: res.data.member.userName, cart: res.data.member.cart, role: res.data.member.role, logedin: true };
-            $window.sessionStorage.setItem("user", JSON.stringify(userForSession));
-            $rootScope.$broadcast('logedin', (res.data.member));
+//////
+$scope.isLogedin = true;
+$scope.statistics.products =res.data.allProduct;
+$scope.statistics.orders =res.data.allOrders;
+$rootScope.$broadcast('logedin', (res.data.member));
+// let userForSession = { userName: res.data.member.userName, cart: res.data.member.cart, role: res.data.member.role, logedin: true };
+let userForSession = { member: res.data.member, logedin: true };
+$window.sessionStorage.setItem("user", JSON.stringify(userForSession));
+$window.sessionStorage.setItem("statistics", JSON.stringify({allOrders: res.data.allOrders, allProduct: res.data.allProduct }));
+/////
             $location.path("/");
 
         } else {

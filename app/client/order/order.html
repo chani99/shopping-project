@@ -1,8 +1,13 @@
 <div ng-controller="order">
+        <div ng-show="orderDone">
+                <div ng-include="'order/orderDone.html'"></div>
+        </div>
+    
     <div class="signUp-flx-container">
 
+    
 
-        <div class="signUp-flex-item no-padding">
+        <div ng-show="!orderDone" class="signUp-flex-item no-padding paddingR20">
             My Cart
             <a href="#!shop">Back to shop</a>
 
@@ -10,12 +15,13 @@
                 <div ng-include="'../order/orderTemp.html'"></div>
                 <hr>
             </div>
-            <br> Total price: {{total}}
+            <br>
+            <b class="float-right">Total price: <span class="font-20">{{total}}$</span></b> 
         </div>
 
 
 
-        <div class="signUp-flex-item gray2">
+        <div ng-show="!orderDone" class="signUp-flex-item gray2 ">
 
                 <div ng-if="cartNotEmpty">
                     <div ng-include="'order/orderFormTemplate.html'"></div>
@@ -27,10 +33,6 @@
                     <a ng-href="#!shop">Back to shop</a>
                 </div>
 
-                <div ng-show="orderDone">
-                    <h1>test!!!!!</h1>
-                        <div ng-include="'order/orderDone.html'"></div>
-                </div>
     
             <!-- directive that order form
             <div orderForm-directive order-object="order" card-object="card" orderButton-function="orderButton()"> -->

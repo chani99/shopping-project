@@ -30,7 +30,7 @@
         <div class="home-flex-item">
             <img class="w-50 marg-bottom" src="../images/cart.png" alt="my mareket">
             <br>
-            <h4 class="orange_light padding-all">
+            <h4 class="orange_light padding-all" ng-show="isLogedin">
                 Aviailanle Products in our store: {{statistics.products}}<br> Number of orders submitted in our store: {{statistics.orders}}<br>
             </h4>
             <div class="yellow padding-all" ng-switch="userDetails.shopping_cart.status">

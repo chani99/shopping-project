@@ -15,6 +15,8 @@ App.controller('login', function($scope, $rootScope, $window, $location, appServ
             date: user.member.cart[0].date_created,
             price: totalPrice.totalPrice(cartFromSession)
         }
+        if(user.member.role === 'admin') $location.path("/admin");
+
 
 
     }
@@ -54,6 +56,7 @@ App.controller('login', function($scope, $rootScope, $window, $location, appServ
             $rootScope.$broadcast('logedin', (res.data.member));
             // let userForSession = { userName: res.data.member.userName, cart: res.data.member.cart, role: res.data.member.role, logedin: true };
             let userForSession = { member: res.data.member, logedin: true };
+            user = userForSession;
             $window.sessionStorage.setItem("user", JSON.stringify(userForSession));
             $window.sessionStorage.setItem("statistics", JSON.stringify({allOrders: res.data.allOrders, allProduct: res.data.allProduct }));
             if (res.data.member.role === "admin") {
@@ -75,9 +78,13 @@ App.controller('login', function($scope, $rootScope, $window, $location, appServ
     function checkCartStatus(cartLength, member) {
         switch (cartLength) {
             case 0:
+            if (user.member.lastPurchaseDate){
                 $scope.userDetails.shopping_cart.status = "closed";
                 $scope.userDetails.lastPurchaseDate = member.lastPurchaseDate;
                 $scope.userDetails.lastPurchasePrice = member.lastPurchasePrice;
+            } else{
+                $scope.userDetails.shopping_cart.status = "new";
+            }
                 break;
             case 1:
                 let cartFromSession = JSON.parse($window.sessionStorage.getItem("cartItems"));
@@ -87,7 +94,7 @@ App.controller('login', function($scope, $rootScope, $window, $location, appServ
                     date: member.cart[0].date_created,
                 };
 
-                if (!cartFromSession) {
+                if (!cartFromSession)  {
                     $window.sessionStorage.setItem("cartItems", JSON.stringify(member.cartItems));
                     $scope.userDetails.shopping_cart.price = totalPrice.totalPrice(member.cartItems);
                 } else {

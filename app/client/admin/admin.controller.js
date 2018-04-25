@@ -51,6 +51,7 @@ App.controller('admin', function($scope, $location, $window, appService) {
         switch (title) {
             case "New Product":
                 if ($scope.product.category && $scope.file) {
+                    if($scope.product.name) {$scope.product.name = $scope.product.name.toLowerCase();}
                     appService.uploadProduct($scope.product, $scope.file, checkIflogedin.member.userName, "product/upload", newProductSucsses, onErr);
                 }
                 break;
@@ -91,11 +92,13 @@ App.controller('admin', function($scope, $location, $window, appService) {
         if (category !== 'search') {
             appService.getProducts('product/find', category, checkIflogedin.member.userName, findSucsses, onErr);
         } else {
+            if($scope.search){
             let searchValue = {
                 id: category,
-                value: $scope.search
+                value: $scope.search.toLowerCase()
             }
             appService.getProducts('product/find', searchValue, checkIflogedin.member.userName, findSucsses, onErr);
+        }
         }
 
     }

@@ -188,3 +188,14 @@
     }
   }
 
+.popup{
+  padding: 8%;
+  img{
+    max-width: 400px;
+    max-height: 400px;
+    margin: auto 0;
+
+  }
+}
+
+db.products.find({_id:{$lt:99}}).pretty()

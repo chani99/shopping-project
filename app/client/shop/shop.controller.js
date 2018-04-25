@@ -36,11 +36,13 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
         if (category !== 'search') {
             appService.getProducts('product/find', category, checkIflogedin.member.userName, findSucsses, onErr);
         } else {
-            let searchValue = {
-                id: category,
-                value: $scope.search
-            }
+            if($scope.search){
+                let searchValue = {
+                    id: category,
+                    value: $scope.search.toLowerCase()
+                }
             appService.getProducts('product/find', searchValue, checkIflogedin.member.userName, findSucsses, onErr);
+            }
         }
     }
 

@@ -11,9 +11,8 @@ App.controller('order', function($scope, $rootScope, $window, $location, $modal,
             let cartFromSession = JSON.parse($window.sessionStorage.getItem("cartItems"));
             $scope.items = cartFromSession;
             $scope.total = totalPrice.totalPrice(cartFromSession);
-            if($scope.items.length>0) $scope.cartNotEmpty = true;
+            if ($scope.items.length > 0) $scope.cartNotEmpty = true;
         }
-
     }
 
     //listens to a broascast logout event
@@ -23,7 +22,7 @@ App.controller('order', function($scope, $rootScope, $window, $location, $modal,
         $location.path("/");
     });
 
-    //
+
     $scope.product = {};
     $scope.order = {};
     $scope.card = {};
@@ -32,15 +31,27 @@ App.controller('order', function($scope, $rootScope, $window, $location, $modal,
     $scope.order.city = checkIflogedin.member.city;
 
 
+    //check for order dates on db
     appService.getData("order/dates", checkIflogedin.member.userName, onSuccessDates, onError);
-    function onSuccessDates(dates){
-        let disableDates = dates.data
+
+    function onSuccessDates(dates) {
+        let slicedDates = [];
+        for (let z = 0; z < dates.data.length; z++) {
+            let d = dates.data[z];
+            slicedDates.push(d.slice(0, 10));
+        }
+        disableDates = slicedDates;
+        console.log(slicedDates);
     }
 
+
     //date picker
-    var dateToday = new Date(); 
-    // var disableDates = ["2018-04-24", "2018-04-25", "2018-04-28"] //todo
-    $(function() {
+    let dateToday = new Date();
+    var disableDates = [];
+
+ 
+    $scope.loadDatePicker = function(){
+    // $(function() {
         $("#datepicker").datepicker({
             beforeShowDay: function(date) {
                 var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
@@ -50,12 +61,13 @@ App.controller('order', function($scope, $rootScope, $window, $location, $modal,
             minDate: dateToday
 
         });
-    });
+    // });
+}
 
-
-    //credit card 
+    //get order and send to server
     $scope.orderButton = function() {
-        let last4 = getLast4($scope.card.number);
+        $scope.buttonDisabled = true;
+        let last4 = getLast4($scope.card.number); //credit card 
         let userCart = checkIflogedin.member.cart[0];
         let data = {
             member_id: checkIflogedin.member._id,
@@ -66,35 +78,64 @@ App.controller('order', function($scope, $rootScope, $window, $location, $modal,
             date: $scope.order.date,
             credit: last4
         }
-        let order = new modelsServc.OrderModel(data);
-        console.log(data);
-        console.log($scope.card);
-        appService.sendData("order/order", data, onSuccess, onError) 
+
+        if (disableDates.indexOf($scope.order.date) > -1) {
+            alert("The date you selected is busy, please choose a different date");
+        } else{
+            let order = new modelsServc.OrderModel(data);
+            console.log(data);
+            console.log($scope.card);
+            appService.sendData("order/order", data, onSuccess, onError)
+
+        } 
+
     }
 
-    function onSuccess(res){
+//on order success
+    function onSuccess(res) {
+        $scope.buttonDisabled = false;
         $scope.items = [];
         $scope.total = 0;
         $scope.orderDone = true;
         $scope.cartNotEmpty = false;
+        $scope.order = {
+            member: res.data.member,
+            items: res.data.items,
+            order: res.data.order
+        };
         $window.sessionStorage.removeItem("cartItems");
         $window.sessionStorage.setItem("cartItems", JSON.stringify([]));
         let userForSession = { userName: res.data.member.userName, cart: res.data.member.cart, role: res.data.member.role, member: res.data.member, logedin: true };
         $window.sessionStorage.removeItem("user");
         $window.sessionStorage.setItem("user", JSON.stringify(userForSession));
-        console.log(res);
     }
-    
-    function onError(err){
+
+    function onError(err) {
         alert(err);
-        console.log(err);
-        
     }
 
-function getLast4(num){
-    var last4 = num.substr(num.length - 4);     
-    return(last4);
-}
+    //cut last 4 digits from credit card number
+    function getLast4(num) {
+        var last4 = num.substr(num.length - 4);
+        return (last4);
+    }
+
+    //convert receipt to pdf
+    $scope.getReceipt = function() {
+        html2canvas(document.getElementById('receipt'), {
+            onrendered: function(canvas) {
+                var data = canvas.toDataURL();
+                var docDefinition = {
+                    content: [{
+                        image: data,
+                        width: 500,
+                    }]
+                };
+                pdfMake.createPdf(docDefinition).download("JsMarket_receipt.pdf");
+            }
+        });
+    }
 
 
-});
+
+})

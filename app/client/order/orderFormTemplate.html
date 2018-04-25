@@ -20,7 +20,7 @@
     
                     <!-- date -->
                     <label class="">Date:</label>
-                    <input type="text" id="datepicker" class="marg-bottom form-control" ng-model="order.date">
+                    <input type="text" id="datepicker" ng-click="loadDatePicker()" class="marg-bottom form-control" ng-model="order.date">
 
                     <hr>
 </form>
@@ -93,7 +93,7 @@
                 </tr>
             </table>
 
-            <button class="btn btn-lg orange float-right" ng-click="orderButton()">ORDER</button><br>
+            <button class="btn btn-lg orange float-right" ng-click="orderButton()" ng-disabled="buttonDisabled ccForm">ORDER</button><br>
             
     </form>
                     <!-- order button -->

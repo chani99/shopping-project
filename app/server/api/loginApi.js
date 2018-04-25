@@ -8,25 +8,7 @@ var router = express.Router();
 
 
 
-// router.use(function(req, res, next) {
-//     const adminRoutes = ['/admin'];
-//     const allowedRoutes = ['/login', '/', '/member', '/favicon.ico'];
 
-//     if (allowedRoutes.indexOf(req.originalUrl) > -1) {
-//         next();
-//     } else if (sess === null || sess === undefined) {
-//         res.send(401);
-//     } else if (sess.user.name == 'user') {
-//         next();
-
-//         if (adminRoutes.indexOf(req.originalUrl) > -1) {
-//             res.send(401, 'only admins');
-//         }
-
-
-//     }
-
-// });
 router.use('/order', require('./orderApi'));
 router.use('/member', require('./membersApi'));
 router.use('/product', require('./produtcsApi'));
@@ -45,15 +27,14 @@ router.post('/login', function(req, res) {
             res.end(JSON.stringify({ login: false, Cause: err }));
 
         } else {
-            // console.log("login: " + logedin);
             let session = req.session;
             session["user"] = logedin.member._doc.userName;
             session["role"] = logedin.member._doc.role;
             session["_id"] = logedin.member._doc._id;
             session["pass"] = logedin.member._doc.password;
             console.log("Session: %j", session);
-            productCtrl.CountProductsInDB(function(allProduct){
-                orderCtrl.sumOfAllOrders(function(allOrders){
+            productCtrl.CountProductsInDB(function(allProduct) {
+                orderCtrl.sumOfAllOrders(function(allOrders) {
                     res.end(JSON.stringify({
                         login: true,
                         allProduct: allProduct,
@@ -68,10 +49,10 @@ router.post('/login', function(req, res) {
                             street: logedin.member._doc.street,
                             lastPurchasePrice: logedin.member._doc.lastPurchasePrice,
                             lastPurchaseDate: logedin.member._doc.lastPurchaseDate,
-                            
+
                         }
                     }));
-        
+
 
                 })
             })

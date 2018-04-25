@@ -44,7 +44,7 @@
 
                     <!-- street -->
                     <label class="">Street:</label>
-                    <input type="text" name="street" ng-model="newUser2.street" ng-maxlength="25" ng-minlength="3" ng-pattern="/^[a-zA-Z0-9]*$/" class="form-control marg-bottom" placeholder="Street" ng-required="true">
+                    <input type="text" name="street" ng-model="newUser2.street" ng-maxlength="25" ng-minlength="3" ng-pattern="/^[a-zA-Z 0-9]*$/" class="form-control marg-bottom" placeholder="Street" ng-required="true">
                     <div class="bg-danger" ng-show="LoginForm2.street.$invalid && LoginForm2.street.$touched"> Entar a valid street </div>
 
                     <!-- city -->

@@ -18,9 +18,9 @@ router.use(function(req, res, next) {
     } else if (req.session.user == req.body.userName) {
         next();
     }
- else if (req.session._id == req.body.data.member_id) {
-    next();
-}
+    else if (req.session._id == req.body.data.member_id) {
+        next();
+    }
 
 });
 
@@ -50,11 +50,11 @@ router.post('/order', function(req, res) {
                     console.log(err);
                     res.end(JSON.stringify({ done: false, why: err }));
                 } else {
-                    // cartCtrl.deleteOneCart(order.data.cart_id, function(err, done){
-                    //             if(err) {
-                    //                 console.log(err);
-                    //                 res.end(JSON.stringify("problem updating mamber"));
-                    //             } else {
+                    cartCtrl.getAllCartItems(order.data.cart_id, function(err, cartItems){
+                                if(err) {
+                                    console.log(err);
+                                    res.end(JSON.stringify("problem updating mamber"));
+                                } else {
                         let memberDta = {
                                         data: {
                                                 userId: order.data.member_id,
@@ -69,13 +69,13 @@ router.post('/order', function(req, res) {
                                 
                         memberCtrl.updateDetals(memberDta, function(err, updated) {
                                     console.log(updated);
-                                    res.end(JSON.stringify({ done: true, order: newOrder, member: updated}));
+                                    res.end(JSON.stringify({ done: true, order: newOrder, member: updated, items: cartItems}));
                                     
                         });
 
                 }
-                    // });
-
+                    });
+                }
                 
         
     });
