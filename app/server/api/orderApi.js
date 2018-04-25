@@ -7,7 +7,7 @@ var router = express.Router();
 
 
 router.use(function(req, res, next) {
-    const allowedRoutes = ['/favicon.ico'];
+    const allowedRoutes = ['/favicon.ico', "/order/dates"];
     console.log(req.session);
     console.log(req);
     if (allowedRoutes.indexOf(req.originalUrl) > -1) {
@@ -35,7 +35,7 @@ router.get('/dates', function(req, res) {
         }
 
     });
-
+});
     
 
 
@@ -55,8 +55,8 @@ router.post('/order', function(req, res) {
                     //                 console.log(err);
                     //                 res.end(JSON.stringify("problem updating mamber"));
                     //             } else {
-                                        let memberDta = {
-                                            data: {
+                        let memberDta = {
+                                        data: {
                                                 userId: order.data.member_id,
                                                 newMember: {
                                                     cart: [],
@@ -67,20 +67,21 @@ router.post('/order', function(req, res) {
                                             }
                                         }
                                 
-                                memberCtrl.updateDetals(memberDta, function(err, updated) {
+                        memberCtrl.updateDetals(memberDta, function(err, updated) {
                                     console.log(updated);
                                     res.end(JSON.stringify({ done: true, order: newOrder, member: updated}));
                                     
-                                });
+                        });
 
-                            }
+                }
                     // });
 
-                // }
+                
         
     });
             
 });
+
 
 
 module.exports = router;

@@ -45,6 +45,20 @@ App.service('appService', function($http) {
 
     }
     
+        //http GET for products
+        this.get = function(path, userParams, userName, onSuccess, onError) {
+            $http.get('http://localhost:3000/' + path, {
+                params: {
+                    data: {
+                        id: userParams,
+                        userName: userName
+                    }
+                }
+            }).then(onSuccess, onError);
+    
+    
+        }
+        
     //http GET for login
     this.getData = function(path, Params, onSuccess, onError) {
             $http({

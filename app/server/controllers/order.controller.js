@@ -62,14 +62,16 @@ function checkOrderDates(callback){
                 
                 for (let i = 0; i < dates.length; i++) { 
                     let tempDate = [];
-                    for (let x = 0; x < dates.length+1; x++) { 
-                        if(date[i] == date[x]+1){
-                            tempDate.push(date[x]+1);
+                    for (let x = 0; x < dates.length-1; x++) { 
+                        let date1 = dates[i];
+                        let date2 = dates[x+1];
+                        if(date1._doc.deliver_date == date2._doc.deliver_date){
+                            tempDate.push(date2._doc.deliver_date);
                         }
                     }
                         if (tempDate.length >=1) datesBooked3Times.push(tempDate[0]);
                     }
-                    callback(datesBooked3Times);
+                    callback(null, datesBooked3Times);
                     
                 }
             
