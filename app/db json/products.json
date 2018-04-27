@@ -1,0 +1,16 @@
+{"_id":{"$oid":"5ad37e51e2d7701abcf4fc7a"},"name":"chicken breast","category_id":2,"price":20,"image":"046d9f57-a477-4000-b26c-cc1cd25e56ad.jpg","__v":0}
+{"_id":{"$oid":"5ad37e63e2d7701abcf4fc7b"},"name":"red meat","category_id":2,"price":32,"image":"4f5f23a8-b9bf-4457-b66d-31f60f145f08.jpg","__v":0}
+{"_id":{"$oid":"5ad3ca8b45dbad2088c4aa48"},"name":"pineapple big","category_id":1,"price":3,"image":"2e7e817c-c672-4689-bfd2-29475c28b4e1.jpg","__v":0}
+{"_id":{"$oid":"5ad4c0be4b476017ec68eaa7"},"name":"swaet potato orange","category_id":1,"price":3,"image":"3dcdf27f-ca3e-4e5c-b67c-5f87e002f934.jpg","__v":0}
+{"_id":{"$oid":"5ad66a596b44a21b9ce6510b"},"name":"milk vanila 4","category_id":0,"price":7,"image":"655745f9-37a5-4217-b745-49e617f9ba06.jpg","__v":0}
+{"_id":{"$oid":"5ad752d87503df06f46b3746"},"name":"milk 1 litter","category_id":0,"price":4,"image":"309b8f6f-1d83-47c5-a95f-5fa8a964ff0e.jpg","__v":0}
+{"_id":{"$oid":"5ad9010b76ca5c1808996579"},"name":"fish sea","category_id":2,"price":10,"image":"1745515f-0a5a-41bc-ac0f-51a9dd521a55.jpg","__v":0}
+{"_id":{"$oid":"5ad901b776ca5c180899657b"},"name":"greek danona זעתר","category_id":0,"price":3,"image":"c78b23e2-21cb-4334-8d93-eb4f728dac68.jpg","__v":0}
+{"_id":{"$oid":"5ad91724ec0a7312844f131d"},"name":"halomi Chesse","category_id":0,"price":10,"image":"64f0acf1-4338-4371-962e-9c442b9633c1.jpg","__v":0}
+{"_id":{"$oid":"5adc922aa6935c0b840b23fe"},"name":"wine or haganuz","category_id":3,"price":24,"image":"3a71b512-a477-4e54-9bbf-ae3cd5ee1a11.jpg","__v":0}
+{"_id":{"$oid":"5ae08831f9f8d41a9c0b6463"},"name":"peach","category_id":1,"price":3,"image":"a3ec214c-e5f1-430f-af20-001bf7b443a6.jpg","__v":0}
+{"_id":{"$oid":"5ae0d262a8231f2310a8b0c3"},"name":"apple","category_id":1,"price":3,"image":"2c0dce0b-ce10-4d73-976a-9b92200317d7.jpg","__v":0}
+{"_id":{"$oid":"5ae0d9a7a8231f2310a8b0c4"},"name":"wine har edom","category_id":3,"price":12,"image":"7893f7a3-5e7d-4d78-9152-bf55f3721b2e.jpg","__v":0}
+{"_id":{"$oid":"5ae0da44a8231f2310a8b0c5"},"name":"banana yelloe","category_id":1,"price":3,"image":"4f7ed7c9-e712-4802-9ca5-5a695334a301.jpg","__v":0}
+{"_id":{"$oid":"5ae317333dec2b03fcd694db"},"name":"orange","category_id":1,"price":7,"image":"eb84727a-8e66-4251-954a-99e6fe888b1f.jpg","__v":0}
+{"_id":{"$oid":"5ae31b1448a63a1f08a405f7"},"name":"milt tnuva 2 litter","category_id":0,"price":6,"image":"a0d949cf-fab8-412f-a616-d64c688167f9.jpg","__v":0}

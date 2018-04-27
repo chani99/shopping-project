@@ -1,0 +1,7 @@
+mongoexport -d north -c products -o C:\Temp\products.json
+mongoexport -d north -c members -o C:\Temp\members.json
+mongoexport -d north -c carts -o C:\Temp\carts.json
+mongoexport -d north -c orders -o C:\Temp\orders.json
+mongoexport -d north -c cart_items -o C:\Temp\cartItems.json
+
+//open a cmd from bin without runing mongo.exe and run these commands
