@@ -119,6 +119,7 @@ App.controller('order', function($scope, $rootScope, $window, $location, $modal,
 
     //convert receipt to pdf
     $scope.getReceipt = function() {
+        $scope.getR = true;
         html2canvas(document.getElementById('receipt'), {
             onrendered: function(canvas) {
                 var data = canvas.toDataURL();
@@ -133,6 +134,8 @@ App.controller('order', function($scope, $rootScope, $window, $location, $modal,
         });
     }
 
+
+        $scope.getR = false;
 
 
 })
