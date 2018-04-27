@@ -16,9 +16,6 @@ App.controller('login', function($scope, $rootScope, $window, $location, appServ
             price: totalPrice.totalPrice(cartFromSession)
         }
         if(user.member.role === 'admin') $location.path("/admin");
-
-
-
     }
 
 
@@ -54,7 +51,6 @@ App.controller('login', function($scope, $rootScope, $window, $location, appServ
             $scope.statistics.products =res.data.allProduct;
             $scope.statistics.orders =res.data.allOrders;
             $rootScope.$broadcast('logedin', (res.data.member));
-            // let userForSession = { userName: res.data.member.userName, cart: res.data.member.cart, role: res.data.member.role, logedin: true };
             let userForSession = { member: res.data.member, logedin: true };
             user = userForSession;
             $window.sessionStorage.setItem("user", JSON.stringify(userForSession));

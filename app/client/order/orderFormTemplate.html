@@ -1,9 +1,8 @@
-<form name="orderForm" class="form-signin" novalidate>
+<form class="form-signin" novalidate>
     
                     <h3 class="">Order:</h3>
                     <hr>
                     <h4 class="">Shipping details:</h4>
-    
     
                     <!-- city -->
                     <label class="">City:</label>
@@ -11,16 +10,18 @@
                                 <option value="">-select a city-</option>
                                 <option ng-repeat="city in city" value="{{city}}">{{city}}</option>
                     </select>
-    
+                    <div class="bg-danger" ng-show="formValidate.city"> select a city </div>
+
                     <!-- street -->
                     <label class="">Street:</label>
-                    <input type="text" name="street" ng-model="order.street" ng-maxlength="25" ng-minlength="3" ng-pattern="/^[a-zA-Z0-9 ]*$/" class="form-control marg-bottom" value="order.street" placeholder="Street " ng-required="true ">
-                    <div class="bg-danger" ng-show="orderForm.street.$invalid && orderForm.street.$touched"> Entar a valid street </div>
+                    <input type="text" name="street" ng-model="order.street" ng-maxlength="25" ng-minlength="3" ng-pattern="/^[a-zA-Z 0-9 ]*$/" class="form-control marg-bottom" value="order.street" placeholder="Street " ng-required="true ">
+                    <div class="bg-danger" ng-show="formValidate.street"> Entar a valid street </div>
     
     
                     <!-- date -->
                     <label class="">Date:</label>
                     <input type="text" id="datepicker" ng-mouseover="loadDatePicker()" class="marg-bottom form-control" ng-model="order.date">
+                    <div class="bg-danger" ng-show="formValidate.date"> choose a valid Date from date picker </div>
 
                     <hr>
 </form>
@@ -92,6 +93,8 @@
                                 </td>
                 </tr>
             </table>
+            <div class="bg-danger" ng-show="formValidate.credit"> enter a valid credit card </div>
+
 
             <button class="btn btn-lg orange float-right" ng-click="orderButton()" ng-disabled="buttonDisabled">ORDER</button><br>
             

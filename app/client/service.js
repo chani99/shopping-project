@@ -41,8 +41,6 @@ App.service('appService', function($http) {
                 }
             }
         }).then(onSuccess, onError);
-
-
     }
     
         //http GET for products
@@ -55,8 +53,6 @@ App.service('appService', function($http) {
                     }
                 }
             }).then(onSuccess, onError);
-    
-    
         }
         
     //http GET for login
@@ -67,10 +63,9 @@ App.service('appService', function($http) {
                 data: {
                     data: Params
                 }
-
             }).then(onSuccess, onError);
-
         }
+
         //http PUT to update user details
     this.updateData = function(path, Params, onSuccess, onError) {
         $http({
@@ -93,7 +88,6 @@ App.service('appService', function($http) {
 
         }).then(success, error);
 
-
     }
 
     //http POST for updating data and uploading files
@@ -104,8 +98,8 @@ App.service('appService', function($http) {
                 headers: { 'Content-Type': undefined }
             }).then(success, error);
         }
-        // appService.updateCart('member/addToCart', { item: item, user: checkIflogedin.userName }, submitSucsses, submitError);
 
+    //http POST for updating cart when a member adds a item to cart
     this.updateCart = function(path, userName, product, success, error) {
         var formData = buildFormData(product, null, userName);
         $http.put('http://localhost:3000/' + path, formData, {
@@ -113,6 +107,7 @@ App.service('appService', function($http) {
             headers: { 'Content-Type': undefined }
         }).then(success, error);
     }
+
 
     this.deleteFromCart = function(path, userName, data, success, error) {
         $http({
@@ -124,13 +119,13 @@ App.service('appService', function($http) {
             },
             headers: { "Content-Type": "application/json;charset=utf-8" }
 
-
         }).then(success, error);
 
     }
 
 
 });
+
 
 App.service('totalPrice', function() {
     this.totalPrice = function(cartItems) {

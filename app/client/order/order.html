@@ -1,17 +1,17 @@
 <div ng-controller="order">
+
+    <!-- after payment shows the resualts -->
         <div ng-show="orderDone">
                 <div ng-include="'order/orderDone.html'"></div>
         </div>
-    
     <div class="signUp-flx-container">
 
     
-
+<!-- shows hear all cart items -->
         <div ng-show="!orderDone" class="signUp-flex-item no-padding paddingR20">
             My Cart
             <a href="#!shop">Back to shop</a>
-
-            <div ng-repeat="item in items">
+            <div ng-repeat="item in items" id="cartItemsOrder">
                 <div ng-include="'../order/orderTemp.html'"></div>
                 <hr>
             </div>
@@ -20,7 +20,7 @@
         </div>
 
 
-
+        <!-- shows a payment, date and addres form if shooping bag isn't empty-->
         <div ng-show="!orderDone" class="signUp-flex-item gray2 ">
 
                 <div ng-if="cartNotEmpty">
@@ -32,12 +32,7 @@
                     To add items to the cart, return to the store
                     <a ng-href="#!shop">Back to shop</a>
                 </div>
-
-    
-            <!-- directive that order form
-            <div orderForm-directive order-object="order" card-object="card" orderButton-function="orderButton()"> -->
                 
-
         </div>
 
 

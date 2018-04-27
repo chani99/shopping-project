@@ -16,7 +16,7 @@ App.controller('order', function($scope, $rootScope, $window, $location, $modal,
     }
 
     //listens to a broascast logout event
-    $scope.$on('logout', function(event, args) {
+    $scope.$on("logout", function(event, args) {
         $window.sessionStorage.removeItem("user");
         $window.sessionStorage.setItem("logedin", false);
         $location.path("/");
@@ -26,6 +26,7 @@ App.controller('order', function($scope, $rootScope, $window, $location, $modal,
     $scope.product = {};
     $scope.order = {};
     $scope.card = {};
+    $scope.formValidate = {date:"", street:"", city:"", credit:""};
     $scope.city = ["jerusalem", "Tel Aviv", "Hiafa", "Beer Seva", "Eilat", "Afula", "Kfar Saba", "Petach Tikva", "Raanana", "Beit Shemesh"];
     $scope.order.street = checkIflogedin.member.street;
     $scope.order.city = checkIflogedin.member.city;
@@ -53,7 +54,7 @@ App.controller('order', function($scope, $rootScope, $window, $location, $modal,
         $("#datepicker").datepicker({
             beforeShowDay: function(date) {
                 var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-                return [disableDates.indexOf(string) == -1]
+                return [disableDates.indexOf(string) === -1]
             },
             showButtonPanel: true,
             minDate: dateToday
@@ -61,9 +62,12 @@ App.controller('order', function($scope, $rootScope, $window, $location, $modal,
         });
 }
 
+
+
+
+
     //get order and send to server
     $scope.orderButton = function() {
-        $scope.buttonDisabled = true;
         let last4 = getLast4($scope.card.number); //credit card 
         let userCart = checkIflogedin.member.cart[0];
         let data = {
@@ -75,18 +79,24 @@ App.controller('order', function($scope, $rootScope, $window, $location, $modal,
             date: $scope.order.date,
             credit: last4
         }
-
-        if (disableDates.indexOf($scope.order.date) > -1) {
-            alert("The date you selected is busy, please choose a different date");
-        } else{
+            let validateData = false;
+            for (var key in data) {
+                if (!data[key]) {
+                    $scope.formValidate[key] = true;  
+                    validateData = true;   
+                }
+        }
+        
+        if (validateData === false) {
+            $scope.buttonDisabled = true;
             let order = new modelsServc.OrderModel(data);
             console.log(data);
             console.log($scope.card);
             appService.sendData("order/order", data, onSuccess, onError)
 
-        } 
-
+        }
     }
+
 
 //on order success
     function onSuccess(res) {
@@ -120,7 +130,7 @@ App.controller('order', function($scope, $rootScope, $window, $location, $modal,
     //convert receipt to pdf
     $scope.getReceipt = function() {
         $scope.getR = true;
-        html2canvas(document.getElementById('receipt'), {
+        html2canvas(document.getElementById("receipt"), {
             onrendered: function(canvas) {
                 var data = canvas.toDataURL();
                 var docDefinition = {
@@ -136,6 +146,8 @@ App.controller('order', function($scope, $rootScope, $window, $location, $modal,
 
 
         $scope.getR = false;
+        
+
 
 
 })

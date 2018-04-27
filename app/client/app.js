@@ -27,6 +27,7 @@ App.config(function($routeProvider) {
 
 
 
+
 //index controller
 App.controller('mainController', function($scope, $rootScope, $window, $location, appService, modelsServc) {
     $scope.mainData ={};
@@ -84,3 +85,5 @@ App.filter('capitalize', function() {
       return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
     }
 });
+
+
