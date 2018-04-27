@@ -1,4 +1,4 @@
-App.controller('order', function($scope, $rootScope, $window, $location, $modal, $log, appService, totalPrice, modelsServc) {
+App.controller("order", function($scope, $rootScope, $window, $location, $modal, $log, appService, totalPrice, modelsServc) {
     //Checks if a user is logged in
     $scope.cartNotEmpty = false;
     $scope.orderDone = false;
@@ -53,7 +53,7 @@ App.controller('order', function($scope, $rootScope, $window, $location, $modal,
     $scope.loadDatePicker = function(){
         $("#datepicker").datepicker({
             beforeShowDay: function(date) {
-                var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+                var string = jQuery.datepicker.formatDate("yy-mm-dd", date);
                 return [disableDates.indexOf(string) === -1]
             },
             showButtonPanel: true,

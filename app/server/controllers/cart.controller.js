@@ -2,7 +2,7 @@
 let model = require("../models/Model.Schemas");
 let products = require("./product.controller");
 let member = require("./member.controller");
-let crypto = require('crypto');
+let crypto = require("crypto");
 
 
 
@@ -44,7 +44,7 @@ function addToCart(user, cartItem, callback) {
         newCart.date_created = new Date();
         newCart.save(function(err, cart) {
             if (err) {
-                callback('Error saving cart!' + err)
+                callback("Error saving cart!" + err)
             } else {
                 console.log(cart);
                 callback(null, cart);
@@ -65,13 +65,13 @@ function addToCart(user, cartItem, callback) {
             newCartItem.save(function(err, cartItem) {
                 if (err) {
                     console.log(err);
-                    callback('Error saving cart item!');
+                    callback("Error saving cart item!");
                 } else {
                     console.log(cartItem);
                     getAllCartItems(cartId, function(err, AllCartItems) {
                         if (err) {
                             console.log(err);
-                            callback('Error getting all cart items!');
+                            callback("Error getting all cart items!");
 
                         } else {
                             console.log(AllCartItems);
@@ -86,19 +86,16 @@ function addToCart(user, cartItem, callback) {
         });
     }
 
-
-
-
 }
 
 function checkIfCart(memberId, callback) {
     model.Member.findOne({ //check if id exists
             _id: memberId
-        }).populate('cart')
+        }).populate("cart")
         .exec(
             function(err, member) {
                 if (err) {
-                    callback(404, 'Error Occurred!');
+                    callback(404, "Error Occurred!");
                 } else {
 
                     member._doc.cart.length === 0 ? callback({ hasCart: false, member: member }) : callback({ hasCart: true, member: member });
@@ -115,18 +112,12 @@ function getAllCartItems(cartId, callback) {
 
 
     model.Cart_item.find({ cart_id: cartId })
-        // .select('product_id')
-        .populate('product_id')
-        .populate('cart_id')
+        .populate("product_id")
+        .populate("cart_id")
         .exec()
         .then(docs => {
-            // if (err) {
-            //     callback(404, 'Error Occurred!')
-            // } else {
             console.log(docs);
             callback(null, docs);
-
-            // }
 
         });
 }
@@ -145,7 +136,7 @@ function deleteFromCart(cartItemId, cartId, callback) {
                     getAllCartItems(cartId, function(err, AllCartItems) {
                         if (err) {
                             console.log(err);
-                            callback('Error getting all cart items!');
+                            callback("Error getting all cart items!");
 
                         } else {
                             callback(null, AllCartItems);
@@ -172,7 +163,7 @@ function deleteAllItems(cartId, callback) {
                     getAllCartItems(cartId, function(err, AllCartItems) {
                         if (err) {
                             console.log(err);
-                            callback('Error getting all cart items!');
+                            callback("Error getting all cart items!");
 
                         } else {
                             callback(null, AllCartItems);

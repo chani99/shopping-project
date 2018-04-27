@@ -1,17 +1,17 @@
-var memberCtrl = require('../controllers/member.controller.js');
-var express = require('express');
+var memberCtrl = require("../controllers/member.controller.js");
+var express = require("express");
 var router = express.Router();
 
 // let ;
 
 router.use(function(req, res, next) {
-    const allowedRoutes = ['/member/signUp', '/favicon.ico'];
+    const allowedRoutes = ["/member/signUp", "/favicon.ico"];
     console.log(req.session);
     if (allowedRoutes.indexOf(req.originalUrl) > -1) {
         next();
     } else if (req.session === null || req.session === undefined) {
         res.send(401);
-    } else if (req.originalUrl === '/member/details' || req.session._id == req.body.data.userId) {
+    } else if (req.originalUrl === "/member/details" || req.session._id == req.body.data.userId) {
         next();
 
     } else if (req.session.user == req.body.userName) {
@@ -23,7 +23,7 @@ router.use(function(req, res, next) {
 
 
 
-router.post('/signUp', function(req, res) {
+router.post("/signUp", function(req, res) {
     console.log(req.body);
     let user = req.body;
     let checkIfExists = memberCtrl.checkExists(user, function(err, checkRes) {
@@ -33,9 +33,9 @@ router.post('/signUp', function(req, res) {
 
         } else {
             console.log("exists: " + checkRes);
-            req.session['user'] = checkRes._doc.userName;
-            req.session['role'] = checkRes._doc.role;
-            req.session['_id'] = checkRes._doc._id;
+            req.session["user"] = checkRes._doc.userName;
+            req.session["role"] = checkRes._doc.role;
+            req.session["_id"] = checkRes._doc._id;
             console.log(req.session);
             res.end(JSON.stringify({ done: true, member: checkRes._doc._id }));
         }
@@ -43,7 +43,7 @@ router.post('/signUp', function(req, res) {
 
 });
 
-router.put('/details', function(req, res) {
+router.put("/details", function(req, res) {
     console.log(req.body);
     let userDetails = req.body;
     let updateDetals = memberCtrl.updateDetals(userDetails, function(err, updated) {
@@ -57,7 +57,7 @@ router.put('/details', function(req, res) {
 
 });
 
-router.put('/addToCart', function(req, res) { //to do...
+router.put("/addToCart", function(req, res) { //to do...
     let cartItem = req.body;
     let userId = req.session;
     let addToCart = memberCtrl.addToCart(userId, cartItem, function(err, updated) {
@@ -73,4 +73,3 @@ router.put('/addToCart', function(req, res) { //to do...
 module.exports = router;
 
 
-// db.members.update({ "_id" : 200178754 },{ $set: { "role": "admin" } })

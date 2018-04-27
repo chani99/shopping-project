@@ -2,7 +2,7 @@
 let model = require("../models/Model.Schemas");
 let products = require("./product.controller");
 let member = require("./member.controller");
-let crypto = require('crypto');
+let crypto = require("crypto");
 
 
 
@@ -10,7 +10,7 @@ function addOrder(data, callback) {
     organizeOrderData(data, function(orderForDB) {
         orderForDB.save(function(err, order) {
             if (err) {
-                callback('Error saving order!')
+                callback("Error saving order!")
             } else {
                 console.log(order);
                 callback(null, order);
@@ -39,7 +39,7 @@ let organizeOrderData = function(data, callback) {
 }
 
 function sumOfAllOrders(callback) {
-    var query = model.Order.find({}).select('_id');
+    var query = model.Order.find({}).select("_id");
     query.exec(function(err, allOrders) {
         if (err) {
             callback(err);
@@ -51,7 +51,7 @@ function sumOfAllOrders(callback) {
 
 //function to check what date has 3 order
 function checkOrderDates(callback) {
-    var query = model.Order.find({}).select('deliver_date -_id');
+    var query = model.Order.find({}).select("deliver_date -_id");
     query.exec(function(err, dates) {
         if (err) {
             callback(err);

@@ -1,5 +1,5 @@
 let model = require("../models/Model.Schemas");
-let crypto = require('crypto');
+let crypto = require("crypto");
 let cart = require("./cart.controller");
 
 
@@ -24,11 +24,11 @@ function findOneUser(userName, password, callback) {
             userName: userName,
             password: password
         })
-        .populate('cart', 'date_created')
+        .populate("cart", "date_created")
         .exec(
             function(err, member) {
                 if (err) {
-                    callback(404, 'Error Occurred!')
+                    callback(404, "Error Occurred!")
                 } else {
                     if (member !== null) {
                         if (member._doc.cart.length > 0) {
@@ -43,7 +43,7 @@ function findOneUser(userName, password, callback) {
                         }
 
                     } else {
-                        callback('no match');
+                        callback("no match");
                     }
 
                 }
@@ -67,7 +67,7 @@ function CheckUsersCart(userName, password) {
 
 // Creating hash and salt 
 function hashPassword(password, callback) {
-    let newpass = crypto.createHash('md5').update(password).digest("hex");
+    let newpass = crypto.createHash("md5").update(password).digest("hex");
     callback(newpass);
 }
 

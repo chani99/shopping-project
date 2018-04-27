@@ -33,15 +33,15 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
     //get products by category
     $scope.find = function(category) {
         // $scope.newProduct = false;
-        if (category !== 'search') {
-            appService.getProducts('product/find', category, checkIflogedin.member.userName, findSucsses, onErr);
+        if (category !== "search") {
+            appService.getProducts("product/find", category, checkIflogedin.member.userName, findSucsses, onErr);
         } else {
             if($scope.search){
                 let searchValue = {
                     id: category,
                     value: $scope.search.toLowerCase()
                 }
-            appService.getProducts('product/find', searchValue, checkIflogedin.member.userName, findSucsses, onErr);
+            appService.getProducts("product/find", searchValue, checkIflogedin.member.userName, findSucsses, onErr);
             }
         }
     }
@@ -57,12 +57,12 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
             cartItemId: cartItemId,
             cartId: cartId
         }
-        appService.deleteFromCart('cart/deleteCartItem', checkIflogedin.member.userName, data, dltSucsses, submitError);
+        appService.deleteFromCart("cart/deleteCartItem", checkIflogedin.member.userName, data, dltSucsses, submitError);
     }
 
     $scope.emeptyCart = function(cartId) {
         let make_sure = confirm("Are you sure you want to empty your cart?");
-        if (make_sure) appService.deleteFromCart('cart/deleteCart', checkIflogedin.member.userName, cartId, dltAllSucsses, submitError);
+        if (make_sure) appService.deleteFromCart("cart/deleteCart", checkIflogedin.member.userName, cartId, dltAllSucsses, submitError);
     }
 
     //after deleteing a cart item
@@ -83,13 +83,11 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
     }
 
     //modal product popup function
-    $scope.usrs = [];
-    $scope.usr = { name: '', job: '', age: '', sal: '', addr: '' };
     $scope.chooseItem = function(coosenItem) {
         var dialogInst = $modal.open({
-            templateUrl: '../templates/selectedProdactModal.html',
-            controller: 'DialogInstCtrl',
-            size: 'lg',
+            templateUrl: "../templates/selectedProdactModal.html",
+            controller: "DialogInstCtrl",
+            size: "lg",
             resolve: {
                 selectedUsr: function() {
                     return coosenItem;
@@ -99,10 +97,10 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
         dialogInst.result.then(function(item) {
             if (item.qty > 0) {
                 // alert(JSON.stringify(item));
-                appService.updateCart('cart/addToCart', checkIflogedin.member.userName, item, submitSucsses, submitError);
+                appService.updateCart("cart/addToCart", checkIflogedin.member.userName, item, submitSucsses, submitError);
             }
         }, function() {
-            $log.info('Modal dismissed at: ' + new Date());
+            $log.info("Modal dismissed at: " + new Date());
         });
     };
 
@@ -129,12 +127,12 @@ App.controller('shop', function($scope, $rootScope, $window, $location, $modal, 
 
 
 //dialog popup controller
-App.controller('DialogInstCtrl', function($scope, $modalInstance, selectedUsr, $log) {
+App.controller("DialogInstCtrl", function($scope, $modalInstance, selectedUsr, $log) {
     $scope.item = selectedUsr;
     $scope.submitUser = function() {
         $modalInstance.close($scope.item);
     };
     $scope.cancel = function() {
-        $modalInstance.dismiss('cancel');
+        $modalInstance.dismiss("cancel");
     };
 });

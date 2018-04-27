@@ -1,7 +1,7 @@
 "use strict";
 let model = require("../models/Model.Schemas");
 let products = require("./member.controller");
-let crypto = require('crypto');
+let crypto = require("crypto");
 
 
 // Checks if a id exists in the system
@@ -11,7 +11,7 @@ function checkExists(user, callback) {
         },
         function(err, member) {
             if (err) {
-                callback(404, 'Error Occurred!')
+                callback(404, "Error Occurred!")
             } else if (member !== null) {
                 callback("a member with this id is already registerd!")
             } else {
@@ -20,14 +20,14 @@ function checkExists(user, callback) {
                     },
                     function(err, userN) {
                         if (err) {
-                            callback(404, 'Error Occurred!')
+                            callback(404, "Error Occurred!")
                         } else if (userN !== null) {
                             callback("This user name already taken, Pleas try a difrent one!")
                         } else {
                             organizeData(user.data, function(member4save) { //if both are ok then save new member
                                 member4save.save(function(err, member) {
                                     if (err) {
-                                        callback('Error saving member!')
+                                        callback("Error saving member!")
                                     } else {
                                         console.log(member);
                                         callback(null, member);
@@ -46,7 +46,7 @@ function updateDetals(user, callback) {
     organizeData(user.data.newMember, function(data) {
         model.Member.findOneAndUpdate(query, data, options, function(err, member) {
             if (err) {
-                console.log('got an error');
+                console.log("got an error");
             } else {
                 console.log(member);
                 callback(null, member);
@@ -80,12 +80,12 @@ let organizeData = function(data, callback) {
     if (data.lastPurchaseDate) newMember.lastPurchaseDate = data.lastPurchaseDate;
     if (data.lastPurchasePrice) newMember.lastPurchasePrice = data.lastPurchasePrice;
 
-    newMember.role = 'client';
+    newMember.role = "client";
     callback(newMember);
 
 }
 
 function hashPassword(password) {
-    let newpass = crypto.createHash('md5').update(password).digest("hex");
+    let newpass = crypto.createHash("md5").update(password).digest("hex");
     return (newpass);
 }

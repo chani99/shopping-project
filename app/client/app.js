@@ -1,27 +1,27 @@
-var App = angular.module('nodejsApp', ['ngRoute', 'ui.bootstrap', 'credit-cards']);
+var App = angular.module("nodejsApp", ["ngRoute", "ui.bootstrap", "credit-cards"]);
 
 
 
 
 App.config(function($routeProvider) {
     $routeProvider
-        .when('/', {
-            templateUrl: 'home/home.html'
+        .when("/", {
+            templateUrl: "home/home.html"
         })
-        .when('/signUp', {
-            templateUrl: 'signUp/signUp.html'
+        .when("/signUp", {
+            templateUrl: "signUp/signUp.html"
         })
-        .when('/shop', {
-            templateUrl: 'shop/shop.html'
+        .when("/shop", {
+            templateUrl: "shop/shop.html"
         })
-        .when('/admin', {
-            templateUrl: 'admin/admin.html'
+        .when("/admin", {
+            templateUrl: "admin/admin.html"
         })
-        .when('/order', {
-            templateUrl: 'order/order.html'
+        .when("/order", {
+            templateUrl: "order/order.html"
         })
 
-    .otherwise({ redirectTo: 'home' });
+    .otherwise({ redirectTo: "home" });
 });
 
 
@@ -29,7 +29,7 @@ App.config(function($routeProvider) {
 
 
 //index controller
-App.controller('mainController', function($scope, $rootScope, $window, $location, appService, modelsServc) {
+App.controller("mainController", function($scope, $rootScope, $window, $location, appService, modelsServc) {
     $scope.mainData ={};
     $scope.isLogedin = $window.sessionStorage.getItem("user");
     $scope.logedin = $window.sessionStorage.getItem("logedin");
@@ -38,7 +38,7 @@ App.controller('mainController', function($scope, $rootScope, $window, $location
 
     
   
-    $scope.$on('logedin', function(event, args) {
+    $scope.$on("logedin", function(event, args) {
         $scope.mainData = args;
         $scope.logedin = true;
         $window.sessionStorage.setItem("logedin", true);
@@ -46,7 +46,7 @@ App.controller('mainController', function($scope, $rootScope, $window, $location
     });
 
     $scope.logout = function() {
-        appService.getData('logout', 'logout', logoutSucsses, logoutError);
+        appService.getData("logout", "logout", logoutSucsses, logoutError);
     }
 
     function logoutSucsses(res) {
@@ -54,7 +54,7 @@ App.controller('mainController', function($scope, $rootScope, $window, $location
         if (res.data === "true") {
             $window.sessionStorage.setItem("logedin", false);
             $scope.isLogedin = false;
-            $rootScope.$broadcast('logout', (false));
+            $rootScope.$broadcast("logout", (false));
             $scope.logedin = false;
             // commonData.setData(false, {});
 
@@ -67,22 +67,22 @@ App.controller('mainController', function($scope, $rootScope, $window, $location
     }
 
     function logoutError(res) {
-        console.log('error');
+        console.log("error");
     }
 
 });
 
 //filter for credit card validation
-App.filter('yesNo', function() {
+App.filter("yesNo", function() {
     return function(boolean) {
-        return boolean ? 'Yes' : 'No';
+        return boolean ? "Yes" : "No";
     }
 })
 
 //filter for first carecter uppercase
-App.filter('capitalize', function() {
+App.filter("capitalize", function() {
     return function(input) {
-      return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
+      return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() :"";
     }
 });
 

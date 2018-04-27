@@ -10,7 +10,7 @@
 </div>
 
 <div class="text-left receipt" id="receipt" ng-show="getR">
-    <img id="logoR" src="images/logo-01.png " alt="my mareket ">
+    <img id="logoR" src="images/logo-01.png" alt="my mareket ">
 
     <h4>
         Receipt: <br> No. {{order.order._id}}
@@ -33,7 +33,7 @@
             <tr>
 
                 <tr ng-repeat="x in order.items ">
-                    <td><img class="t-img"ng-src="../uploads/{{x.product_id.image}} "></td>
+                    <td><img class="t-img"ng-src="../uploads/{{x.product_id.image}}"></td>
                     <td>{{ x.product_id.name }}</td>
                     <td>{{ x.quantity }}</td>
                     <td>{{ x.product_id.price }}$</td>

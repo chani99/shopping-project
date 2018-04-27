@@ -22,8 +22,14 @@ let data;
 
 // });
 
+function adminmiddleware(req, res, next) {
+    if(req.body)data = req.body;
+    if (req.session.user === data.userName && req.session.role === "admin") {
+        next();
+    }
+}
 
-router.post('/upload', function(req, res) {
+router.post('/upload',adminmiddleware, function(req, res) {
     let product = productCtrl.saveNewProduct(req, function(err, updatedPro) {
         if (err) {
             console.log(err);
@@ -34,7 +40,7 @@ router.post('/upload', function(req, res) {
     });
 });
 
-router.put('/update', function(req, res) {
+router.put('/update',adminmiddleware, function(req, res) {
     let product = productCtrl.updateProduct(req, function(err, updatedPro) {
         if (err) {
             console.log(err);

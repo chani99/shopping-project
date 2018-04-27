@@ -1,13 +1,13 @@
-var orderCtrl = require('../controllers/order.controller.js');
-var cartCtrl = require('../controllers/cart.controller.js');
-var memberCtrl = require('../controllers/member.controller.js');
+var orderCtrl = require("../controllers/order.controller.js");
+var cartCtrl = require("../controllers/cart.controller.js");
+var memberCtrl = require("../controllers/member.controller.js");
 
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 
 
 router.use(function(req, res, next) {
-    const allowedRoutes = ['/favicon.ico', "/order/dates"];
+    const allowedRoutes = ["/favicon.ico", "/order/dates"];
     console.log(req.session);
     console.log(req);
     if (allowedRoutes.indexOf(req.originalUrl) > -1) {
@@ -24,7 +24,7 @@ router.use(function(req, res, next) {
 
 });
 
-router.get('/dates', function(req, res) {
+router.get("/dates", function(req, res) {
     orderCtrl.checkOrderDates(function(err, dates){
         if (err) {
             console.log(err);
@@ -41,7 +41,7 @@ router.get('/dates', function(req, res) {
 
 
 
-router.post('/order', function(req, res) {
+router.post("/order", function(req, res) {
     let order = req.body;
     let userId = req.session;
     let addOrder = orderCtrl.addOrder(order.data, function(err, newOrder) {

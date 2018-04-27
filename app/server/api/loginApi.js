@@ -1,25 +1,24 @@
-var loginCtrl = require('../controllers/LoginController.js');
-let cityCtrl = require('../controllers/cityController.js');
-let productCtrl = require('../controllers/product.controller.js');
-let orderCtrl = require('../controllers/order.controller.js');
+var loginCtrl = require("../controllers/LoginController.js");
+let productCtrl = require("../controllers/product.controller.js");
+let orderCtrl = require("../controllers/order.controller.js");
 
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 
 
 
 
-router.use('/order', require('./orderApi'));
-router.use('/member', require('./membersApi'));
-router.use('/product', require('./produtcsApi'));
-router.use('/cart', require('./cartApi'));
-router.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname, '../../client/index.html'));
+router.use("/order", require("./orderApi"));
+router.use("/member", require("./membersApi"));
+router.use("/product", require("./produtcsApi"));
+router.use("/cart", require("./cartApi"));
+router.get("/", function(req, res) {
+    res.sendFile(path.join(__dirname, "../../client/index.html"));
 });
 
 
 
-router.post('/login', function(req, res) {
+router.post("/login", function(req, res) {
     let user = req.body;
     let checkUser = loginCtrl.checkUser(user, function(err, logedin) {
         if (err) {
@@ -62,7 +61,7 @@ router.post('/login', function(req, res) {
 
 });
 
-router.get('/logout', function(req, res) {
+router.get("/logout", function(req, res) {
     if (req.session.user) {
         loginCtrl.CheckUsersCart(req.session.user, req.session.pass);
         req.session.destroy();

@@ -1,4 +1,4 @@
-App.controller('login', function($scope, $rootScope, $window, $location, appService, totalPrice) {
+App.controller("login", function($scope, $rootScope, $window, $location, appService, totalPrice) {
     $scope.user = {}
     $scope.userDetails = {};
     $scope.userDetails.shopping_cart = [];
@@ -15,7 +15,7 @@ App.controller('login', function($scope, $rootScope, $window, $location, appServ
             date: user.member.cart[0].date_created,
             price: totalPrice.totalPrice(cartFromSession)
         }
-        if(user.member.role === 'admin') $location.path("/admin");
+        if(user.member.role === "admin") $location.path("/admin");
     }
 
 
@@ -29,7 +29,7 @@ App.controller('login', function($scope, $rootScope, $window, $location, appServ
 
 
     //listens to a broascast logout event
-    $scope.$on('logout', function(event, args) {
+    $scope.$on("logout", function(event, args) {
         $scope.isLogedin = args;
         $scope.userDetails = {};
         $scope.userDetails.shopping_cart = {};
@@ -41,7 +41,7 @@ App.controller('login', function($scope, $rootScope, $window, $location, appServ
 
     //sends login data to sendData service
     $scope.login = function(user) {
-        appService.sendData('login', user, loginSucsses, loginError);
+        appService.sendData("login", user, loginSucsses, loginError);
     }
 
     function loginSucsses(res) {
@@ -50,7 +50,7 @@ App.controller('login', function($scope, $rootScope, $window, $location, appServ
             $scope.isLogedin = true;
             $scope.statistics.products =res.data.allProduct;
             $scope.statistics.orders =res.data.allOrders;
-            $rootScope.$broadcast('logedin', (res.data.member));
+            $rootScope.$broadcast("logedin", (res.data.member));
             let userForSession = { member: res.data.member, logedin: true };
             user = userForSession;
             $window.sessionStorage.setItem("user", JSON.stringify(userForSession));
@@ -66,7 +66,7 @@ App.controller('login', function($scope, $rootScope, $window, $location, appServ
     }
 
     function loginError(res) {
-        console.log('error');
+        console.log("error");
         console.log(res);
     }
 

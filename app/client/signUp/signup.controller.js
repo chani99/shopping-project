@@ -1,4 +1,4 @@
-App.controller('signUp', function($scope, $rootScope, $location, $window, appService, modelsServc) {
+App.controller("signUp", function($scope, $rootScope, $location, $window, appService, modelsServc) {
     $scope.newUser = {};
     $scope.statistics ={};
     $scope.city = ["jerusalem", "Tel Aviv", "Hiafa", "Beer Seva", "Eilat", "Afula", "Kfar Saba", "Petach Tikva", "Raanana", "Beit Shemesh"];
@@ -23,13 +23,13 @@ App.controller('signUp', function($scope, $rootScope, $location, $window, appSer
     }
 
     function nextError(res) {
-        console.log('error: ' + res.data);
+        console.log("error: " + res.data);
     }
 
     //gets a new user's step 2 data and sends it to updateData service
     $scope.submit = function(userDetails) {
         let newMember = new modelsServc.MemberModel(userDetails);
-        appService.updateData('member/details', { newMember, userId }, submitSucsses, submitError);
+        appService.updateData("member/details", { newMember, userId }, submitSucsses, submitError);
 
     }
 
@@ -43,7 +43,7 @@ App.controller('signUp', function($scope, $rootScope, $location, $window, appSer
 $scope.isLogedin = true;
 $scope.statistics.products =res.data.allProduct;
 $scope.statistics.orders =res.data.allOrders;
-$rootScope.$broadcast('logedin', (res.data.member));
+$rootScope.$broadcast("logedin", (res.data.member));
 // let userForSession = { userName: res.data.member.userName, cart: res.data.member.cart, role: res.data.member.role, logedin: true };
 let userForSession = { member: res.data.member, logedin: true };
 $window.sessionStorage.setItem("user", JSON.stringify(userForSession));
@@ -58,7 +58,7 @@ $window.sessionStorage.setItem("statistics", JSON.stringify({allOrders: res.data
     }
 
     function submitError(res) {
-        console.log('error: ' + res.data);
+        console.log("error: " + res.data);
     }
 
 

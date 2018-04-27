@@ -77,5 +77,3 @@ module.exports = {
 
 };
 
-// db.city.save({"_id":1, "city":"Jerusalem"},{"_id":2, "city":"Tel Aviv"},{"_id":3, "city":"Be'er Sheva"},{"_id":4, "city":"Ashdod"},{"_id":5, "city":"Haifa"},{"_id":6, "city":"Rishon Letzion"},{"_id":7, "city":"Afula"},{"_id":8, "city":"Eilat"},{"_id":9, "city":"Bnei Brak"},{"_id":10, "city":"Raanana"},)
-// findOneAndUpdate({ "_id" : 200178755 },{ $set: { "role" : "admin"}})
