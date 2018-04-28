@@ -7,7 +7,7 @@ let crypto = require("crypto");
 // Checks if a id exists in the system
 function checkExists(user, callback) {
     model.Member.findOne({ //check if id exists
-            _id: user.data._id
+            _id: user._id
         },
         function(err, member) {
             if (err) {
@@ -16,7 +16,7 @@ function checkExists(user, callback) {
                 callback("a member with this id is already registerd!")
             } else {
                 model.Member.findOne({ //now check if user name exists
-                        userName: user.data.userName
+                        userName: user.userName
                     },
                     function(err, userN) {
                         if (err) {
@@ -24,7 +24,7 @@ function checkExists(user, callback) {
                         } else if (userN !== null) {
                             callback("This user name already taken, Pleas try a difrent one!")
                         } else {
-                            organizeData(user.data, function(member4save) { //if both are ok then save new member
+                            organizeData(user, function(member4save) { //if both are ok then save new member
                                 member4save.save(function(err, member) {
                                     if (err) {
                                         callback("Error saving member!")
@@ -41,9 +41,9 @@ function checkExists(user, callback) {
 }
 
 function updateDetals(user, callback) {
-    var query = { "_id": user.data.userId };
+    var query = { "_id": user.userId };
     var options = { new: true };
-    organizeData(user.data.newMember, function(data) {
+    organizeData(user, function(data) {
         model.Member.findOneAndUpdate(query, data, options, function(err, member) {
             if (err) {
                 console.log("got an error");

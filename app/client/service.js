@@ -22,9 +22,9 @@ App.service("appService", function($http) {
         $http({
             url: "http://localhost:3000/" + path,
             method: "POST",
-            data: {
-                data: userParams
-            }
+            data: 
+                userParams
+            
 
         }).then(onSuccess, onError);
     }
@@ -70,9 +70,9 @@ App.service("appService", function($http) {
         $http({
             url: "http://localhost:3000/" + path,
             method: "PUT",
-            data: {
-                data: Params
-            }
+            data: 
+                 Params.newMember
+            
 
         }).then(onSuccess, onError);
 

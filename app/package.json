@@ -19,6 +19,7 @@
     "express": "^4.16.3",
     "express-fileupload": "^0.4.0",
     "express-session": "^1.15.6",
+    "express-validator": "^5.1.2",
     "latest": "^0.2.0",
     "mongoose": "^5.0.4",
     "mongoose-auto-increment": "^5.0.1",

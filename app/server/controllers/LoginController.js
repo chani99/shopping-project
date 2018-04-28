@@ -7,9 +7,9 @@ let cart = require("./cart.controller");
 function checkUser(user, callback) {
     let salt = "myApp##"
 
-    hashPassword(salt + user.data.password, function(pass) {
+    hashPassword(salt + user.password, function(pass) {
 
-        findOneUser(user.data.name, pass, function(err, resault) {
+        findOneUser(user.name, pass, function(err, resault) {
             callback(err, resault);
 
         })

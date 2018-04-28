@@ -13,8 +13,8 @@ function addToCart(user, cartItem, callback) {
                 if (err) {
                     callback("err creating cart" + err);
                 } else {
-                    let data = { data: { userId: user._id, newMember: { cart: cart._doc._id } } }
-                    member.updateDetals(data, function(err, member) {
+                    let data = { data: { userId: user._id, cart: cart._doc._id } }
+                    member.updateDetals(data.data, function(err, member) {
                         if (err) callback("error!: " + err);
                         else {
                             addToCartStep2(cart._doc._id, cartItem, member, wasDone);

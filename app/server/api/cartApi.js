@@ -36,6 +36,7 @@ router.delete("/deleteCartItem", function(req, res) {
 });
 
 router.delete("/deleteCart", function(req, res) {
+    
     let cartId = req.body.data;
 
     let deleteAllItems = cartCtrl.deleteAllItems(cartId, function(err, updatedCart) {
@@ -52,6 +53,12 @@ router.delete("/deleteCart", function(req, res) {
 
 
 router.put("/addToCart", function(req, res) {
+    req.check("_id", "no product id").exists().notEmpty();
+    req.check("qty", "invalid qty").exists().notEmpty();
+    let valerrors = req.validationErrors();
+    if(valerrors){
+        res.end(JSON.stringify({ done: false, why: valerrors }));
+}else{
     let cartItem = req.body;
     let userId = req.session;
     let addToCart = cartCtrl.addToCart(userId, cartItem, function(err, cart, member) {
@@ -62,6 +69,6 @@ router.put("/addToCart", function(req, res) {
             res.end(JSON.stringify({ done: true, cart, member: member }));
         }
     });
-
+}
 });
 module.exports = router;

@@ -18,7 +18,7 @@ router.use(function(req, res, next) {
     } else if (req.session.user == req.body.userName) {
         next();
     }
-    else if (req.session._id == req.body.data.member_id) {
+    else if (req.session._id == req.body.member_id) {
         next();
     }
 
@@ -44,20 +44,19 @@ router.get("/dates", function(req, res) {
 router.post("/order", function(req, res) {
     let order = req.body;
     let userId = req.session;
-    let addOrder = orderCtrl.addOrder(order.data, function(err, newOrder) {
+    let addOrder = orderCtrl.addOrder(order, function(err, newOrder) {
 
                 if (err) {
                     console.log(err);
                     res.end(JSON.stringify({ done: false, why: err }));
                 } else {
-                    cartCtrl.getAllCartItems(order.data.cart_id, function(err, cartItems){
+                    cartCtrl.getAllCartItems(order.cart_id, function(err, cartItems){
                                 if(err) {
                                     console.log(err);
                                     res.end(JSON.stringify("problem updating mamber"));
                                 } else {
                         let memberDta = {
-                                        data: {
-                                                userId: order.data.member_id,
+                                                userId: order.member_id,
                                                 newMember: {
                                                     cart: [],
                                                     lastPurchaseDate:newOrder._doc.order_date,
@@ -65,7 +64,7 @@ router.post("/order", function(req, res) {
                                                     order: newOrder._doc._id
                                                 }
                                             }
-                                        }
+                                        
                                 
                         memberCtrl.updateDetals(memberDta, function(err, updated) {
                                     console.log(updated);

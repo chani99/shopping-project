@@ -9,6 +9,7 @@ var express = require("express"),
     fileUpload = require("express-fileupload"),
     cookieParser = require("cookie-parser"),
     session = require("express-session");
+    validator = require("express-validator")
 
 
 app.use(express.static("./app/client"));
@@ -26,6 +27,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+app.use(validator());
 
 
 app.listen(port, function() {

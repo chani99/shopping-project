@@ -69,10 +69,12 @@ App.controller("order", function($scope, $rootScope, $window, $location, $modal,
     //get order and send to server
     $scope.orderButton = function() {
         let last4 = getLast4($scope.card.number); //credit card 
-        let userCart = checkIflogedin.member.cart[0];
+        let userCart = checkIflogedin.member.cart[0]._id;
+        if(!userCart)  userCart = checkIflogedin.member.cart;
+
         let data = {
             member_id: checkIflogedin.member._id,
-            cart_id: userCart._id,
+            cart_id: userCart,
             totalPrice: $scope.total,
             city: $scope.order.city,
             street: $scope.order.street,
@@ -118,7 +120,8 @@ App.controller("order", function($scope, $rootScope, $window, $location, $modal,
     }
 
     function onError(err) {
-        alert(err);
+        console.log(err);
+        alert(JSON.stringify(err));
     }
 
     //cut last 4 digits from credit card number

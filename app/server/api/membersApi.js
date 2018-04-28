@@ -26,6 +26,16 @@ router.use(function(req, res, next) {
 router.post("/signUp", function(req, res) {
     console.log(req.body);
     let user = req.body;
+    req.check("_id", "invalid user id").exists().notEmpty().isLength({min: 6});
+    req.check("userName", "invalid user name").exists().notEmpty();
+    req.check("email", "invalid email").exists().notEmpty().isEmail();
+    req.check("password", "invalid user id").exists().notEmpty().isLength({min: 4});
+let valerrors = req.validationErrors();
+if(valerrors){
+    res.end(JSON.stringify({ done: false, why: valerrors }));
+
+} else{
+
     let checkIfExists = memberCtrl.checkExists(user, function(err, checkRes) {
         if (err) {
             console.log(err);
@@ -40,10 +50,19 @@ router.post("/signUp", function(req, res) {
             res.end(JSON.stringify({ done: true, member: checkRes._doc._id }));
         }
     });
-
+}
 });
 
 router.put("/details", function(req, res) {
+    req.check("city", "invalid city").exists().notEmpty();
+    req.check("fname", "invalid first Name").exists().notEmpty();
+    req.check("lname", "invalid last Name").exists().notEmpty();
+    req.check("street", "invalid City").exists().notEmpty();
+let valerrors = req.validationErrors();
+if(valerrors){
+    res.end(JSON.stringify({ done: false, why: valerrors }));
+
+} else{
     console.log(req.body);
     let userDetails = req.body;
     let updateDetals = memberCtrl.updateDetals(userDetails, function(err, updated) {
@@ -54,22 +73,10 @@ router.put("/details", function(req, res) {
             res.end(JSON.stringify({ done: true, member: { _id: updated._doc._id, userName: updated._doc.userName, role: updated._doc.role, cart: updated._doc.cart } }));
         }
     });
-
+}
 });
 
-router.put("/addToCart", function(req, res) { //to do...
-    let cartItem = req.body;
-    let userId = req.session;
-    let addToCart = memberCtrl.addToCart(userId, cartItem, function(err, updated) {
-        if (err) {
-            console.log(err);
-            res.end(JSON.stringify({ done: false, why: err }));
-        } else {
-            res.end(JSON.stringify({ done: true, member: { _id: updated._doc._id, userName: updated._doc.userName, role: updated._doc.role, cart: updated._doc.cart } }));
-        }
-    });
 
-});
 module.exports = router;
 
 

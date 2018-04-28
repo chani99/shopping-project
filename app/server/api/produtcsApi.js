@@ -3,24 +3,6 @@ var express = require('express');
 var router = express.Router();
 let data;
 
-// router.use(function(req, res, next) {
-//     const allowedRoutes = ['/product/find/:data', '/favicon.ico'];
-//     let session = req.session;
-//     data = JSON.parse(req.query.data);
-
-//     console.log("Session Product: %j", session);
-//     console.log("body:  %j", req);
-
-//         next();
-//     if (req.session === null || req.session === undefined) {
-//         res.send(401);
-//     } else if ((req.session.user == req.body.userName || req.session.user == data.userName)  &&  (allowedRoutes.indexOf(req.originalUrl)) > -1) {
-//         next();
-//     } else if ((req.session.user == req.body.userName || req.session.user == data.userName)  && req.session.role == "admin") {
-//         next();
-//     }
-
-// });
 
 function adminmiddleware(req, res, next) {
     if(req.body)data = req.body;
@@ -28,6 +10,7 @@ function adminmiddleware(req, res, next) {
         next();
     }
 }
+
 
 router.post('/upload',adminmiddleware, function(req, res) {
     let product = productCtrl.saveNewProduct(req, function(err, updatedPro) {
