@@ -1,38 +1,53 @@
 <div ng-controller="order">
 
     <!-- after payment shows the resualts -->
-        <div ng-show="orderDone">
-                <div ng-include="'order/orderDone.html'"></div>
-        </div>
+    <div ng-show="orderDone">
+        <div ng-include="'order/orderDone.html'"></div>
+    </div>
     <div class="signUp-flx-container">
 
-    
-<!-- shows hear all cart items -->
+
+        <!-- shows hear all cart items -->
         <div ng-show="!orderDone" class="signUp-flex-item no-padding paddingR20">
-            My Cart
-            <a href="#!shop">Back to shop</a>
-            <div ng-repeat="item in items" id="cartItemsOrder">
-                <div ng-include="'../order/orderTemp.html'"></div>
-                <hr>
+            <div class="marg-bottom">
+                <br> find in cart:
+                <input type="text" ng-model="search">
+                <button ng-click="highlight()">find </button>
+                <br>
+            </div>
+
+
+            <h4>My Cart</h4>
+
+            <div id="cartItemsOrder" class="marg-bottom">
+                <div ng-repeat="item in items">
+                    <div ng-include="'../order/orderTemp.html'"></div>
+                    <hr>
+                </div>
+                <br>
+                <b class="float-right">Total price:
+                    <span class="font-20">{{total}}$</span>
+                </b>
             </div>
             <br>
-            <b class="float-right">Total price: <span class="font-20">{{total}}$</span></b> 
+            <a href="#!shop" class="float-right">Back to shop</a>
+
         </div>
 
 
         <!-- shows a payment, date and addres form if shooping bag isn't empty-->
         <div ng-show="!orderDone" class="signUp-flex-item gray2 ">
 
-                <div ng-if="cartNotEmpty">
-                    <div ng-include="'order/orderFormTemplate.html'"></div>
-                </div>
+            <div ng-if="cartNotEmpty">
+                <div ng-include="'order/orderFormTemplate.html'"></div>
+            </div>
 
-                <div ng-if="!cartNotEmpty && !orderDone">
-                    Your shopping cart is empty <br>
-                    To add items to the cart, return to the store
-                    <a ng-href="#!shop">Back to shop</a>
-                </div>
-                
+            <div ng-if="!cartNotEmpty && !orderDone">
+                Your shopping cart is empty
+                <br> To add items to the cart, return to the store
+                <a ng-href="#!shop">Back to shop</a>
+            </div>
+
         </div>
 
 

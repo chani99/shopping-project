@@ -2,20 +2,20 @@
     <nav class="navbar-collapse collapse" role="navigation">
         <ul class="navbar-nav nav font-16">
             <li>
-                <a class="border-right" ng-click="findFunction({type:0})">Milk &amp; Eggs</a>
+                <a class="border-right nav-item" ng-click="findFunction({type:0})">Milk &amp; Eggs</a>
             </li>
             <li>
-                <a class="border-right" ng-click="findFunction({type:1})">Vegetables &amp; Fruit</a>
+                <a class="border-right nav-item" ng-click="findFunction({type:1})">Vegetables &amp; Fruit</a>
             </li>
             <li>
-                <a class="border-right" ng-click="findFunction({type:2})">Meat &amp; Fish</a>
+                <a class="border-right nav-item" ng-click="findFunction({type:2})">Meat &amp; Fish</a>
             </li>
             <li>
-                <a ng-click="findFunction({type:3})">Wine &amp; Drink</a>
+                <a ng-click="findFunction({type:3})" class=" nav-item">Wine &amp; Drink</a>
             </li>
             <li>
-                <a>
-                    <input class="form-control" type="search" id="mySearch" ng-model="searchObject">
+                <a class="nav-item">
+                    <input class="form-control " type="search" id="mySearch" ng-model="searchObject">
                     <button class="btn btn-sm></" ng-click="findFunction({type:'search'})">Search</button>
                 </a>
             </li>

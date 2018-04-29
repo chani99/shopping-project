@@ -2,13 +2,15 @@
 
     <div class="container">
         <div class="split horizontal">
-            <div class="shopping-cart">
+            <div class="shopping-cart marg-bottom">
                 <span class="font-20">
-                     <span class="glyphicon glyphicon-shopping-cart"> </span> My Cary
+                    <span class="glyphicon glyphicon-shopping-cart"> </span> My Cary
                 </span>
                 <hr>
                 <div ng-if="empty">
-                    Your Shopping Cart is empty! <br> Start shopping now <br>
+                    Your Shopping Cart is empty!
+                    <br> Start shopping now
+                    <br>
                     <img class="cart" src="../images/cart.png" alt="my mareket">
                 </div>
                 <div ng-if="!empty" id="cartItems">
@@ -22,16 +24,17 @@
                     </div>
                     <hr>
                     <div class="float-right text-right">
-                        <b>All Total: <br>
+                        <b>All Total:
+                            <br>
                             <span class="font-20">{{total}}
-                            </span>  $
+                            </span> $
                         </b>
                         <br>
                         <div class="btn orange" ng-click="pay">
-                        <a ng-href="#!order">
+                            <a ng-href="#!order">
                                 Buy all
-                        </a>
-                    </div>
+                            </a>
+                        </div>
 
                     </div>
 

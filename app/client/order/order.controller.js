@@ -1,4 +1,4 @@
-App.controller("order", function($scope, $rootScope, $window, $location, $modal, $log, appService, totalPrice, modelsServc) {
+App.controller("order", function ($scope, $rootScope, $window, $location, $modal, $log, appService, totalPrice, modelsServc) {
     //Checks if a user is logged in
     $scope.cartNotEmpty = false;
     $scope.orderDone = false;
@@ -16,7 +16,7 @@ App.controller("order", function($scope, $rootScope, $window, $location, $modal,
     }
 
     //listens to a broascast logout event
-    $scope.$on("logout", function(event, args) {
+    $scope.$on("logout", function (event, args) {
         $window.sessionStorage.removeItem("user");
         $window.sessionStorage.setItem("logedin", false);
         $location.path("/");
@@ -26,7 +26,12 @@ App.controller("order", function($scope, $rootScope, $window, $location, $modal,
     $scope.product = {};
     $scope.order = {};
     $scope.card = {};
-    $scope.formValidate = {date:"", street:"", city:"", credit:""};
+    $scope.formValidate = {
+        date: "",
+        street: "",
+        city: "",
+        credit: ""
+    };
     $scope.city = ["jerusalem", "Tel Aviv", "Hiafa", "Beer Seva", "Eilat", "Afula", "Kfar Saba", "Petach Tikva", "Raanana", "Beit Shemesh"];
     $scope.order.street = checkIflogedin.member.street;
     $scope.order.city = checkIflogedin.member.city;
@@ -49,10 +54,10 @@ App.controller("order", function($scope, $rootScope, $window, $location, $modal,
     //date picker
     let dateToday = new Date();
     var disableDates = [];
- 
-    $scope.loadDatePicker = function(){
+
+    $scope.loadDatePicker = function () {
         $("#datepicker").datepicker({
-            beforeShowDay: function(date) {
+            beforeShowDay: function (date) {
                 var string = jQuery.datepicker.formatDate("yy-mm-dd", date);
                 return [disableDates.indexOf(string) === -1]
             },
@@ -60,17 +65,17 @@ App.controller("order", function($scope, $rootScope, $window, $location, $modal,
             minDate: dateToday
 
         });
-}
+    }
 
 
 
 
 
     //get order and send to server
-    $scope.orderButton = function() {
+    $scope.orderButton = function () {
         let last4 = getLast4($scope.card.number); //credit card 
         let userCart = checkIflogedin.member.cart[0]._id;
-        if(!userCart)  userCart = checkIflogedin.member.cart;
+        if (!userCart) userCart = checkIflogedin.member.cart;
 
         let data = {
             member_id: checkIflogedin.member._id,
@@ -81,14 +86,14 @@ App.controller("order", function($scope, $rootScope, $window, $location, $modal,
             date: $scope.order.date,
             credit: last4
         }
-            let validateData = false;
-            for (var key in data) {
-                if (!data[key]) {
-                    $scope.formValidate[key] = true;  
-                    validateData = true;   
-                }
+        let validateData = false;
+        for (var key in data) {
+            if (!data[key]) {
+                $scope.formValidate[key] = true;
+                validateData = true;
+            }
         }
-        
+
         if (validateData === false) {
             $scope.buttonDisabled = true;
             let order = new modelsServc.OrderModel(data);
@@ -100,7 +105,7 @@ App.controller("order", function($scope, $rootScope, $window, $location, $modal,
     }
 
 
-//on order success
+    //on order success
     function onSuccess(res) {
         $scope.buttonDisabled = false;
         $scope.items = [];
@@ -114,7 +119,13 @@ App.controller("order", function($scope, $rootScope, $window, $location, $modal,
         };
         $window.sessionStorage.removeItem("cartItems");
         $window.sessionStorage.setItem("cartItems", JSON.stringify([]));
-        let userForSession = { userName: res.data.member.userName, cart: res.data.member.cart, role: res.data.member.role, member: res.data.member, logedin: true };
+        let userForSession = {
+            userName: res.data.member.userName,
+            cart: res.data.member.cart,
+            role: res.data.member.role,
+            member: res.data.member,
+            logedin: true
+        };
         $window.sessionStorage.removeItem("user");
         $window.sessionStorage.setItem("user", JSON.stringify(userForSession));
     }
@@ -131,10 +142,10 @@ App.controller("order", function($scope, $rootScope, $window, $location, $modal,
     }
 
     //convert receipt to pdf
-    $scope.getReceipt = function() {
+    $scope.getReceipt = function () {
         $scope.getR = true;
         html2canvas(document.getElementById("receipt"), {
-            onrendered: function(canvas) {
+            onrendered: function (canvas) {
                 var data = canvas.toDataURL();
                 var docDefinition = {
                     content: [{
@@ -148,8 +159,24 @@ App.controller("order", function($scope, $rootScope, $window, $location, $modal,
     }
 
 
-        $scope.getR = false;
-        
+    $scope.highlight = function () {
+        var highlighted = document.getElementsByClassName("highlight");
+        if (highlighted.length > 0) {
+            highlighted[0].classList.remove("highlight");
+
+        }
+        var inputText = document.getElementById("cartItemsOrder");
+        var innerHTML = inputText.innerHTML;
+        var index = innerHTML.indexOf($scope.search);
+        if (index >= 0) {
+            innerHTML = innerHTML.substring(0, index) + "<span class='highlight'>" + innerHTML.substring(index, index + $scope.search.length) + "</span>" + innerHTML.substring(index + $scope.search.length);
+            inputText.innerHTML = innerHTML;
+        }
+    }
+
+    $scope.search = "";
+    $scope.getR = false;
+
 
 
 

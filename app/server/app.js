@@ -9,7 +9,7 @@ var express = require("express"),
     fileUpload = require("express-fileupload"),
     cookieParser = require("cookie-parser"),
     session = require("express-session");
-    validator = require("express-validator")
+validator = require("express-validator")
 
 
 app.use(express.static("./app/client"));
@@ -19,7 +19,9 @@ app.use(favicon(path.join(__dirname, "../client/images/favicon.ico")));
 app.use("/client", express.static(path.join(__dirname, "./app/client")));
 // app.use("/client", express.static("./client"));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 app.use(fileUpload());
 app.use(cookieParser());
 app.use(session({
@@ -30,7 +32,7 @@ app.use(session({
 app.use(validator());
 
 
-app.listen(port, function() {
+app.listen(port, function () {
     console.log(`App listening on port ${port}`);
 })
 

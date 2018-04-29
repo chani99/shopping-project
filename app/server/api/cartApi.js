@@ -4,7 +4,7 @@ var router = express.Router();
 
 // let ;
 
-router.use(function(req, res, next) {
+router.use(function (req, res, next) {
     const allowedRoutes = ["/favicon.ico"];
     console.log(req.session);
     console.log(req);
@@ -20,31 +20,43 @@ router.use(function(req, res, next) {
 });
 
 
-router.delete("/deleteCartItem", function(req, res) {
+router.delete("/deleteCartItem", function (req, res) {
     let cartItemId = req.body.data.cartItemId;
     let cartId = req.body.data.cartId;
 
-    let deleteAitem = cartCtrl.deleteFromCart(cartItemId, cartId, function(err, updatedCart) {
+    let deleteAitem = cartCtrl.deleteFromCart(cartItemId, cartId, function (err, updatedCart) {
         if (err) {
             console.log(err);
-            res.end(JSON.stringify({ done: false, why: err }));
+            res.end(JSON.stringify({
+                done: false,
+                why: err
+            }));
         } else {
-            res.end(JSON.stringify({ done: true, updatedCart }));
+            res.end(JSON.stringify({
+                done: true,
+                updatedCart
+            }));
         }
     });
 
 });
 
-router.delete("/deleteCart", function(req, res) {
-    
+
+
+router.delete("/deleteCart", function (req, res) {
     let cartId = req.body.data;
-
-    let deleteAllItems = cartCtrl.deleteAllItems(cartId, function(err, updatedCart) {
+    let deleteAllItems = cartCtrl.deleteAllItems(cartId, function (err, updatedCart) {
         if (err) {
             console.log(err);
-            res.end(JSON.stringify({ done: false, why: err }));
+            res.end(JSON.stringify({
+                done: false,
+                why: err
+            }));
         } else {
-            res.end(JSON.stringify({ done: true, updatedCart }));
+            res.end(JSON.stringify({
+                done: true,
+                updatedCart
+            }));
         }
     });
 
@@ -52,23 +64,34 @@ router.delete("/deleteCart", function(req, res) {
 
 
 
-router.put("/addToCart", function(req, res) {
+router.put("/addToCart", function (req, res) {
+    ///for validation serverSide (basic)
     req.check("_id", "no product id").exists().notEmpty();
     req.check("qty", "invalid qty").exists().notEmpty();
     let valerrors = req.validationErrors();
-    if(valerrors){
-        res.end(JSON.stringify({ done: false, why: valerrors }));
-}else{
-    let cartItem = req.body;
-    let userId = req.session;
-    let addToCart = cartCtrl.addToCart(userId, cartItem, function(err, cart, member) {
-        if (err) {
-            console.log(err);
-            res.end(JSON.stringify({ done: false, why: err }));
-        } else {
-            res.end(JSON.stringify({ done: true, cart, member: member }));
-        }
-    });
-}
+    if (valerrors) {
+        res.end(JSON.stringify({
+            done: false,
+            why: valerrors
+        }));
+    } else {
+        let cartItem = req.body;
+        let userId = req.session;
+        let addToCart = cartCtrl.addToCart(userId, cartItem, function (err, cart, member) {
+            if (err) {
+                console.log(err);
+                res.end(JSON.stringify({
+                    done: false,
+                    why: err
+                }));
+            } else {
+                res.end(JSON.stringify({
+                    done: true,
+                    cart,
+                    member: member
+                }));
+            }
+        });
+    }
 });
 module.exports = router;

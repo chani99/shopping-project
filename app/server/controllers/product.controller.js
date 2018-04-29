@@ -74,6 +74,7 @@ function saveNewProduct(req, callback) {
 
 }
 
+
 //after saving the file insert new product into db
 function saveNewProductInDB(newProduct, callback) {
     organizeData(newProduct, function(productsForSave) {
@@ -89,6 +90,7 @@ function saveNewProductInDB(newProduct, callback) {
     })
 
 }
+
 
 
 function updateProduct(req, callback) {
@@ -149,20 +151,14 @@ function getProductPrice(productId, callback) {
 
 }
 
-function CountProductsInDB(callback){
 
+function CountProductsInDB(callback){
     model.Product.find({})
     .then(res =>{
         callback(res.length);
     })
 }
 
-
-module.exports.CountProductsInDB = CountProductsInDB;
-module.exports.getProductPrice = getProductPrice;
-module.exports.getProducts = getProducts;
-module.exports.saveNewProduct = saveNewProduct;
-module.exports.updateProduct = updateProduct;
 
 
 
@@ -181,7 +177,6 @@ let organizeData = function(data, callback) {
 
 let organizeDataForUpdate = function(data, callback) {
     var updateProduct = {};
-    // if (data._id) newProducts._id = data._id;
     if (data.name) updateProduct.name = data.name;
     if (data.category) updateProduct.category_id = data.category;
     if (data.price) updateProduct.price = data.price;
@@ -189,3 +184,9 @@ let organizeDataForUpdate = function(data, callback) {
     callback(updateProduct);
 
 }
+
+module.exports.CountProductsInDB = CountProductsInDB;
+module.exports.getProductPrice = getProductPrice;
+module.exports.getProducts = getProducts;
+module.exports.saveNewProduct = saveNewProduct;
+module.exports.updateProduct = updateProduct;

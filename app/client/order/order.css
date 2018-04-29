@@ -142,6 +142,9 @@
 .receipt #logoR {
   max-width: 250px;
 }
-.highlightedText {
-  background: yellow;
+.highlight {
+  background-color: yellow;
+}
+.marg-bottom {
+  margin-bottom: 40px;
 }
